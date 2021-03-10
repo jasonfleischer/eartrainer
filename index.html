@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-170120616-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-170120616-1');
+	</script>
+	<!-- end of - Google Analytics -->
+	<title>Ear Trainer</title>
+	<meta charset="utf-8">
+	<meta name="author" content="Jason Fleischer">
+	<meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no'>
+	<meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/ear.png">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/slider.css">
+	<link rel="stylesheet" href="css/switch.css">
+	<link rel="stylesheet" href="css/select.css">
+	<link rel="stylesheet" href="css/fretboard.css">
+	<link rel="manifest" href="manifest.json">
+</head>
+<body onload="init()">
+	<div id="flash_screen">
+	</div>
+	<!-- alert -->
+	<div id="info_alert_container">
+		<div id="info_alert">
+			<div id="info_alert_header">
+				<h3>Information</h3>
+				<button id="dismiss_alert_button" onclick="dismissInfo()" ><img id="dismiss_close_button_svg" src="img/close_black.svg" alt="Dismiss info"/></button>
+			</div>
+			<div>
+			<ul class="desktop-only">
+				<li>
+					<div class="nav-side-menu-item">
+						<span>Language</span>
+						<select id="language_select">
+							<option value="en" selected="selected">English</option>
+							<option value="fr">French</option>
+							<option value="es">Spanish</option>
+							<option value="de">German</option>
+							<option value="it">Italian</option>
+							<option value="pt">Portuguese</option>
+							<option value="ru">Russian</option>
+							<option value="ja">Japan</option>
+							<option value="ko">Korean</option>
+							<option value="zh">Chinese</option>
+						</select>
+					</div>
+				</li>
+				<li id="darkmode">
+					<div class="nav-toggle-item">
+						<span>Dark Mode</span>
+						<label id="darkmode_checkbox_switch" class="switch">
+							<input id="darkmode_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+			<br class="desktop-only" />
+			<p onclick="openMailToDeveloper()">Thank you for using this website. If you wish to submit feedback, comment or report an error click <strong>here</strong>.</p>
+			<br/>
+			<p onclick="openURL('https://surikov.github.io/webaudiofont/')">Special thanks to Surikov for their <strong>WebAudioFont</strong> library.</p>
+			<br/>
+			<p onclick="openURL('https://jasonfleischer.github.io/website/');">Information about the developer can be found <strong>here</strong>.</p>
+			<br class="desktop-only"/>
+			<button class="desktop-only" onclick="show_keyboard_shortcuts()">Keyboard Shortcuts</button>
+		</div>
+	</div>
+	<div id="header">
+		<p id="page_name" onclick="info()">Ear Trainer</p>
+		<button id="kofi_button" onclick="kofi()">
+			<img src="img/kofi_mobile.png" alt="Buy Me a Coffee at ko-fi.com" />
+			<span class="desktop-only">Buy me a coffee</span>
+		</button>
+		<button id="info_button" onclick="info()" ><img id="info_button_svg" src="img/info_black.svg" alt="Info"/></button>
+		<button id="setting_button" class="mobile-only" onclick="toggle_settings()" ><img id="setting_button_svg" src="img/gear_black.svg" alt="Settings"/></button>
+	</div>
+	<div id="nav-side-menu" >
+		<!--<div id="page_contents">
+			<div id="canvas_wrapper">
+				<p id="bpm_text">&nbsp;</p>
+				<p id="tempo_marking">&nbsp;</p>
+				<canvas id="dial_canvas"></canvas>
+			</div>
+		</div>-->
+		<div id="button_control_container">
+			<!--<button id="tap_button" class="desktop-only" onclick="tap_controller.tap()">Tap</button>-->
+			<button id="play_pause_button" class="desktop-only" onclick="playPause()">Play</button>
+		</div>
+		<div id="ul_wrapper">
+			<ul id="nav-menu-ul">	
+				
+				<li id="bpm_control" >
+					<div class="nav-side-menu-item">
+						<span>Speed </span>
+						<!--<span id="bpm_row_text"></span>-->
+						<div class="range">
+							<input id="bpm_range" type="range" min="3" max="15" step="1" value="15">
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="nav-side-menu-item">
+						<span>Volume</span>
+						<div class="range">
+							<input id="volume_range" type="range" min="0" max="1" step="0.1" value="1">
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="nav-side-menu-item">
+					<span>Instrument</span>
+					<select id="time_signature_select">
+						<option value="0">Piano</option>
+						<option value="1" selected="selected">Guitar</option>
+					</select>
+				</li>
+				<li id="speak">
+					<div class="nav-toggle-item">
+						<span>Speak</span>
+						<label id="speak_checkbox_switch" class="switch">
+							<input id="speak_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>
+
+
+				<li class="menu_item_divider"></li>
+
+				<li id="single_notes">
+					<div class="nav-toggle-item">
+						<span>Single Notes</span>
+						<label id="single_notes_checkbox_switch" class="switch">
+							<input id="single_notes_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>
+
+				<li class="menu_item_divider"></li>
+
+				<li id="intervals">
+					<div class="nav-toggle-item">
+						<span>Intervals</span>
+						<label id="intervals_checkbox_switch" class="switch">
+							<input id="intervals_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>
+				<li id="interval_types" class="li-grid-container">
+					<div id="grid-container-interval-type" class="grid-container">
+						<div id="grid-item-m2" class="grid-item">m2</div>
+						<div id="grid-item-M2" class="grid-item">M2</div>
+						<div id="grid-item-m3" class="grid-item">m3</div>
+						<div id="grid-item-M3" class="grid-item">M3</div>
+						<div id="grid-item-p4" class="grid-item">P4</div>
+						<div id="grid-item-tt" class="grid-item">TT</div>
+						<div id="grid-item-p5" class="grid-item">P5</div>
+						<div id="grid-item-m6" class="grid-item">m6</div>
+						<div id="grid-item-M6" class="grid-item">M6</div>
+						<div id="grid-item-m7" class="grid-item">m7</div>
+						<div id="grid-item-M7" class="grid-item">M7</div>
+						<div id="grid-item-p8" class="grid-item">P8</div>
+					</div>
+				</li>
+				<li id="interval_play_types" class="li-grid-container">
+					<div id="grid-container-interval-play-type" class="grid-container">
+						<div id="grid-item-ascending" class="grid-item">Ascending</div>
+						<div id="grid-item-descending" class="grid-item">Descending</div>
+						<div id="grid-item-harmonic" class="grid-item">Harmonic</div>
+					</div>
+				</li>
+				<li class="menu_item_divider"></li>
+
+				<li id="chords">
+					<div class="nav-toggle-item">
+						<span>Chords</span>
+						<label id="chords_checkbox_switch" class="switch">
+							<input id="chords_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>
+
+				<!--<li id="tone">
+					<div class="nav-side-menu-item">
+						<span>Tone</span>
+						<select id="tone_select">
+							<option value="0" selected="selected">Click</option>
+							<option value="1">Drum</option>
+							<option value="2">Talking</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<div class="nav-side-menu-item">
+					<span>Time Signature</span>
+					<select id="time_signature_select">
+						<option value="2">2 / 4</option>
+						<option value="3">3 / 4</option>
+						<option value="4" selected="selected">4 / 4</option>
+						<option value="5">5 / 4</option>
+						<option value="6">6 / 4</option>
+						<option value="7">7 / 4</option>
+						<option value="8">8 / 4</option>
+						<option value="9">9 / 4</option>
+					</select>
+					</div>
+				</li>
+				<li>
+					<div class="nav-side-menu-item">
+					<span>Subdivision</span>
+					<select id="division_select">
+						<option value="1" selected="selected">None</option>
+						<option value="2">Eighths</option>
+						<option value="3">Triplets</option>
+						<option value="4">Sixteenths</option>
+					</select>
+					</div>
+				</li>-->
+				<!--<li id="accent_first_beat">
+					<div class="nav-toggle-item">
+						<span>Accent First Beat</span>
+						<label id="accent_first_beat_checkbox_switch" class="switch">
+							<input id="accent_first_beat_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>-->
+				<!--<li id="screen_flash">
+					<div class="nav-toggle-item">
+						<span>Flash Screen</span>
+						<label id="screen_flash_checkbox_switch" class="switch">
+							<input id="screen_flash_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>-->
+				<li class="mobile-only">
+					<div class="nav-side-menu-item">
+						<span>Language</span>
+						<select id="mobile_language_select">
+							<option value="en" selected="selected">English</option>
+							<option value="fr">French</option>
+							<option value="es">Spanish</option>
+							<option value="de">German</option>
+							<option value="it">Italian</option>
+							<option value="pt">Portuguese</option>
+							<option value="ru">Russian</option>
+							<option value="ja">Japan</option>
+							<option value="ko">Korean</option>
+							<option value="zh">Chinese</option>
+						</select>
+					</div>
+				</li>
+				<li id="mobile_darkmode" class="mobile-only">
+					<div class="nav-toggle-item">
+						<span>Dark Mode</span>
+						<label id="mobile_darkmode_checkbox_switch" class="switch">
+							<input id="mobile_darkmode_checkbox" type="checkbox" checked="checked"/>
+							<span class="switch_track round" tabindex="0"></span>
+						</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="content_view">
+		<div id="init_view">
+			<p id="status_msg">Configure then press 'Play' to begin</p>
+		</div>
+		<div id="answer_container">
+
+			
+
+			<div id="note_display">
+				<p id="note_name">&nbsp;</p>
+				<p id="note_octave">&nbsp;</p>
+				<div id="note_bubble">
+					<div id="note_color">
+						<img id="note_img" src="" alt="zodiac img">
+					</div>
+				</div>
+				<p id="note_zodiac">&nbsp;</p>
+
+			</div>
+
+			<div id="chord_display">
+				<p id="chord_name">&nbsp;</p>
+				<p id="chord_structure">&nbsp;</p>
+				<p id="chord_octave">&nbsp;</p>
+			</div>
+
+			<div id="fretboard">
+				<canvas id="fretboard_background_canvas"></canvas>
+				<canvas id="fretboard_canvas"></canvas>
+			</div>
+		</div>
+	</div>
+
+
+	<footer id="mobile_button_control_container" class="mobile-only">
+		<!--<button id="mobile_tap_button" onclick="tap_controller.tap()">Tap</button>-->
+		<button id="mobile_play_pause_button" onclick="playPause()">Play</button>
+	</footer>
+	<!--<script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>-->
+	<script src="js/midi/webAudioFontPlayer.js"></script>
+	<script src="js/midi/midi_0000_JCLive_sf2_file.js.js"></script>
+
+	<script src="js/log.js"></script>
+	<script src="js/midi/midi_sounds.js"></script>
+	<!--<script src="js/midi/click_midi_controller.js"></script>
+	<script src="js/midi/drum_midi_controller.js"></script>-->
+	
+	<script src="js/model.js"></script>
+	<script src="js/note.js"></script>
+	<script src="js/interval.js"></script>
+	<script src="js/chord.js"></script>
+	<script src="js/translations/generated.js"></script>
+	<script src="js/translations/translations.js"></script>
+	<script src="js/prototypes.js"></script>
+	<script src="js/cookies.js"></script>
+	<!--<script src="js/range_control.js"></script>
+	<script src="js/time_view.js"></script>-->
+	<script src="js/fretboard_view.js"></script>
+	<script src="js/audio_controller.js"></script>
+	<script src="js/tap_controller.js"></script>
+	<script src="js/keyboard_shortcuts.js"></script>
+	<script src="js/midi/midi_controller.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
