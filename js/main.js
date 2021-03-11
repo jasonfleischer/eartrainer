@@ -70,8 +70,8 @@ function init() {
 }
 
 function setup_mobile(){
-	model.tone = TONE.NORMAL;
-	$("tone").style.display = "none";
+	//model.tone = TONE.NORMAL;
+	//$("tone").style.display = "none";
 }
 
 function show_hidden_views(){
@@ -681,17 +681,52 @@ function hideAnswer(){
 }
 
 function showNoteAnswer(note){
-		// todo move
 
+	/*{
+		$("note_name").innerHTML = note.note_name.name;
+		$("note_octave").innerHTML = window.mobileCheck() ? note.octave : "Octave: " + note.octave;
 
-	$("note_name").innerHTML = note.note_name.name; //  todo move
-	$("note_octave").innerHTML = "Octave: " + note.octave;
-	$("note_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
+		$("note_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
+		$("note_zodiac").innerHTML = note.note_name.zodiac;
+
+		$("note_color").style.backgroundColor = note.note_name.color;
+		//piano 21, 108
+		var gray_scale_percent = (note.note_value - 21) / (108 - 21)
+
+		function hexToRgb(hex) {
+			var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+			return result ? {
+				r: parseInt(result[1], 16),
+				g: parseInt(result[2], 16),
+				b: parseInt(result[3], 16)
+			} : null;
+		}
+		$("note_color").style.borderColor = "rgba(1,1,1,"+(1.0-gray_scale_percent)+")"; 
+	}*/
+	update_UI_note("note", note);
+
+	$("note_octave").innerHTML = window.mobileCheck() ? note.octave : "Octave: " + note.octave;
 	$("note_zodiac").innerHTML = note.note_name.zodiac;
 
-	$("note_color").style.backgroundColor = note.note_name.color;
 
+	$("note_display").style.display = "flex";
+	$("interval_display").style.display = "none";
 
+	$("fretboard").style.display = "block";
+	$("answer_container").style.display = "block";
+}
+
+function update_UI_note(id_prefix, note) {
+
+	
+
+	$(id_prefix + "_name").innerHTML = note.note_name.name;
+	$(id_prefix + "_octave").innerHTML = note.octave;
+
+	$(id_prefix + "_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
+	
+
+	$(id_prefix + "_color").style.backgroundColor = note.note_name.color;
 	//piano 21, 108
 	var gray_scale_percent = (note.note_value - 21) / (108 - 21)
 
@@ -703,23 +738,20 @@ function showNoteAnswer(note){
 			b: parseInt(result[3], 16)
 		} : null;
 	}
-	//	alert(hexToRgb("#0033ff").g); // "51";
-	$("note_color").style.borderColor = "rgba(1,1,1,"+(1.0-gray_scale_percent)+")"; 
-	//$("note_color").style.borderColor = "rgba("+hexToRgb(note.note_name.color).r+","+hexToRgb(note.note_name.color).g+","+hexToRgb(note.note_name.color).b+","+(1.0-gray_scale_percent)+")"; 
-
-
-
-
-	$("note_display").style.display = "flex";
-	$("fretboard").style.display = "block";
-	$("answer_container").style.display = "block";
-}
+	$(id_prefix + "_color").style.borderColor = "rgba(1,1,1,"+(1.0-gray_scale_percent)+")"; 
+} 
 
 function showIntervalAnswer(interval){
+
+	update_UI_note("first_note", interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING ? interval.lower_note : interval.higher_note);
+	update_UI_note("second_note", interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING ? interval.higher_note: interval.lower_note);
+
+	$("interval_type").innerHTML = interval.type + ":";
+	$("interval_play_type").innerHTML = interval.play_type;	
 	
+	$("note_display").style.display = "none";
+	$("interval_display").style.display = "flex";
 
-
-	$("note_display").style.display = "flex";
 	$("fretboard").style.display = "block";
 	$("answer_container").style.display = "block";
 }

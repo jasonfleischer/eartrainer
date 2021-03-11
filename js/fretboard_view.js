@@ -373,18 +373,18 @@ fretboard_view.drawNote = function(note){
 fretboard_view.drawInterval = function(interval){
 
 	var play_type = interval.play_type;
-	var note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.lower_note : interval.higher_note;
+	var first_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.lower_note : interval.higher_note;
 
 	var canvas = document.getElementById("fretboard_canvas");
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, fretboard_view.WIDTH, fretboard_view.HEIGHT);
 
-	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value];
+	var note_positions = fretboard_view.noteValueToNotePositionsDict[first_note.note_value];
 
 	var i;
 	for( i=0; i<note_positions.length; i++)  {
 		ctx.beginPath();
-		ctx.fillStyle = note.note_name.color;
+		ctx.fillStyle = first_note.note_name.color;
 		ctx.strokeStyle = "#000";
 		ctx.lineWidth = 1;
 		ctx.arc(note_positions[i][0], note_positions[i][1], radius, 0, TWO_PI);
@@ -396,13 +396,13 @@ fretboard_view.drawInterval = function(interval){
 	// delay
 
 	setTimeout(() => {
-		note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.higher_note : interval.lower_note;
-		note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value];
+		var second_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.higher_note : interval.lower_note;
+		note_positions = fretboard_view.noteValueToNotePositionsDict[second_note.note_value];
 
 		//var i;
 		for( i=0; i<note_positions.length; i++)  {
 			ctx.beginPath();
-			ctx.fillStyle = note.note_name.color;
+			ctx.fillStyle = second_note.note_name.color;
 			ctx.strokeStyle = "#000";
 			ctx.lineWidth = 1;
 			ctx.arc(note_positions[i][0], note_positions[i][1], radius, 0, TWO_PI);
@@ -412,7 +412,5 @@ fretboard_view.drawInterval = function(interval){
 		}
 
 
-	}, (play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);
-
-	
+	}, (interval.play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
 }

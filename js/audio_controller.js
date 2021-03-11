@@ -49,7 +49,7 @@ function playPause(){
 		if(!audio_controller.playing) {
 			setupMobileOscillator()
 		} else {
-			audio_controller.oscillator.stop()
+			//audio_controller.oscillator.stop()
 		}
 	}
 

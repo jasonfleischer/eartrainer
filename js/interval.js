@@ -4,9 +4,9 @@ const INTERVAL_TYPE = Object.freeze({
     MAJOR_SECOND: "Major Second",
     MINOR_THIRD: "Minor Third",
     MAJOR_THIRD: "Major Third",
-    PERFECT_FOURTH: "Perfect Fourth",
+    PERFECT_FOURTH: "Fourth",
     TRITONE: "Tritone",
-    PERFECT_FIFTH: "Perfect Fifth",
+    PERFECT_FIFTH: "Fifth",
     MINOR_SIXTH: "Minor Sixth",
     MAJOR_SIXTH: "Major Sixth",
     MINOR_SEVENTH: "Minor Seventh",
@@ -109,6 +109,7 @@ function createRandomInterval(min, max){
 
     var rand = randomIntFromInterval(0,model.interval.types.length-1);
     var type = model.interval.types[rand];
+    
     var note = generate_random_note(min, max);
 
     var rand = randomIntFromInterval(0,model.interval.play_types.length-1);
