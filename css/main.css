@@ -95,9 +95,9 @@ html, body {
     }
 
     #ul_wrapper {
-        height: -moz-calc(100% - 60px);
-        height: -webkit-calc(100% - 60px);
-        height: calc(100% - 60px);
+        height: -moz-calc(100% - 155px);
+        height: -webkit-calc(100% - 155px);
+        height: calc(100% - 115px);
         display: block;
         overflow: auto;
     }
@@ -327,7 +327,7 @@ strong {
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto  auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
     padding: 5px;
     grid-column-gap: 5px;
     grid-row-gap: 5px;
@@ -360,6 +360,85 @@ strong {
     grid-row-start: 1;
     grid-row-end: 3;
 }
+
+#grid-container-chords_three_note {
+    grid-template-rows: auto auto;
+}
+#grid-item-min {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+#grid-item-maj{
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+#grid-item-aug {
+    grid-column-start: 7;
+    grid-column-end: 10;
+}
+#grid-item-dim {
+    grid-column-start: 10;
+    grid-column-end: 13;
+}
+#grid-item-three_note_root {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+#grid-item-three_note_first{
+    grid-column-start: 5;
+    grid-column-end: 9;
+}
+#grid-item-three_note_second {
+    grid-column-start: 9;
+    grid-column-end: 13;
+}
+
+#grid-container-chords_four_note {
+    grid-template-rows: auto auto;
+}
+#grid-item-min-seventh {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+#grid-item-Maj-seventh {
+    grid-column-start: 5;
+    grid-column-end: 9;
+}
+#grid-item-dominant-seventh {
+    grid-column-start: 9;
+    grid-column-end: 13;
+}
+#grid-item-four_note_root {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+#grid-item-four_note_first{
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+#grid-item-four_note_second {
+    grid-column-start: 7;
+    grid-column-end: 10;
+}
+#grid-item-four_note_third {
+    grid-column-start: 10;
+    grid-column-end: 13;
+}
+
+#grid-container-chords_play_type {
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+}
+#grid-item-chord-harmonic {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+#grid-item-chord-arpeggiate {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+
 
 button {
     color: var(--primary-font-color);
@@ -603,7 +682,7 @@ button:hover {
    
     font-size: 35px;
     text-align: center;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 #chord_name{
     
@@ -632,8 +711,9 @@ button:hover {
 }
 
 #interval_play_type{
-    font-size: 12px;
+    font-size: 16px;
     margin-right: 10px;
+    margin-top: 10px;
 }
 
 
@@ -653,7 +733,7 @@ button:hover {
 
 #note_bubble, #first_note_bubble, #second_note_bubble {
     width: 40px;    
-    margin-right: 7px;
+    margin-right: 10px;
 }
 
 #note_color, #first_note_color, #second_note_color {
@@ -675,3 +755,4 @@ button:hover {
     margin: auto;
 }
 
+ 

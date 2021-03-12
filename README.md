@@ -1,9 +1,9 @@
-# Ear Trainer
+## Metronome Webpage
 
-An ear training website used to develop a musicians ear:
+A metronome website:
 
-[https://jasonfleischer.github.io/eartrainer/](https://jasonfleischer.github.io/eartrainer/)
+[https://jasonfleischer.github.io/metronome/](https://jasonfleischer.github.io/metronome/)
 
 Special thanks to Surikov for their [WebAudioFont](https://surikov.github.io/webaudiofont/) library
 
-![Screenshot](./screenshots/screen.png "Sreenshot")
+![Screenshot 2](./screenshots/screen.png "Sreenshot")

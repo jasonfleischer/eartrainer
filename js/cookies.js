@@ -2,6 +2,7 @@ function load_cookies(){
 	model.BPM = cookies.get_BPM(15);
 	model.volume = cookies.get_volume(0.1);//todo 1.0);
 	model.speak = cookies.get_speak(true);
+	model.speakvolume = cookies.get_speak_volume(0.1);//todo 1.0);
 	//model.time_signature = cookies.get_time_signature(TIME_SIGNATURE.TS_4_4);
 	//model.beat_division = cookies.get_subdivision(1);
 	//model.accent_first_beat = cookies.get_accent_first_beat(true);
@@ -81,6 +82,14 @@ cookies.get_speak = function(default_value){
 };
 cookies.set_speak = function(value){
 	document.cookie = cookies.SPEAK + "=" + value;
+};
+
+cookies.SPEAK_VOLUME_KEY = "SPEAK_VOLUME_KEY";
+cookies.get_speak_volume = function(default_value){
+	return parseFloat(cookies.getCookie(cookies.SPEAK_VOLUME_KEY, default_value));
+};
+cookies.set_speak_volume = function(value){
+	document.cookie = cookies.SPEAK_VOLUME_KEY + "=" + value;
 };
 
 cookies.SINGLE_NOTES = "SINGLE_NOTES";

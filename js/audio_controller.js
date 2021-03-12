@@ -44,25 +44,23 @@ function forceStop(){
 }
 
 function playPause(){
-	
-	if(window.mobileCheck()){
-		if(!audio_controller.playing) {
-			setupMobileOscillator()
-		} else {
-			//audio_controller.oscillator.stop()
-		}
+	var loading = midi_controller.load();
+
+	if(loading) {
+		setTimeout(function() {
+			log("delayed execution for midi loading")
+			continuePlay();
+		}, 500);
+	} else {
+		continuePlay()
 	}
-
-	var audio_is_playing = audio_controller.playPause();
-	if(audio_is_playing) 
-		update_UI_playing();
-	else 
-		update_UI_stopped();
-
-}
-
-function setupMobileOscillator(){
-
+	function continuePlay() {
+		var audio_is_playing = audio_controller.playPause();
+		if(audio_is_playing) 
+			update_UI_playing();
+		else 
+			update_UI_stopped();
+	}
 }
 
 var audio_controller = {
@@ -184,7 +182,7 @@ function play_audio_string_sequence(audio_string_array){
 	for(j=0; j<audio_string_array.length; j++){
 		var audio = document.createElement("AUDIO");
 		audio.setAttribute("src",audio_string_array[j]);
-		audio.volume = model.volume;
+		audio.volume = model.speak_volume;
 		audio_array.push(audio);
 	}
 	play_audio_sequence(audio_array);
@@ -209,8 +207,18 @@ function play_audio_string_sequence(audio_string_array){
 function playFile(file){
 	var audio = document.createElement("AUDIO");
 	audio.setAttribute("src", file);
-	audio.volume = model.volume;
-	audio.play();
+	audio.volume = model.speak_volume;
+	var promise = audio.play();
+
+	//is this needed for mobile?
+	if (promise !== undefined) {
+	    promise.catch(error => {
+	        // Auto-play was prevented
+	        logE("Play Error:  " + error);
+	    }).then(() => {
+	        // Auto-play started
+	    });
+	}
 }
 
 function playNoteName(note) {
@@ -260,7 +268,8 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 	} else if(type == TYPE.CHORD){
 		executeChord();
 	} else {
-		logE("unkown type");
+		logE("unknown type");
+		executeSingleNote();
 	}
 
 

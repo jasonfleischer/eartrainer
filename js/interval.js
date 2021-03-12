@@ -1,16 +1,16 @@
 
 const INTERVAL_TYPE = Object.freeze({
-    MINOR_SECOND: "Minor Second",
-    MAJOR_SECOND: "Major Second",
-    MINOR_THIRD: "Minor Third",
-    MAJOR_THIRD: "Major Third",
+    MINOR_SECOND: "minor 2nd",
+    MAJOR_SECOND: "Major 2nd",
+    MINOR_THIRD: "minor 3rd",
+    MAJOR_THIRD: "Major 3rd",
     PERFECT_FOURTH: "Fourth",
     TRITONE: "Tritone",
     PERFECT_FIFTH: "Fifth",
-    MINOR_SIXTH: "Minor Sixth",
-    MAJOR_SIXTH: "Major Sixth",
-    MINOR_SEVENTH: "Minor Seventh",
-    MAJOR_SEVENTH: "Major Seventh",
+    MINOR_SIXTH: "minor 6th",
+    MAJOR_SIXTH: "Major 6th",
+    MINOR_SEVENTH: "minor 7th",
+    MAJOR_SEVENTH: "Major 7th",
     OCTAVE: "Octave"
 });
 

@@ -14,16 +14,16 @@ class Note {
 
 const NOTE_TYPE = Object.freeze({
 	C: "C",
-	C_sharp: "C# or Db",
+	C_sharp: "C# / Db",
 	D: "D",
-	D_sharp: "D# or Eb",
+	D_sharp: "D# / Eb",
 	E: "E",
 	F: "F",
-	F_sharp: "F# or Gb",
+	F_sharp: "F# / Gb",
   	G: "G",
-  	G_sharp: "G# or Ab",
+  	G_sharp: "G# / Ab",
   	A: "A",
-  	A_sharp: "A# or Bb",
+  	A_sharp: "A# / Bb",
   	B: "B"
 });
 class NoteName {
@@ -187,4 +187,3 @@ function build_all_notes(){
 function generate_random_note(min, max) {
 	return all_notes[randomIntFromInterval(min, max)];
 }
-

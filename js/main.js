@@ -37,6 +37,7 @@ function init() {
 		setup_volume_control();
 
 		setup_speak_switch();
+		setup_speak_volume_control();
 
 		setup_language_select();
 
@@ -298,9 +299,9 @@ function setup_bpm_controls() {
 
 function setup_volume_control() {
 
-	var min = 0.1;
-	var max = 1.0;
-	var step = 0.1;
+	var min = 0.05;
+	var max = 0.5;
+	var step = 0.05;
 	setup_volume_range(min, max, step);
 
 	function setup_volume_range(min, max, step){
@@ -354,8 +355,38 @@ function setup_speak_switch() {
 		log("on speak change: " + value);
 		model.speak = value;
 		cookies.set_speak(value);
+		update_UI_speak();
 	});
 	$("speak_checkbox").checked = model.speak;
+}
+
+function setup_speak_volume_control() {
+
+	var min = 0.1;
+	var max = 1.0;
+	var step = 0.05;
+	setup_volume_range(min, max, step);
+
+	function setup_volume_range(min, max, step){
+		var range = $("speak_volume_range");
+		range.min = min;
+		range.max = max;
+		range.value = model.speak_volume;
+		range.step = step;
+		range.addEventListener("change", function(e){
+			model.speak_volume = parseFloat(this.value);
+			log("on Speak Volume range change: " + model.speak_volume);
+			cookies.set_speak_volume(model.speak_volume);
+			update_UI_speak_volume(model.speak_volume);
+		});
+
+		range.addEventListener('input', function(){
+			model.speak_volume = parseFloat(this.value);
+			log("on Speak Volume range change: " + model.speak_volume);
+			cookies.set_speak_volume(model.speak_volume);
+			update_UI_speak_volume(model.speak_volume);
+		}, true);
+	}
 }
 
 function setup_interval_controls (){
@@ -626,6 +657,15 @@ function update_UI_volume(value) {
 	range.value = value;
 }
 
+
+function update_UI_speak() {
+	$("speak_volume").style.display = model.speak ? "block" : "none";
+}
+function update_UI_speak_volume(value) {
+	var range = $("speak_volume_range");
+	range.value = value;
+}
+
 function update_UI_intervals(){
 	if(model.interval.enabled){
 		$("interval_types").style.display = "grid";
@@ -682,32 +722,8 @@ function hideAnswer(){
 
 function showNoteAnswer(note){
 
-	/*{
-		$("note_name").innerHTML = note.note_name.name;
-		$("note_octave").innerHTML = window.mobileCheck() ? note.octave : "Octave: " + note.octave;
-
-		$("note_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
-		$("note_zodiac").innerHTML = note.note_name.zodiac;
-
-		$("note_color").style.backgroundColor = note.note_name.color;
-		//piano 21, 108
-		var gray_scale_percent = (note.note_value - 21) / (108 - 21)
-
-		function hexToRgb(hex) {
-			var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-			return result ? {
-				r: parseInt(result[1], 16),
-				g: parseInt(result[2], 16),
-				b: parseInt(result[3], 16)
-			} : null;
-		}
-		$("note_color").style.borderColor = "rgba(1,1,1,"+(1.0-gray_scale_percent)+")"; 
-	}*/
+	
 	update_UI_note("note", note);
-
-	$("note_octave").innerHTML = window.mobileCheck() ? note.octave : "Octave: " + note.octave;
-	$("note_zodiac").innerHTML = note.note_name.zodiac;
-
 
 	$("note_display").style.display = "flex";
 	$("interval_display").style.display = "none";
@@ -719,13 +735,11 @@ function showNoteAnswer(note){
 function update_UI_note(id_prefix, note) {
 
 	
-
 	$(id_prefix + "_name").innerHTML = note.note_name.name;
 	$(id_prefix + "_octave").innerHTML = note.octave;
 
 	$(id_prefix + "_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
 	
-
 	$(id_prefix + "_color").style.backgroundColor = note.note_name.color;
 	//piano 21, 108
 	var gray_scale_percent = (note.note_value - 21) / (108 - 21)

@@ -41,6 +41,7 @@ var model = {
 	volume: 1,
 	instrument: INSTRUMENT.GUITAR,
 	speak: true,
+	speak_volume: 1,
 	darkmode: false,
 
 	single_notes: {

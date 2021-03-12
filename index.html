@@ -108,7 +108,7 @@
 				</li>
 				<li>
 					<div class="nav-side-menu-item">
-						<span>Volume</span>
+						<span>Note Volume</span>
 						<div class="range">
 							<input id="volume_range" type="range" min="0" max="1" step="0.1" value="1">
 						</div>
@@ -131,7 +131,14 @@
 						</label>
 					</div>
 				</li>
-
+				<li id="speak_volume">
+					<div class="nav-side-menu-item">
+						<span>Speak Volume</span>
+						<div class="range">
+							<input id="speak_volume_range" type="range" min="0" max="1" step="0.1" value="1">
+						</div>
+					</div>
+				</li>
 
 				<li class="menu_item_divider"></li>
 
@@ -188,6 +195,35 @@
 							<input id="chords_checkbox" type="checkbox" checked="checked"/>
 							<span class="switch_track round" tabindex="0"></span>
 						</label>
+					</div>
+				</li>
+				<li id="chords_three_note" class="li-grid-container">
+					<div id="grid-container-chords_three_note" class="grid-container">
+						<div id="grid-item-min" class="grid-item">min</div>
+						<div id="grid-item-maj" class="grid-item">Maj</div>
+						<div id="grid-item-aug" class="grid-item">aug</div>
+						<div id="grid-item-dim" class="grid-item">dim</div>
+						<div id="grid-item-three_note_root" class="grid-item">Root</div>
+						<div id="grid-item-three_note_first" class="grid-item">1st Inv.</div>
+						<div id="grid-item-three_note_second" class="grid-item">2nd Inv.</div>
+					</div>
+				</li>
+				<li id="chords_four_note" class="li-grid-container">
+					<div id="grid-container-chords_four_note" class="grid-container">
+						<div id="grid-item-min-seventh" class="grid-item">min 7th</div>
+						<div id="grid-item-Maj-seventh" class="grid-item">Maj 7th</div>
+						<div id="grid-item-dominant-seventh" class="grid-item">Dom 7th</div>
+						<div id="grid-item-four_note_root" class="grid-item">Root</div>
+						<div id="grid-item-four_note_first" class="grid-item">1st Inv.</div>
+						<div id="grid-item-four_note_second" class="grid-item">2nd Inv.</div>
+						<div id="grid-item-four_note_third" class="grid-item">3rd Inv.</div>
+						
+					</div>
+				</li>
+				<li id="chords_play_type" class="li-grid-container">
+					<div id="grid-container-chords_play_type" class="grid-container">
+						<div id="grid-item-chord-harmonic" class="grid-item">Harmonic</div>
+						<div id="grid-item-chord-arpeggiate" class="grid-item">Arpeggiate</div>						
 					</div>
 				</li>
 
@@ -288,7 +324,6 @@
 						<img id="note_img" src="" alt="zodiac img">
 					</div>
 				</div>
-				<p id="note_zodiac" class="desktop-only">&nbsp;</p>
 			</div>
 
 			<div id="interval_display">
@@ -339,7 +374,7 @@
 	<script src="js/midi/midi_0000_JCLive_sf2_file.js.js"></script>
 
 	<script src="js/log.js"></script>
-	<script src="js/midi/midi_sounds.js"></script>
+	<!--<script src="js/midi/midi_sounds.js"></script>-->
 	<!--<script src="js/midi/click_midi_controller.js"></script>
 	<script src="js/midi/drum_midi_controller.js"></script>-->
 	
@@ -360,4 +395,4 @@
 	<script src="js/midi/midi_controller.js"></script>
 	<script src="js/main.js"></script>
 </body>
-</html>
+</html>                                                        

@@ -1,5 +1,7 @@
+function getJCLive() {
+
 console.log('load _tone_0000_JCLive_sf2_file');
-var _tone_0000_JCLive_sf2_file={
+return _tone_0000_JCLive_sf2_file={
 	zones:[
 		{
 			midi:0
@@ -303,6 +305,8 @@ var _tone_0000_JCLive_sf2_file={
 		}
 	]
 };
+
+}
 
 
 
