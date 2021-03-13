@@ -273,6 +273,18 @@ cookies.set_interval_play_type = function(interval_play_type, value){
 	}
 }
 
+cookies.set_chord_play_type = function(play_type, value){
+	switch(play_type) {
+		case CHORD_PLAY_TYPE.ARPEGGIATE:
+			cookies.set_chords_arpeggiate(value);
+			break;
+		case CHORD_PLAY_TYPE.HARMONIC:
+			cookies.set_chords_harmonic(value);
+			break;
+	}
+}
+
+
 cookies.ASCENDING = "ASCENDING";
 cookies.get_ascending = function(default_value){
 	var value = cookies.getCookie(cookies.ASCENDING, default_value);

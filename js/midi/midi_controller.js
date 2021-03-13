@@ -30,10 +30,6 @@ midi_controller.load = function(){
 	return false;
 }
 
-midi_controller.generate_random_note = function() {
-	return midi_controller.generate_random_note_with(0, 127);
-}
-
 
 midi_controller.playNote = function(note, duration_in_sec = 3.5) {
 	this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, this.audioContext.currentTime, note.note_value, this.duration_in_sec, model.volume);
@@ -61,12 +57,12 @@ midi_controller.playInterval = function(interval, duration_in_sec = 3.5) {
 
 midi_controller.playChord = function(chord, duration_in_sec = 3.5) {
 
-	$("chord_name").innerHTML = chord.name; //  todo move
-	$("chord_structure").innerHTML = chord.structure;
-	$("chord_octave").innerHTML = chord.octave_display;
 	var i;
+
+	var delay_between_notes = this.audioContext.currentTime + (chord.delay_in_ms / 1000);
+
 	for(i = 0 ; i <chord.note_array.length; i++){
 		var note = chord.note_array[i];
-		 this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, this.audioContext.currentTime, note.note_value, this.duration_in_sec, model.volume);
+		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, this.audioContext.currentTime, note.note_value, this.duration_in_sec, model.volume);
 	}
 }

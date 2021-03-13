@@ -45,11 +45,9 @@ function init() {
 		setup_interval_controls();
 
 		setup_chords_switch();
-/*		setup_tone_select();
-		setup_time_signature_select();
-		setup_beat_division_select();
-		setup_accent_first_beat_switch();
-		setup_flash_screen_switch();*/
+		setup_chord_play_type_multiple_select();
+
+
 		setup_bpm_controls();
 	}
 
@@ -493,6 +491,39 @@ function setup_interval_play_type_multiple_select() {
 	}
 }
 
+function setup_chord_play_type_multiple_select() {
+	var element_id_play_type_pairs = [	["grid-item-chord-harmonic", CHORD_PLAY_TYPE.HARMONIC], 
+										["grid-item-chord-arpeggiate", CHORD_PLAY_TYPE.ARPEGGIATE]];
+
+	for (i = 0; i < element_id_play_type_pairs.length; i++) {
+		var pair = element_id_play_type_pairs[i];
+		update_UI_chord_play_type(pair);
+		setupChordPlayTypeClickListener(pair);
+	}
+	function setupChordPlayTypeClickListener(pair){
+		var id = pair[0];
+		var type = pair[1];
+		$(id).addEventListener("click", function(e) {
+
+			var type_enabled = model.chords.play_types.includes(type)
+
+			if(model.chords.play_types.length == 1 && type_enabled) {
+				log("prevent no selection")
+				return;
+			}
+
+			if(type_enabled)
+				model.chords.play_types.remove(type);
+			else
+				model.chords.play_types.push(type);
+
+			log("on chords type change: " + model.chords.play_types);
+			cookies.set_chord_play_type(type, !type_enabled);
+			update_UI_chord_play_type(pair);
+		});
+	}
+}
+
 function setup_chords_switch() {
 	$("chords").addEventListener("click", function(e){
 		$("chords_checkbox").click();
@@ -693,6 +724,15 @@ function update_UI_interval_play_type(pair) {
 		$(id).classList.remove("enabled");
 }
 
+function update_UI_chord_play_type(pair) {
+	var id = pair[0];
+	var type = pair[1];
+	if(model.chords.play_types.includes(type))
+		$(id).classList.add("enabled");
+	else
+		$(id).classList.remove("enabled");
+}
+
 function update_UI_tone(){
 	$("accent_first_beat").style.display = (model.tone == TONE.NORMAL || model.tone == TONE.DRUM) ? "block" : "none";
 	$("status_msg").innerHTML = model.tone == TONE.TALKING ? TR("Configure then press 'Play' to begin. Talking setting works best at lower BPMs.") : TR("Configure then press 'Play' to begin");
@@ -727,6 +767,7 @@ function showNoteAnswer(note){
 
 	$("note_display").style.display = "flex";
 	$("interval_display").style.display = "none";
+	$("chord_display").style.display = "none";
 
 	$("fretboard").style.display = "block";
 	$("answer_container").style.display = "block";
@@ -765,6 +806,17 @@ function showIntervalAnswer(interval){
 	
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "flex";
+	$("chord_display").style.display = "none";
+
+	$("fretboard").style.display = "block";
+	$("answer_container").style.display = "block";
+}
+
+function showChordAnswer(chord){
+
+	$("chord_name").innerHTML = chord.name;
+	$("chord_structure").innerHTML = chord.structure;
+	$("chord_octave").innerHTML = chord.octave_display;
 
 	$("fretboard").style.display = "block";
 	$("answer_container").style.display = "block";

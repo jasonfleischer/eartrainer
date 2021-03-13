@@ -43,8 +43,10 @@ function forceStop(){
 	return was_playing;
 }
 
+var audio;
 function playPause(){
 	var loading = midi_controller.load();
+	audio = document.createElement("AUDIO");
 
 	if(loading) {
 		setTimeout(function() {
@@ -205,7 +207,7 @@ function play_audio_string_sequence(audio_string_array){
 }
 
 function playFile(file){
-	var audio = document.createElement("AUDIO");
+	//var audio = document.createElement("AUDIO");
 	audio.setAttribute("src", file);
 	audio.volume = model.speak_volume;
 	var promise = audio.play();
@@ -234,6 +236,9 @@ function playInterval(interval) {
 	playFile(interval.audio_file_name);
 }
 
+function playChord(chord) {
+	//playFile(interval.audio_file_name);
+}
 
 var type = TYPE.SINGLE_NOTE;
 function getAudioType(){
@@ -308,10 +313,20 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 	}
 
 	function executeChord() {
-		if(audio_controller.index % 2 == 0){
 
-		} else  {
 		
+		if(audio_controller.index % 2 == 0){
+			var chord = audio_controller.chord;
+			showChordAnswer(chord);
+			if(model.speak){
+				playChord(chord);
+			}
+			fretboard_view.drawChord(chord);
+		} else  {
+			hideAnswer();
+			audio_controller.chord = generate_random_chord(40, 84);
 		}
+		midi_controller.playChord(audio_controller.chord);
 	}
 }
+

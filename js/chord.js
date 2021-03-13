@@ -5,15 +5,22 @@ const CHORD_TYPE = Object.freeze({
 	Major7: "Maj 7",
   Minor7: "minor 7"
 });
+
+const CHORD_PLAY_TYPE = Object.freeze({
+    HARMONIC: "Harmonic",
+    ARPEGGIATE: "Arpeggiate"
+});
 const ALL_CHORD_TYPES = [CHORD_TYPE.Major, CHORD_TYPE.Minor, CHORD_TYPE.Major7, CHORD_TYPE.Minor7];
 
 
 class Chord {
 
 
-  constructor(root_note, chord_type) {
+  constructor(root_note, chord_type, play_type) {
+    this.delay_in_ms = 500;
     this.name = root_note.note_name.name + " " + chord_type;
-    this.octave_display = "(" + root_note.display_string() + ")";
+    this.octave_display = "(" + "X" + ")";
+    this.type = chord_type
 
     switch(chord_type){
     	case CHORD_TYPE.Major:
@@ -47,10 +54,16 @@ class Chord {
 
 function generate_random_chord(min, max){
 
-  var random_note = midi_controller.generate_random_note_with(min, max);
+  var random_note = generate_random_note(min, max);
   var random_chord_type = ALL_CHORD_TYPES[ randomIntFromInterval(0, ALL_CHORD_TYPES.length-1) ];
 
-  var random_chord = new Chord(random_note, random_chord_type);
+  var rand = randomIntFromInterval(0,model.chords.types.length-1);
+  var type = model.chords.types[rand];
+
+  rand = randomIntFromInterval(0,model.chords.play_types.length-1);
+  var play_type = model.chords.play_types[rand];
+
+  var random_chord = new Chord(random_note, random_chord_type, play_type);
 
   return random_chord;
 

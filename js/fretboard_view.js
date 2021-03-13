@@ -414,3 +414,7 @@ fretboard_view.drawInterval = function(interval){
 
 	}, (interval.play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
 }
+
+fretboard_view.drawChord = function(interval){
+
+}

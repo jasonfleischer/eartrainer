@@ -53,7 +53,9 @@ var model = {
 		play_types: [] 
 	},
 	chords: {
-		enabled: false
+		enabled: false,
+		types: [],
+		play_types: [] 
 	},
 
 
