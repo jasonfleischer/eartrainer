@@ -2,6 +2,36 @@
 // https://ttsmp3.com/ with Joey then modified with Audacity
 
 
+
+
+
+function isDurationExpired(){
+
+	if(!isDurationInfinte()) {
+		var running_time = new Date() - audio_controller.start_time;
+		var durationInMS = getDurationInMS()
+		if(running_time > durationInMS){
+			log("Duration expired")
+			return true;
+		}
+	}
+	return false
+
+	function isDurationInfinte(){
+		return model.duration == DURATION.INFINITE;
+	}
+
+	function getDurationInMS(){
+		if (isDurationInfinte()){
+			logE("Infinte duration has no MS")
+			return DURATION.SIXTY_MINUTES;
+		} else {
+			return model.duration * 60000;
+		}
+	}
+}
+
+
 function reloadActivePlayer(){
 	if(audio_controller.playing){
 		audio_controller.model_changed = true;
@@ -26,7 +56,7 @@ function reloadBPM(value){
 	} 
 }
 
-function forcePlay(){
+function forcePlay(){ // todo remove
 	audio_controller.pause();
 	update_UI_stopped();
 	audio_controller.play();
@@ -43,10 +73,18 @@ function forceStop(){
 	return was_playing;
 }
 
-var audio;
-function playPause(){
+
+function playPause(){ // todo rename play
+
 	var loading = midi_controller.load();
-	audio = document.createElement("AUDIO");
+
+	var j;
+	for(j=0; j<4; j++){
+		audio_controller.preloaded_audio[j] = document.createElement("AUDIO");
+	}
+
+	
+	
 
 	if(loading) {
 		setTimeout(function() {
@@ -68,9 +106,13 @@ function playPause(){
 var audio_controller = {
 	index: 0,
 
+	start_time: 0,
+
 	note: {},
 	interval: {},
 	chord: {},
+
+	preloaded_audio: [],
 
 	//old
 	playing: false,
@@ -101,7 +143,7 @@ audio_controller.playPause = function(){
 }
 
 audio_controller.pause = function(){
-	if (this.playing) clearInterval(this.timer_id);
+	if (this.playing) clearInterval(audio_controller.timer_id);
 	this.playing = false;
 }
 
@@ -110,6 +152,8 @@ audio_controller.reloadSounds= function(){
 }
 
 audio_controller.play = function(){
+
+	audio_controller.start_time = new Date();
 
 	audio_controller.index = 1;
 
@@ -127,9 +171,16 @@ audio_controller.play = function(){
 	var expected = Date.now() + interval;
 
 
-	this.timer_id = setTimeout(step, interval);
+	audio_controller.timer_id = setTimeout(step, interval);
 	
 	function step() {
+
+		if(isDurationExpired()) {
+			logE("force close")
+			clearInterval(audio_controller.timer_id);
+			return;
+		}
+
 	    var drift = Date.now() - expected; 
 	    if (drift > interval) {
 	    	logE("something really bad happened. Maybe the browser (tab) was inactive? possibly special handling to avoid futile 'catch up' run");
@@ -179,13 +230,12 @@ audio_controller.play = function(){
 }
 
 function play_audio_string_sequence(audio_string_array){
-	const audio_array = [];
+	var audio_array = audio_controller.preloaded_audio;
 	var j;
 	for(j=0; j<audio_string_array.length; j++){
-		var audio = document.createElement("AUDIO");
-		audio.setAttribute("src",audio_string_array[j]);
-		audio.volume = model.speak_volume;
-		audio_array.push(audio);
+		//var audio = document.createElement("AUDIO");
+		audio_array[j].setAttribute("src",audio_string_array[j]);
+		audio_array[j].volume = model.speak_volume;
 	}
 	play_audio_sequence(audio_array);
 	function play_audio_sequence(audio_array){
@@ -207,7 +257,7 @@ function play_audio_string_sequence(audio_string_array){
 }
 
 function playFile(file){
-	//var audio = document.createElement("AUDIO");
+	var audio = audio_controller.preloaded_audio[0];
 	audio.setAttribute("src", file);
 	audio.volume = model.speak_volume;
 	var promise = audio.play();
@@ -263,8 +313,16 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 
 
 	if(audio_controller.index % 2 != 0){
+
+		if(isDurationExpired()) {
+			forceStop();
+			clearInterval(audio_controller.timer_id);
+			hideAnswer();
+			return;
+		}
+
 		type = getAudioType();
-	}
+	} 
 
 	if(type == TYPE.SINGLE_NOTE){
 		executeSingleNote();
@@ -276,9 +334,11 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 		logE("unknown type");
 		executeSingleNote();
 	}
-
-
 	audio_controller.index = audio_controller.index + 1;
+
+
+
+
 	function executeSingleNote() {
 		if(audio_controller.index % 2 == 0){
 			var note = audio_controller.note;

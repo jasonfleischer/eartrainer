@@ -214,6 +214,7 @@ fretboard_view.draw_background = function(){
 	}
 	draw_single_dot_fret_markers(3);
 	draw_single_dot_fret_markers(5);
+	draw_single_dot_fret_markers(7);
 	draw_single_dot_fret_markers(9);
 	draw_single_dot_fret_markers(15);
 	draw_single_dot_fret_markers(17);
@@ -244,7 +245,7 @@ fretboard_view.draw_background = function(){
 		ctx.arc(note_x_positions[fret] + seperation, fretboard_view.HEIGHT - (bottomMargin * .25), diameter, 0, TWO_PI);
 		ctx.fill();
 	}
-	draw_double_dot_fret_markers(7);
+	
 	draw_double_dot_fret_markers(12);
 
 

@@ -728,7 +728,6 @@ button:hover {
     font-size: 18px;
     text-align: center;
     margin-top: 10px;
-
 }
 
 #note_bubble, #first_note_bubble, #second_note_bubble {
@@ -754,5 +753,3 @@ button:hover {
     right: 0;
     margin: auto;
 }
-
- 

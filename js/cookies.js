@@ -1,15 +1,15 @@
 function load_cookies(){
-	model.BPM = cookies.get_BPM(15);
+	model.BPM = cookies.get_BPM(8);
 	model.volume = cookies.get_volume(0.1);//todo 1.0);
 	model.speak = cookies.get_speak(true);
-	model.speakvolume = cookies.get_speak_volume(0.1);//todo 1.0);
+	model.speak_volume = cookies.get_speak_volume(0.25);//todo 1.0);
 	//model.time_signature = cookies.get_time_signature(TIME_SIGNATURE.TS_4_4);
 	//model.beat_division = cookies.get_subdivision(1);
 	//model.accent_first_beat = cookies.get_accent_first_beat(true);
 	//model.flash_screen = cookies.get_flash_screen(false);
 	//model.tone = cookies.get_tone(TONE.NORMAL);
 
-	model.single_notes.enabled = cookies.get_single_notes(true);
+	model.single_notes.enabled = cookies.get_single_notes(false);
 
 	model.interval.enabled = cookies.get_intervals(true);
 

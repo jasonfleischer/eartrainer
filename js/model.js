@@ -11,6 +11,15 @@ const INSTRUMENT = Object.freeze({
 	GUITAR: 1
 });
 
+const DURATION = Object.freeze({
+    ONE_MINUTE: 1,
+    TEN_MINUTES: 10,
+    FIFTEEN_MINUTES: 15,
+    THIRTY_MINUTES: 30,
+    FORTY_FIVE_MINUTES: 45,
+    SIXTY_MINUTES: 60,
+    INFINITE: -1
+});
 
 ///old
 /*const TONE = Object.freeze({
@@ -37,6 +46,7 @@ var all_notes = [];
 
 var model = {
 	
+	duration: DURATION.INFINITE,
 	BPM: 15,
 	volume: 1,
 	instrument: INSTRUMENT.GUITAR,

@@ -337,7 +337,7 @@ function setup_single_notes_switch() {
 		model.single_notes.enabled = value;
 		cookies.set_single_notes(value);
 	});
-	$("speak_checkbox").checked = model.single_notes.enabled;
+	$("single_notes_checkbox").checked = model.single_notes.enabled;
 }
 
 
