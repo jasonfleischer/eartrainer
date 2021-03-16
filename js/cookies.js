@@ -1,4 +1,5 @@
 function load_cookies(){
+	model.duration = cookies.get_duration(DURATION.INFINITE);
 	model.BPM = cookies.get_BPM(8);
 	model.volume = cookies.get_volume(0.1);//todo 1.0);
 	model.speak = cookies.get_speak(true);
@@ -62,6 +63,14 @@ cookies.set_BPM = function(value){
 };
 cookies.delete_BPM = function(){
 	cookies.deleteCookie(cookies.BPM_KEY);
+};
+
+cookies.DURATION_KEY = "DURATION_KEY";
+cookies.get_duration = function(default_value){
+	return parseFloat(cookies.getCookie(cookies.DURATION_KEY, default_value));
+};
+cookies.set_duration = function(value){
+	document.cookie = cookies.DURATION_KEY + "=" + value;
 };
 
 cookies.VOLUME_KEY = "VOLUME_KEY";

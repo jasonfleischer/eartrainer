@@ -34,6 +34,8 @@ function init() {
 
 	setup_controls();
 	function setup_controls(){
+
+		setup_duration_select();
 		setup_volume_control();
 
 		setup_speak_switch();
@@ -125,25 +127,6 @@ function window_resized_end(){
 	//range_control.resize_bpm_text();
 }
 
-var flash_timer;
-function flash_screen_animation(){
-	/*var element = $("flash_screen");
-	element.style.display = 'block';
-	clearInterval(flash_timer);
-
-	var op = 1;  // initial opacity
-    flash_timer = setInterval(function () {
-        if (op <= 0.1){
-            clearInterval(flash_timer);
-            element.style.display = 'none';
-            element.style.opacity = 0;
-        }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.15;
-    }, 50);*/
-}
-
 // on click
 
 function kofi(){
@@ -226,6 +209,21 @@ function openMailToDeveloper(){
 }
 
 // setup controls
+
+function setup_duration_select() {
+	$("duration_select").addEventListener("change", function(e){
+		var value = parseInt(this.value);
+		log("on duration_select: " + value);
+		model.duration = value;
+		cookies.set_duration(value);
+		durationStartTime = new Date();
+		audio_controller.reloadDuration();
+		update_UI_duration(model.duration * 60000);
+	});
+	$("duration_select").value = model.duration;
+	update_UI_duration(model.duration * 60000);
+}
+
 
 function setup_bpm_controls() {
 
@@ -683,6 +681,41 @@ function update_UI_BPM(value) {
 	}
 }
 
+function update_UI_duration(duration_in_MS){
+
+	if(duration_in_MS < 0)
+		$("play_pause_button").innerHTML = audio_controller.playing ? TR("Stop"): TR("Play");
+	else {
+		var time_display =  " (" + human_readable_duration(duration_in_MS) + ")"
+		if (time_display == " ()"){ time_display = ""; }
+		$("play_pause_button").innerHTML = (audio_controller.playing ? TR("Stop"): TR("Play")) + time_display;
+	}
+
+	function human_readable_duration(duration_in_MS){
+		var duration_in_seconds = duration_in_MS / 1000;
+		if(duration_in_seconds < 60) {
+			return formattedSeconds(duration_in_seconds);
+		} else if(duration_in_seconds < 60*60){
+			var mins = parseInt(duration_in_seconds/60)
+			return mins + " min " + formattedSeconds(duration_in_seconds - (mins*60))
+		} else if (duration_in_seconds >= 60*60) {
+			var hours = parseInt(duration_in_seconds/60/60)
+			return hours + " hour"
+		} else {
+			LogE("not handled human readable duration")
+			return ""
+		}
+
+
+		function formattedSeconds(seconds){
+			seconds = parseInt(seconds)
+			if(seconds == 0) return ""
+			else if (seconds < 10) return "0"+seconds +" sec"
+			else return seconds+" sec"
+		}
+	}
+}
+
 function update_UI_volume(value) {
 	var range = $("volume_range");
 	range.value = value;
@@ -743,6 +776,21 @@ function update_UI_playing(){
 	$("mobile_play_pause_button").innerHTML = TR("Stop");
 	$("init_view").style.display = "none"; // hide
 	//time_view.start(model.time_signature, model.BPM);
+	startDurationTimer();
+}
+var durationTimer;
+var durationStartTime;
+function startDurationTimer(){
+
+	durationStartTime = new Date();
+	update_UI_duration(model.duration*60000);
+
+	durationTimer = setInterval(function () {
+
+		var now = new Date();
+		var diff = parseInt(now - durationStartTime);
+		update_UI_duration(model.duration*60000 - diff);
+	}, 500);
 }
 
 function update_UI_stopped(){
@@ -752,6 +800,11 @@ function update_UI_stopped(){
 	$("init_view").style.display = "block"; // show
 	//time_view.stop();
 	hideAnswer();
+	stopDurationTimer();
+}
+
+function stopDurationTimer(){
+	clearTimeout(durationTimer);
 }
 
 function hideAnswer(){
@@ -779,7 +832,7 @@ function update_UI_note(id_prefix, note) {
 	$(id_prefix + "_name").innerHTML = note.note_name.name;
 	$(id_prefix + "_octave").innerHTML = note.octave;
 
-	$(id_prefix + "_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
+	//$(id_prefix + "_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
 	
 	$(id_prefix + "_color").style.backgroundColor = note.note_name.color;
 	//piano 21, 108

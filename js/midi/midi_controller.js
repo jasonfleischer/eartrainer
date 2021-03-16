@@ -45,7 +45,7 @@ midi_controller.playInterval = function(interval, duration_in_sec = 3.5) {
 
 	if(play_type == INTERVAL_PLAY_TYPE.HARMONIC) {
 		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, 0, lower_note.note_value, this.duration_in_sec, model.volume);
-		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, selectedPreset, 0, higher_note.note_value, this.duration_in_sec, model.volume);
+		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, 0, higher_note.note_value, this.duration_in_sec, model.volume);
 	} else if (play_type == INTERVAL_PLAY_TYPE.DESCENDING){ 
 		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, 0, higher_note.note_value, this.duration_in_sec, model.volume);
 		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, delay_between_notes, lower_note.note_value, this.duration_in_sec, model.volume);

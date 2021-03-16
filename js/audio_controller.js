@@ -74,6 +74,8 @@ function forceStop(){
 }
 
 
+
+
 function playPause(){ // todo rename play
 
 	var loading = midi_controller.load();
@@ -130,6 +132,10 @@ var audio_controller = {
 	context: {}
 }
 
+audio_controller.reloadDuration = function(){
+	audio_controller.start_time = new Date();
+}
+
 audio_controller.init_sounds =function(){
 
 }
@@ -178,6 +184,7 @@ audio_controller.play = function(){
 		if(isDurationExpired()) {
 			logE("force close")
 			clearInterval(audio_controller.timer_id);
+
 			return;
 		}
 
@@ -237,6 +244,7 @@ function play_audio_string_sequence(audio_string_array){
 		audio_array[j].setAttribute("src",audio_string_array[j]);
 		audio_array[j].volume = model.speak_volume;
 	}
+
 	play_audio_sequence(audio_array);
 	function play_audio_sequence(audio_array){
 		
@@ -247,10 +255,17 @@ function play_audio_string_sequence(audio_string_array){
 			i = i + 1;
 			
 			if(i < audio_array.length){
+
 				audio_array[i].addEventListener("ended", repeat_function);
 				audio_array[i].play()
 			} 
 		}
+
+		var j = 0;
+		for(j=0; j<audio_controller.preloaded_audio.length; j++) {
+			audio_controller.preloaded_audio[j].removeEventListener("ended", repeat_function);
+		}
+
 		audio_array[i].addEventListener("ended", repeat_function);
 		audio_array[i].play();
 	}
@@ -260,17 +275,20 @@ function playFile(file){
 	var audio = audio_controller.preloaded_audio[0];
 	audio.setAttribute("src", file);
 	audio.volume = model.speak_volume;
-	var promise = audio.play();
+	
+
+	/*var promise = */
+	audio.play();
 
 	//is this needed for mobile?
-	if (promise !== undefined) {
+	/*if (promise !== undefined) {
 	    promise.catch(error => {
 	        // Auto-play was prevented
 	        logE("Play Error:  " + error);
 	    }).then(() => {
 	        // Auto-play started
 	    });
-	}
+	}*/
 }
 
 function playNoteName(note) {
@@ -283,7 +301,13 @@ function playNoteName(note) {
 }
 
 function playInterval(interval) {
-	playFile(interval.audio_file_name);
+	var audio_file_names = [interval.audio_file_name];
+	if(interval.play_type ==  INTERVAL_PLAY_TYPE.ASCENDING){
+		audio_file_names.push("audio/intervals/ascending.mp3")
+	} else if(interval.play_type ==  INTERVAL_PLAY_TYPE.DESCENDING){
+		audio_file_names.push("audio/intervals/descending.mp3")
+	}
+	play_audio_string_sequence(audio_file_names);
 }
 
 function playChord(chord) {
@@ -316,6 +340,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 
 		if(isDurationExpired()) {
 			forceStop();
+			update_UI_stopped();
 			clearInterval(audio_controller.timer_id);
 			hideAnswer();
 			return;
