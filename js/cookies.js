@@ -1,5 +1,5 @@
 function load_cookies(){
-	model.duration = cookies.get_duration(DURATION.INFINITE);
+	model.duration = cookies.get_duration(DURATION.THIRTY_MINUTES);
 	model.BPM = cookies.get_BPM(8);
 	model.volume = cookies.get_volume(0.1);//todo 1.0);
 	model.speak = cookies.get_speak(true);
@@ -12,7 +12,7 @@ function load_cookies(){
 
 	model.single_notes.enabled = cookies.get_single_notes(false);
 
-	model.interval.enabled = cookies.get_intervals(true);
+	model.interval.enabled = cookies.get_intervals(false);
 
 	if(cookies.get_minor_second(true))
 		model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
@@ -46,7 +46,7 @@ function load_cookies(){
 	if(cookies.get_harmonic(false))
 		model.interval.play_types.push(INTERVAL_PLAY_TYPE.HARMONIC)
 
-	model.chords.enabled = cookies.get_chords(false);
+	model.chords.enabled = cookies.get_chords(true);
 
 	model.darkmode = cookies.get_darkmode(true);
 	translations.current_language = cookies.get_language(LANGUAGE.ENGLISH);

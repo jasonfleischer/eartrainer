@@ -19,7 +19,7 @@ function init() {
 	build_all_notes();
 
 	load_cookies();
-	translations.load();
+	//translations.load();
 	
 	setup_audio()
 	function setup_audio(){
@@ -41,7 +41,7 @@ function init() {
 		setup_speak_switch();
 		setup_speak_volume_control();
 
-		setup_language_select();
+		//setup_language_select();
 
 		setup_single_notes_switch();
 		setup_interval_controls();
@@ -534,9 +534,10 @@ function setup_chords_switch() {
 		log("on chords change: " + value);
 		model.chords.enabled = value;
 		cookies.set_chords(value);
-		//update_UI_chords
+		update_UI_chords()
 	});
 	$("chords_checkbox").checked = model.chords.enabled;
+	update_UI_chords();
 }
 
 /*function setup_tone_select() {
@@ -682,14 +683,16 @@ function update_UI_BPM(value) {
 }
 
 function update_UI_duration(duration_in_MS){
-
+	var new_text;
 	if(duration_in_MS < 0)
-		$("play_pause_button").innerHTML = audio_controller.playing ? TR("Stop"): TR("Play");
+		new_text = audio_controller.playing ? TR("Stop"): TR("Play");
 	else {
 		var time_display =  " (" + human_readable_duration(duration_in_MS) + ")"
 		if (time_display == " ()"){ time_display = ""; }
-		$("play_pause_button").innerHTML = (audio_controller.playing ? TR("Stop"): TR("Play")) + time_display;
+		new_text = (audio_controller.playing ? TR("Stop"): TR("Play")) + time_display;
 	}
+	$("play_pause_button").innerHTML = new_text
+	$("mobile_play_pause_button").innerHTML = new_text
 
 	function human_readable_duration(duration_in_MS){
 		var duration_in_seconds = duration_in_MS / 1000;
@@ -732,11 +735,11 @@ function update_UI_speak_volume(value) {
 
 function update_UI_intervals(){
 	if(model.interval.enabled){
-		$("interval_types").style.display = "grid";
-		$("interval_play_types").style.display = "grid";
+		$("grid-container-interval_types").style.display = "grid";
+		$("grid-container-interval_play_types").style.display = "grid";
 	} else {
-		$("interval_types").style.display = "none";
-		$("interval_play_types").style.display = "none";
+		$("grid-container-interval_types").style.display = "none";
+		$("grid-container-interval_play_types").style.display = "none";
 	}
 }
 function update_UI_interval_type(pair) {
@@ -755,6 +758,18 @@ function update_UI_interval_play_type(pair) {
 		$(id).classList.add("enabled");
 	else
 		$(id).classList.remove("enabled");
+}
+
+function update_UI_chords(){
+	if(model.chords.enabled){
+		$("grid-container-chords_three_note").style.display = "grid";
+		$("grid-container-chords_four_note").style.display = "grid";
+		$("grid-container-chords_play_type").style.display = "grid";
+	} else {
+		$("grid-container-chords_three_note").style.display = "none";
+		$("grid-container-chords_four_note").style.display = "none";
+		$("grid-container-chords_play_type").style.display = "none";
+	}
 }
 
 function update_UI_chord_play_type(pair) {
@@ -794,8 +809,10 @@ function startDurationTimer(){
 }
 
 function update_UI_stopped(){
-	$("play_pause_button").innerHTML = TR("Play");
-	$("mobile_play_pause_button").innerHTML = TR("Play");
+
+	update_UI_duration(model.duration*60000)
+	//$("play_pause_button").innerHTML = TR("Play");
+	//$("mobile_play_pause_button").innerHTML = TR("Play");
 	//$("count_text").innerHTML = "\xa0";
 	$("init_view").style.display = "block"; // show
 	//time_view.stop();
@@ -855,7 +872,22 @@ function showIntervalAnswer(interval){
 	update_UI_note("second_note", interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING ? interval.higher_note: interval.lower_note);
 
 	$("interval_type").innerHTML = interval.type + ":";
-	$("interval_play_type").innerHTML = interval.play_type;	
+	//$("interval_play_type").innerHTML = interval.play_type;	
+
+	var img_color = model.darkmode ? "white" : "black"
+	if(interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING) {
+		$("interval_play_type_img").style.display = "block";
+		$("interval_play_type_img").src = "img/up_arrow_"+img_color+".svg";
+		$("interval_play_type").innerHTML = "";
+	}
+	else if (interval.play_type == INTERVAL_PLAY_TYPE.DESCENDING) {
+		$("interval_play_type_img").style.display = "block";
+		$("interval_play_type_img").src = "img/down_arrow_"+img_color+".svg";
+		$("interval_play_type").innerHTML = "";
+	} else {
+		$("interval_play_type_img").style.display = "none";
+		$("interval_play_type").innerHTML = "&";	
+	}
 	
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "flex";
@@ -870,6 +902,10 @@ function showChordAnswer(chord){
 	$("chord_name").innerHTML = chord.name;
 	$("chord_structure").innerHTML = chord.structure;
 	$("chord_octave").innerHTML = chord.octave_display;
+
+	$("note_display").style.display = "none";
+	$("interval_display").style.display = "none";
+	$("chord_display").style.display = "flex";
 
 	$("fretboard").style.display = "block";
 	$("answer_container").style.display = "block";

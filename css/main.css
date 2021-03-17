@@ -326,18 +326,18 @@ strong {
 
 
 .grid-container {
-    display: grid;
+    display: none;
     grid-template-columns: auto auto auto auto auto auto auto auto;
     padding: 5px;
     grid-column-gap: 5px;
     grid-row-gap: 5px;
 }
 
-#grid-container-interval-type {
+#grid-container-interval_types {
     grid-auto-flow: column;
     grid-template-columns: auto auto auto auto auto auto auto auto;
 }
-#grid-container-interval-play-type {
+#grid-container-interval_play_types {
     grid-template-columns: auto auto auto;
 }
 .grid-item {
@@ -686,9 +686,7 @@ button:hover {
 }
 #chord_name{
     
-    font-size: 100px;
-    text-align: center;
-    height: 100%;
+    font-size: 25px;
 }
 
 #note_display, #interval_display, #chord_display {
@@ -696,7 +694,7 @@ button:hover {
     font-size: 24px;
 }
 
-#note_display, #interval_display {
+#note_display, #interval_display, #chord_display {
   width: calc(100% - 30px);
   flex-direction: row;
   margin-right: 15px;
@@ -710,10 +708,16 @@ button:hover {
     margin-right: 12px;
 }
 
+#interval_play_type_img {
+    height: 25px;
+    width: 25px;
+    margin-top: 3px;
+}
+
 #interval_play_type{
-    font-size: 14px;
+    font-size: 18px;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 

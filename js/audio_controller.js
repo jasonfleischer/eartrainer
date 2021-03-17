@@ -181,9 +181,12 @@ audio_controller.play = function(){
 	
 	function step() {
 
-		if(isDurationExpired()) {
+		if(isDurationExpired() && (audio_controller.index % 2 != 0)) {
 			logE("force close")
 			clearInterval(audio_controller.timer_id);
+			forceStop();
+			update_UI_stopped();
+			hideAnswer();
 
 			return;
 		}
@@ -237,27 +240,32 @@ audio_controller.play = function(){
 }
 
 function play_audio_string_sequence(audio_string_array){
-	var audio_array = audio_controller.preloaded_audio;
+
+	//var audio_array = audio_controller.preloaded_audio;
 	var j;
 	for(j=0; j<audio_string_array.length; j++){
 		//var audio = document.createElement("AUDIO");
-		audio_array[j].setAttribute("src",audio_string_array[j]);
-		audio_array[j].volume = model.speak_volume;
+		audio_controller.preloaded_audio[j].setAttribute("src",audio_string_array[j]);
+		audio_controller.preloaded_audio[j].volume = model.speak_volume;
 	}
 
-	play_audio_sequence(audio_array);
-	function play_audio_sequence(audio_array){
+	var i = j;
+	for(i=0; i<audio_controller.preloaded_audio.length; i++) {
+		audio_controller.preloaded_audio[j].removeAttribute("src");
+	}
+
+	play_audio_sequence(audio_controller.preloaded_audio);
+	function play_audio_sequence(){
 		
 		var i = 0;
 		var repeat_function = function(){
-			
-			audio_array[i].removeEventListener("ended", repeat_function);
+
+			audio_controller.preloaded_audio[i].removeEventListener("ended", repeat_function);
 			i = i + 1;
 			
-			if(i < audio_array.length){
-
-				audio_array[i].addEventListener("ended", repeat_function);
-				audio_array[i].play()
+			if(i < audio_string_array.length){
+				audio_controller.preloaded_audio[i].addEventListener("ended", repeat_function);
+				audio_controller.preloaded_audio[i].play()
 			} 
 		}
 
@@ -266,12 +274,13 @@ function play_audio_string_sequence(audio_string_array){
 			audio_controller.preloaded_audio[j].removeEventListener("ended", repeat_function);
 		}
 
-		audio_array[i].addEventListener("ended", repeat_function);
-		audio_array[i].play();
+		audio_controller.preloaded_audio[i].addEventListener("ended", repeat_function);
+		audio_controller.preloaded_audio[i].play();
 	}
 }
 
 function playFile(file){
+	
 	var audio = audio_controller.preloaded_audio[0];
 	audio.setAttribute("src", file);
 	audio.volume = model.speak_volume;
