@@ -24,12 +24,7 @@ function init() {
 	setup_audio()
 	function setup_audio(){
 		audio_controller.init_sounds();
-		//click_controller.init();
-		//if(!window.mobileCheck()){
-			//drum_controller.init();
-		//}
 		midi_controller.init();
-
 	}
 
 	setup_controls();
@@ -56,18 +51,20 @@ function init() {
 	setup_keyboard_listeners();
 	setup_info_alert();
 	setup_settings_menu_on_click();
+	setup_left_column_hide_close();
 
 	if(window.mobileCheck()){
 		setup_mobile();
 	}
 
-	
-	/*time_view.init();*/
 	fretboard_view.init();
+
+
 	setup_darkmode_switch();
 	setup_bpm_controls();
 	show_hidden_views();
 
+	fretboard_view.resize($("answer_container").clientWidth - 25);
 }
 
 function setup_mobile(){
@@ -77,8 +74,11 @@ function setup_mobile(){
 
 function show_hidden_views(){
 	$("header").style.display = "block";
-	if(!is_compact_window())
+	if(!is_compact_window()) {
 		$("nav-side-menu").style.display = "block";
+		$("hide_show_left_column").style.display = "block";
+		
+	}
 	$("content_view").style.display = "block";
 }
 
@@ -100,6 +100,10 @@ function window_resized_start(){
 	//$("time_view_container").style.display = "none"; // hide
 	//$("status_msg").style.display = "none"; // hide
 	//$("nav-side-menu").style.display = "none"; // hide
+
+
+
+
 	dismissInfo();	
 }
 
@@ -109,10 +113,15 @@ function window_resized_end(){
 
 	if(is_compact_window()) {
 		hide_settings();
+		$("hide_show_left_column").style.display = "none";
+		$("content_view").style.paddingLeft = "0px";
 	} else {
 		$("nav-side-menu").style.display = "block";
 		$("kofi_button").style.display = "block";
 		$("info_button").style.display = "block";
+		$("hide_show_left_column").style.display = "block";
+		var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
+		$("content_view").style.paddingLeft = column_width;
 	}
 
 	if(audio_controller.playing){
@@ -120,6 +129,13 @@ function window_resized_end(){
 	} else {
 		$("status_msg").style.display = "block"; // show
 	}
+
+
+
+	fretboard_view.resize($("answer_container").clientWidth - 25);
+
+	//$("fretboard_background_canvas").width = 100;
+	//$("fretboard_canvas").width = 100;
 	//time_view.resize();
 	//time_view.draw_background();
 	
@@ -195,6 +211,28 @@ function setup_settings_menu_on_click(){
 	$("nav-menu-ul").addEventListener("click", function(event){
 		event.stopPropagation();
 		return false;
+	});
+}
+
+
+var is_left_column_showing = true;
+function setup_left_column_hide_close() {
+	$("hide_show_left_column").addEventListener("click", function(event){
+
+
+		if(is_left_column_showing){
+			$("nav-side-menu").style.display = "none";
+			$("content_view").style.paddingLeft = "0px";
+			$("hide_show_left_column_img").src = "img/right_chevron_" + (model.darkmode ? "white" : "black") +".svg"
+		}
+		else{
+			var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width");
+			$("nav-side-menu").style.display = "block";
+			$("content_view").style.paddingLeft = column_width;
+			$("hide_show_left_column_img").src = "img/left_chevron_" + (model.darkmode ? "white" : "black") +".svg"
+		}
+		fretboard_view.resize($("answer_container").clientWidth - 25)
+		is_left_column_showing = !is_left_column_showing
 	});
 }
 
@@ -709,7 +747,6 @@ function update_UI_duration(duration_in_MS){
 			return ""
 		}
 
-
 		function formattedSeconds(seconds){
 			seconds = parseInt(seconds)
 			if(seconds == 0) return ""
@@ -845,12 +882,8 @@ function showNoteAnswer(note){
 
 function update_UI_note(id_prefix, note) {
 
-	
 	$(id_prefix + "_name").innerHTML = note.note_name.name;
 	$(id_prefix + "_octave").innerHTML = note.octave;
-
-	//$(id_prefix + "_img").src = "img/zodiac/" + note.note_name.zodiac + ".png";
-	
 	$(id_prefix + "_color").style.backgroundColor = note.note_name.color;
 	//piano 21, 108
 	var gray_scale_percent = (note.note_value - 21) / (108 - 21)
@@ -937,6 +970,9 @@ function update_UI_darkmode(){
 			$("setting_button_svg").src = "img/gear_white.svg";
 		else 
 			$("setting_button_svg").src = "img/close_white.svg";
+
+
+		$("hide_show_left_column_img").src = "img/"+ (is_left_column_showing ? "left" : "right") +"_chevron_white.svg"
 	}
 
 	function setLightMode(){
@@ -953,5 +989,8 @@ function update_UI_darkmode(){
 			$("setting_button_svg").src = "img/gear_black.svg";
 		else 
 			$("setting_button_svg").src = "img/close_black.svg";
+
+		$("hide_show_left_column_img").src = "img/"+ (is_left_column_showing ? "left" : "right") +"_chevron_black.svg"
 	}
 }
+

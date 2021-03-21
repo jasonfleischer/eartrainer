@@ -12,7 +12,7 @@ function load_cookies(){
 
 	model.single_notes.enabled = cookies.get_single_notes(false);
 
-	model.interval.enabled = cookies.get_intervals(false);
+	model.interval.enabled = cookies.get_intervals(true);
 
 	if(cookies.get_minor_second(true))
 		model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
@@ -47,6 +47,11 @@ function load_cookies(){
 		model.interval.play_types.push(INTERVAL_PLAY_TYPE.HARMONIC)
 
 	model.chords.enabled = cookies.get_chords(true);
+
+	if(cookies.get_chords_harmonic(true))
+		model.chords.play_types.push(CHORD_PLAY_TYPE.HARMONIC)
+	if(cookies.get_chords_arpeggiate(false))
+		model.chords.play_types.push(CHORD_PLAY_TYPE.ARPEGGIATE)
 
 	model.darkmode = cookies.get_darkmode(true);
 	translations.current_language = cookies.get_language(LANGUAGE.ENGLISH);
@@ -282,18 +287,6 @@ cookies.set_interval_play_type = function(interval_play_type, value){
 	}
 }
 
-cookies.set_chord_play_type = function(play_type, value){
-	switch(play_type) {
-		case CHORD_PLAY_TYPE.ARPEGGIATE:
-			cookies.set_chords_arpeggiate(value);
-			break;
-		case CHORD_PLAY_TYPE.HARMONIC:
-			cookies.set_chords_harmonic(value);
-			break;
-	}
-}
-
-
 cookies.ASCENDING = "ASCENDING";
 cookies.get_ascending = function(default_value){
 	var value = cookies.getCookie(cookies.ASCENDING, default_value);
@@ -329,6 +322,35 @@ cookies.get_chords = function(default_value){
 };
 cookies.set_chords = function(value){
 	document.cookie = cookies.CHORDS + "=" + value;
+};
+
+cookies.set_chord_play_type = function(play_type, value){
+	switch(play_type) {
+		case CHORD_PLAY_TYPE.ARPEGGIATE:
+			cookies.set_chords_arpeggiate(value);
+			break;
+		case CHORD_PLAY_TYPE.HARMONIC:
+			cookies.set_chords_harmonic(value);
+			break;
+	}
+}
+
+cookies.ARPEGGIATE = "ARPEGGIATE";
+cookies.get_chords_arpeggiate = function(default_value){
+	var value = cookies.getCookie(cookies.ARPEGGIATE, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_arpeggiate = function(value){
+	document.cookie = cookies.ARPEGGIATE + "=" + value;
+};
+
+cookies.CHORDS_HARMONIC = "CHORDS_HARMONIC";
+cookies.get_chords_harmonic = function(default_value){
+	var value = cookies.getCookie(cookies.CHORDS_HARMONIC, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_harmonic = function(value){
+	document.cookie = cookies.CHORDS_HARMONIC + "=" + value;
 };
 
 /*cookies.TIME_SIGNATURE_KEY = "TIME_SIGNATURE_KEY";

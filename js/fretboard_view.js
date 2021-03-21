@@ -24,6 +24,19 @@ fretboard_view.init = function(){
 	this.draw_background();
 }
 
+fretboard_view.resize = function(newWidth) {
+	var newWidth = Math.min(newWidth, 1000);
+
+	var newHeight = newWidth * (230/1000);
+	$("fretboard").style.height = newHeight + "px";
+	$("fretboard_background_canvas").style.height = newHeight + "px";
+	$("fretboard_canvas").style.height = newHeight + "px";
+
+	$("fretboard").style.width = newWidth + "px";
+	$("fretboard_background_canvas").style.width = newWidth + "px";
+	$("fretboard_canvas").style.width = newWidth + "px";
+}
+
 class Point{
 	constructor(x, y){
 		this.x = x;

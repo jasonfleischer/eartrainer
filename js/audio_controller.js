@@ -187,6 +187,8 @@ audio_controller.play = function(){
 			forceStop();
 			update_UI_stopped();
 			hideAnswer();
+			if(model.speak)
+				playFile("audio/exercise_completed.mp3")
 
 			return;
 		}

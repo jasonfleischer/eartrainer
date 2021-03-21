@@ -62,9 +62,9 @@ html, body {
         height: calc(100vh - var(--header-height) );
     }
     #init_view{
-        position: absolute;
+        position: relative;
         overflow: hidden;
-        width: calc(100% - var(--left-column-width));
+        /*width: calc(100% - var(--left-column-width));*/
         height: 100%;  
     }
     #init_view p {
@@ -151,7 +151,7 @@ html, body {
         width: 100%;
     }
     #init_view{
-        position: absolute;
+        position: relative;
 
         overflow: hidden;
         width: 100%;
@@ -751,4 +751,26 @@ button:hover {
     left: 0;
     right: 0;
     margin: auto;
+}
+
+#hide_show_left_column {
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 52px;
+    bottom: 0;
+    margin-bottom: 4px;
+    border-width: 1px;
+    border-color: var(--tertiary-background-color);
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    background-color: var(--secondary-background-color);
+    border-radius: 0px 7px 7px 0px;
+}
+
+#hide_show_left_column_img {
+    width: 15px;
+    padding-top: 18px;
+    padding-left: 2px;
 }
