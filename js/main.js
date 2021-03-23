@@ -70,13 +70,15 @@ function init() {
 function setup_mobile(){
 	//model.tone = TONE.NORMAL;
 	//$("tone").style.display = "none";
+	$("hide_show_left_column").style.display = "none";
 }
 
 function show_hidden_views(){
 	$("header").style.display = "block";
 	if(!is_compact_window()) {
 		$("nav-side-menu").style.display = "block";
-		$("hide_show_left_column").style.display = "block";
+		if(window.mobileCheck())
+			$("hide_show_left_column").style.display = "block";
 		
 	}
 	$("content_view").style.display = "block";
@@ -116,12 +118,16 @@ function window_resized_end(){
 		$("hide_show_left_column").style.display = "none";
 		$("content_view").style.paddingLeft = "0px";
 	} else {
-		$("nav-side-menu").style.display = "block";
+		
 		$("kofi_button").style.display = "block";
 		$("info_button").style.display = "block";
 		$("hide_show_left_column").style.display = "block";
-		var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
-		$("content_view").style.paddingLeft = column_width;
+
+		if(is_left_column_showing) {
+			$("nav-side-menu").style.display = "block";
+			var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
+			$("content_view").style.paddingLeft = column_width;
+		}
 	}
 
 	if(audio_controller.playing){
@@ -221,11 +227,13 @@ function setup_left_column_hide_close() {
 
 
 		if(is_left_column_showing){
+			$("mobile_play_pause_button").style.display = "block";
 			$("nav-side-menu").style.display = "none";
 			$("content_view").style.paddingLeft = "0px";
 			$("hide_show_left_column_img").src = "img/right_chevron_" + (model.darkmode ? "white" : "black") +".svg"
 		}
 		else{
+			$("mobile_play_pause_button").style.display = "none";
 			var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width");
 			$("nav-side-menu").style.display = "block";
 			$("content_view").style.paddingLeft = column_width;
@@ -727,10 +735,10 @@ function update_UI_duration(duration_in_MS){
 	else {
 		var time_display =  " (" + human_readable_duration(duration_in_MS) + ")"
 		if (time_display == " ()"){ time_display = ""; }
-		new_text = (audio_controller.playing ? TR("Stop"): TR("Play")) + time_display;
+		new_text = (audio_controller.playing ? TR("Stop"): TR("Play")) + "<span id='play_pause_button_span'>" + time_display + "</span>" ;
 	}
 	$("play_pause_button").innerHTML = new_text
-	$("mobile_play_pause_button").innerHTML = new_text
+	//$("mobile_play_pause_button").innerHTML = new_text
 
 	function human_readable_duration(duration_in_MS){
 		var duration_in_seconds = duration_in_MS / 1000;
@@ -738,7 +746,8 @@ function update_UI_duration(duration_in_MS){
 			return formattedSeconds(duration_in_seconds);
 		} else if(duration_in_seconds < 60*60){
 			var mins = parseInt(duration_in_seconds/60)
-			return mins + " min " + formattedSeconds(duration_in_seconds - (mins*60))
+			var secs = duration_in_seconds - (mins*60)
+			return mins + " min" +  (secs==0?"":" ") + formattedSeconds(secs)
 		} else if (duration_in_seconds >= 60*60) {
 			var hours = parseInt(duration_in_seconds/60/60)
 			return hours + " hour"
@@ -750,8 +759,8 @@ function update_UI_duration(duration_in_MS){
 		function formattedSeconds(seconds){
 			seconds = parseInt(seconds)
 			if(seconds == 0) return ""
-			else if (seconds < 10) return "0"+seconds +" sec"
-			else return seconds+" sec"
+			else if (seconds < 10) return "0"+seconds +" s"
+			else return seconds+" s"
 		}
 	}
 }
