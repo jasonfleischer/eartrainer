@@ -369,6 +369,12 @@ fretboard_view.drawNote = function(note){
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, fretboard_view.WIDTH, fretboard_view.HEIGHT);
 
+	fretboard_view.drawNoteWithColor(note);
+}
+
+fretboard_view.drawNoteWithColor = function(note) {
+	var canvas = document.getElementById("fretboard_canvas");
+	var ctx = canvas.getContext("2d");
 	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value]
 
 	var i;
@@ -393,12 +399,37 @@ fretboard_view.drawInterval = function(interval){
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, fretboard_view.WIDTH, fretboard_view.HEIGHT);
 
-	var note_positions = fretboard_view.noteValueToNotePositionsDict[first_note.note_value];
+	fretboard_view.drawNoteWithColor(first_note);
+
+	// delay
+
+	setTimeout(() => {
+		var second_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.higher_note : interval.lower_note;
+		fretboard_view.drawNoteWithColor(second_note);
+	}, (interval.play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
+}
+
+fretboard_view.drawChord = function(chord){
+	var canvas = document.getElementById("fretboard_canvas");
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, fretboard_view.WIDTH, fretboard_view.HEIGHT);
+
+	var j;
+	for(j=0; j<chord.note_array.length; j++) {
+		var note = chord.note_array[j];
+		fretboard_view.drawNoteWithWhite(note);
+	}
+}
+
+fretboard_view.drawNoteWithWhite = function(note) {
+	var canvas = document.getElementById("fretboard_canvas");
+	var ctx = canvas.getContext("2d");
+	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value]
 
 	var i;
 	for( i=0; i<note_positions.length; i++)  {
 		ctx.beginPath();
-		ctx.fillStyle = first_note.note_name.color;
+		ctx.fillStyle = "#fff";//note.note_name.color;
 		ctx.strokeStyle = "#000";
 		ctx.lineWidth = 1;
 		ctx.arc(note_positions[i][0], note_positions[i][1], radius, 0, TWO_PI);
@@ -406,29 +437,4 @@ fretboard_view.drawInterval = function(interval){
 		ctx.fill();
 		ctx.stroke();
 	}
-
-	// delay
-
-	setTimeout(() => {
-		var second_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.higher_note : interval.lower_note;
-		note_positions = fretboard_view.noteValueToNotePositionsDict[second_note.note_value];
-
-		//var i;
-		for( i=0; i<note_positions.length; i++)  {
-			ctx.beginPath();
-			ctx.fillStyle = second_note.note_name.color;
-			ctx.strokeStyle = "#000";
-			ctx.lineWidth = 1;
-			ctx.arc(note_positions[i][0], note_positions[i][1], radius, 0, TWO_PI);
-
-			ctx.fill();
-			ctx.stroke();
-		}
-
-
-	}, (interval.play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
-}
-
-fretboard_view.drawChord = function(interval){
-
 }

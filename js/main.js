@@ -738,7 +738,7 @@ function update_UI_duration(duration_in_MS){
 		new_text = (audio_controller.playing ? TR("Stop"): TR("Play")) + "<span id='play_pause_button_span'>" + time_display + "</span>" ;
 	}
 	$("play_pause_button").innerHTML = new_text
-	//$("mobile_play_pause_button").innerHTML = new_text
+	$("mobile_play_pause_button").innerHTML = new_text
 
 	function human_readable_duration(duration_in_MS){
 		var duration_in_seconds = duration_in_MS / 1000;
@@ -943,7 +943,7 @@ function showChordAnswer(chord){
 
 	$("chord_name").innerHTML = chord.name;
 	$("chord_structure").innerHTML = chord.structure;
-	$("chord_octave").innerHTML = chord.octave_display;
+	$("chord_inversion").innerHTML = chord.inversion;
 
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "none";

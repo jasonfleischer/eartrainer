@@ -12,7 +12,7 @@ function load_cookies(){
 
 	model.single_notes.enabled = cookies.get_single_notes(false);
 
-	model.interval.enabled = cookies.get_intervals(true);
+	model.interval.enabled = cookies.get_intervals(false);
 
 	if(cookies.get_minor_second(true))
 		model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
