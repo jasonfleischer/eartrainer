@@ -1,5 +1,7 @@
 function load_cookies(){
 	model.duration = cookies.get_duration(DURATION.THIRTY_MINUTES);
+
+	
 	model.BPM = cookies.get_BPM(8);
 	model.volume = cookies.get_volume(0.1);//todo 1.0);
 	model.speak = cookies.get_speak(true);
@@ -47,6 +49,29 @@ function load_cookies(){
 		model.interval.play_types.push(INTERVAL_PLAY_TYPE.HARMONIC)
 
 	model.chords.enabled = cookies.get_chords(true);
+
+	if(cookies.get_chords_major(true))
+		model.chords.three_note_types.push(CHORD_TYPE.Major);
+	if(cookies.get_chords_minor(true))
+		model.chords.three_note_types.push(CHORD_TYPE.minor);
+	if(cookies.get_chords_augmented(false))
+		model.chords.three_note_types.push(CHORD_TYPE.Aug);
+	if(cookies.get_chords_diminished(false))
+		model.chords.three_note_types.push(CHORD_TYPE.Dim);
+	if(cookies.get_chords_major7(false))
+		model.chords.four_note_types.push(CHORD_TYPE.Major7);
+	if(cookies.get_chords_minor7(false))
+		model.chords.four_note_types.push(CHORD_TYPE.minor7);
+	if(cookies.get_chords_dominant7(false))
+		model.chords.four_note_types.push(CHORD_TYPE.Dom7);
+
+	if(cookies.get_chords_three_note_inversion_root(true))
+		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
+	if(cookies.get_chords_three_note_inversion_first(false))
+		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.First);
+	if(cookies.get_chords_three_note_inversion_second(false))
+		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
+
 
 	if(cookies.get_chords_harmonic(true))
 		model.chords.play_types.push(CHORD_PLAY_TYPE.HARMONIC)
@@ -322,6 +347,126 @@ cookies.get_chords = function(default_value){
 };
 cookies.set_chords = function(value){
 	document.cookie = cookies.CHORDS + "=" + value;
+};
+
+cookies.set_chord_three_note_type = function(type, value){
+	switch(type) {
+		case CHORD_TYPE.Major:
+			cookies.set_chords_major(value);
+			break;
+		case CHORD_TYPE.minor:
+			cookies.set_chords_minor(value);
+			break;
+		case CHORD_TYPE.Aug:
+			cookies.set_chords_augmented(value);
+			break;
+		case CHORD_TYPE.Dim:
+			cookies.set_chords_diminished(value);
+			break;
+		case CHORD_TYPE.Major7:
+			cookies.set_chords_major7(value);
+			break;
+		case CHORD_TYPE.minor7:
+			cookies.set_chords_minor7(value);
+			break;
+		case CHORD_TYPE.Dom7:
+			cookies.set_chords_dominant7(value);
+			break;
+	}
+}
+cookies.CHORD_MAJOR = "CHORD_MAJOR";
+cookies.get_chords_major = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_MAJOR, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_major = function(value){
+	document.cookie = cookies.CHORD_MAJOR + "=" + value;
+};
+cookies.CHORD_MINOR = "CHORD_MINOR";
+cookies.get_chords_minor = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_MINOR, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_minor = function(value){
+	document.cookie = cookies.CHORD_MINOR + "=" + value;
+};
+cookies.CHORD_AUG = "CHORD_AUG";
+cookies.get_chords_augmented = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_AUG, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_augmented = function(value){
+	document.cookie = cookies.CHORD_AUG + "=" + value;
+};
+cookies.CHORD_DIM = "CHORD_DIM";
+cookies.get_chords_diminished = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_DIM, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_diminished = function(value){
+	document.cookie = cookies.CHORD_DIM + "=" + value;
+};
+cookies.CHORD_MAJ7 = "CHORD_MAJ7";
+cookies.get_chords_major7 = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_MAJ7, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_major7 = function(value){
+	document.cookie = cookies.CHORD_MAJ7 + "=" + value;
+};
+cookies.CHORD_MIN7 = "CHORD_MIN7";
+cookies.get_chords_minor7 = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_MIN7, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_minor7 = function(value){
+	document.cookie = cookies.CHORD_MIN7 + "=" + value;
+};
+cookies.CHORD_DOM7 = "CHORD_DOM7";
+cookies.get_chords_dominant7 = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_DOM7, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_dominant7 = function(value){
+	document.cookie = cookies.CHORD_DOM7 + "=" + value;
+};
+
+cookies.set_chord_three_note_inversion_type = function(type, value){
+	switch(type) {
+		case CHORD_INVERSION_TYPE.Root:
+			cookies.set_chords_three_note_inversion_root(value);
+			break;
+		case CHORD_INVERSION_TYPE.First:
+			cookies.set_chords_three_note_inversion_first(value);
+			break;
+		case CHORD_INVERSION_TYPE.Second:
+			cookies.set_chords_three_note_inversion_second(value);
+			break;
+	}
+}
+cookies.CHORD_THREE_NOTE_ROOT = "CHORD_THREE_NOTE_ROOT";
+cookies.get_chords_three_note_inversion_root = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_THREE_NOTE_ROOT, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_three_note_inversion_root = function(value){
+	document.cookie = cookies.CHORD_THREE_NOTE_ROOT + "=" + value;
+};
+cookies.CHORD_THREE_NOTE_FIRST = "CHORD_THREE_NOTE_FIRST";
+cookies.get_chords_three_note_inversion_first = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_THREE_NOTE_FIRST, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_three_note_inversion_first = function(value){
+	document.cookie = cookies.CHORD_THREE_NOTE_FIRST + "=" + value;
+};
+cookies.CHORD_THREE_NOTE_SECOND = "CHORD_THREE_NOTE_SECOND";
+cookies.get_chords_three_note_inversion_second = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_THREE_NOTE_SECOND, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_three_note_inversion_second = function(value){
+	document.cookie = cookies.CHORD_THREE_NOTE_SECOND + "=" + value;
 };
 
 cookies.set_chord_play_type = function(play_type, value){

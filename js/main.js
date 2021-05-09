@@ -19,6 +19,7 @@ function init() {
 	build_all_notes();
 
 	load_cookies();
+
 	//translations.load();
 	
 	setup_audio()
@@ -42,6 +43,8 @@ function init() {
 		setup_interval_controls();
 
 		setup_chords_switch();
+		setup_chord_three_note_multiple_select();
+		setup_chord_three_note_inversion_multiple_select();
 		setup_chord_play_type_multiple_select();
 
 
@@ -535,6 +538,75 @@ function setup_interval_play_type_multiple_select() {
 	}
 }
 
+function setup_chord_three_note_multiple_select() {
+	var element_id_play_type_pairs = [	["grid-item-min", CHORD_TYPE.minor], 
+										["grid-item-maj", CHORD_TYPE.Major], 
+										["grid-item-aug", CHORD_TYPE.Aug], 
+										["grid-item-dim", CHORD_TYPE.Dim]];
+
+	for (i = 0; i < element_id_play_type_pairs.length; i++) {
+		var pair = element_id_play_type_pairs[i];
+		update_UI_chord_three_note_type(pair);
+		setupClickListener(pair);
+	}
+	function setupClickListener(pair){
+		var id = pair[0];
+		var type = pair[1];
+		$(id).addEventListener("click", function(e) {
+
+			var type_enabled = model.chords.three_note_types.includes(type)
+
+			if(model.chords.three_note_types.length == 1 && type_enabled) {
+				log("prevent no selection")
+				return;
+			}
+
+			if(type_enabled)
+				model.chords.three_note_types.remove(type);
+			else
+				model.chords.three_note_types.push(type);
+
+			log("on chords three_note_types change: " + model.chords.three_note_types);
+			cookies.set_chord_three_note_type(type, !type_enabled);
+			update_UI_chord_three_note_type(pair);
+		});
+	}
+}
+
+function setup_chord_three_note_inversion_multiple_select() {
+	var element_id_play_type_pairs = [	["grid-item-three_note_root", CHORD_INVERSION_TYPE.Root], 
+										["grid-item-three_note_first", CHORD_INVERSION_TYPE.First], 
+										["grid-item-three_note_second", CHORD_INVERSION_TYPE.Second]];
+
+	for (i = 0; i < element_id_play_type_pairs.length; i++) {
+		var pair = element_id_play_type_pairs[i];
+		update_UI_chord_three_note_inversion_type(pair);
+		setupClickListener(pair);
+	}
+	function setupClickListener(pair){
+		var id = pair[0];
+		var type = pair[1];
+		$(id).addEventListener("click", function(e) {
+
+			var type_enabled = model.chords.three_note_inversion_types.includes(type)
+
+			if(model.chords.three_note_inversion_types.length == 1 && type_enabled) {
+				log("prevent no selection")
+				return;
+			}
+
+			if(type_enabled)
+				model.chords.three_note_inversion_types.remove(type);
+			else
+				model.chords.three_note_inversion_types.push(type);
+
+			log("on chords three_note_inversion_types change: " + model.chords.three_note_inversion_types);
+			cookies.set_chord_three_note_inversion_type(type, !type_enabled);
+			update_UI_chord_three_note_inversion_type(pair);
+		});
+	}
+}
+
 function setup_chord_play_type_multiple_select() {
 	var element_id_play_type_pairs = [	["grid-item-chord-harmonic", CHORD_PLAY_TYPE.HARMONIC], 
 										["grid-item-chord-arpeggiate", CHORD_PLAY_TYPE.ARPEGGIATE]];
@@ -827,6 +899,42 @@ function update_UI_chord_play_type(pair) {
 		$(id).classList.remove("enabled");
 }
 
+function update_UI_chord_three_note_type(pair) {
+	var id = pair[0];
+	var type = pair[1];
+	if(model.chords.three_note_types.includes(type))
+		$(id).classList.add("enabled");
+	else
+		$(id).classList.remove("enabled");
+}
+
+function update_UI_chord_three_note_inversion_type(pair) {
+	var id = pair[0];
+	var type = pair[1];
+	if(model.chords.three_note_inversion_types.includes(type))
+		$(id).classList.add("enabled");
+	else
+		$(id).classList.remove("enabled");
+}
+
+function update_UI_chord_four_note_type(pair) {
+	var id = pair[0];
+	var type = pair[1];
+	if(model.chords.four_note_types.includes(type))
+		$(id).classList.add("enabled");
+	else
+		$(id).classList.remove("enabled");
+}
+
+function update_UI_chord_four_note_inversion_type(pair) {
+	var id = pair[0];
+	var type = pair[1];
+	if(model.chords.four_note_inversion_tpes.includes(type))
+		$(id).classList.add("enabled");
+	else
+		$(id).classList.remove("enabled");
+}
+
 function update_UI_tone(){
 	$("accent_first_beat").style.display = (model.tone == TONE.NORMAL || model.tone == TONE.DRUM) ? "block" : "none";
 	$("status_msg").innerHTML = model.tone == TONE.TALKING ? TR("Configure then press 'Play' to begin. Talking setting works best at lower BPMs.") : TR("Configure then press 'Play' to begin");
@@ -942,8 +1050,8 @@ function showIntervalAnswer(interval){
 function showChordAnswer(chord){
 
 	$("chord_name").innerHTML = chord.name;
-	$("chord_structure").innerHTML = chord.structure;
-	$("chord_inversion").innerHTML = chord.inversion;
+	$("chord_structure").innerHTML = "(" + chord.structure + ")";
+	$("chord_inversion").innerHTML = "Inversion: " + chord.inversion ;
 
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "none";

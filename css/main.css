@@ -364,11 +364,11 @@ strong {
 #grid-container-chords_three_note {
     grid-template-rows: auto auto;
 }
-#grid-item-min {
+#grid-item-maj  {
     grid-column-start: 1;
     grid-column-end: 4;
 }
-#grid-item-maj{
+#grid-item-min{
     grid-column-start: 4;
     grid-column-end: 7;
 }
@@ -396,11 +396,11 @@ strong {
 #grid-container-chords_four_note {
     grid-template-rows: auto auto;
 }
-#grid-item-min-seventh {
+#grid-item-Maj-seventh {
     grid-column-start: 1;
     grid-column-end: 5;
 }
-#grid-item-Maj-seventh {
+#grid-item-min-seventh {
     grid-column-start: 5;
     grid-column-end: 9;
 }
@@ -494,7 +494,7 @@ button:hover {
 #play_pause_button_span {
     margin-left: 5px;
     font-size: 14px;
-    color: var(--tertiary-background-color);
+    color: #077bff;
 }
 
 #header {
@@ -726,6 +726,17 @@ button:hover {
     margin-top: 6px;
 }
 
+#chord_structure {
+    font-size: 18px;
+    margin-left: 5px;
+    margin-top: 6px;
+}
+#chord_inversion {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-top: 6px;
+}
+
 
 
 #note_octave, #first_note_octave, #second_note_octave {
@@ -780,3 +791,4 @@ button:hover {
     padding-top: 18px;
     padding-left: 2px;
 }
+                          

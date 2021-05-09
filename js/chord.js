@@ -2,11 +2,12 @@
 const CHORD_TYPE = Object.freeze({
 	Major: "Major",
 	minor: "minor",
- // Aug: "augmented",
- // Dim: "diminished",
+  Aug: "augmented",
+  Dim: "diminished",
+
 	Major7: "Major 7",
-  minor7: "minor 7"//,
- // Dom7: "Dominant 7"
+  minor7: "minor 7",
+  Dom7: "Dominant 7"
 });
 
 const CHORD_INVERSION_TYPE = Object.freeze({
@@ -20,7 +21,7 @@ const CHORD_PLAY_TYPE = Object.freeze({
     HARMONIC: "Harmonic",
     ARPEGGIATE: "Arpeggiate"
 });
-const ALL_CHORD_TYPES = [CHORD_TYPE.Major, CHORD_TYPE.Minor, CHORD_TYPE.Major7, CHORD_TYPE.Minor7];
+const ALL_CHORD_TYPES = [CHORD_TYPE.Major, CHORD_TYPE.minor, CHORD_TYPE.Major7, CHORD_TYPE.minor7];
 
 
 class Chord {
@@ -35,21 +36,25 @@ class Chord {
     switch(chord_type){
     	case CHORD_TYPE.Major:
     		this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7]];
+        this.note_labels = ["R", "M3", "5"];
         this.structure = "Root, Major 3rd, Fifth";
         this.file_name = [ root_note.note_name.file_name, "audio/chords/major.mp3" ];
     		break;
     	case CHORD_TYPE.minor:
     		this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7]];
+        this.note_labels = ["R", "m3", "5"];
         this.structure = "Root, minor 3rd, Fifth";
         this.file_name = [ root_note.note_name.file_name, "audio/chords/minor.mp3" ];
     		break;
     	case CHORD_TYPE.Major7:
     		this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 11]];
-    		this.structure = "Root, Major 3rd, Fifth, Major 7th";
+    		this.note_labels = ["R", "M3", "5", "M7"];
+        this.structure = "Root, Major 3rd, Fifth, Major 7th";
         this.file_name = [ root_note.note_name.file_name, "audio/chords/major_seventh.mp3" ];
         break;
       case CHORD_TYPE.minor7:
         this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10]];
+        this.note_labels = ["R", "m3", "5", "m7"];
         this.structure = "Root, minor 3rd, Fifth, minor 7th";
         this.file_name = [ root_note.note_name.file_name, "audio/chords/minor_seventh.mp3" ];
         break;
@@ -68,15 +73,15 @@ function type_is_three_notes(chord_type) {
 
 function generate_random_chord(min, max){
 
-  var random_note = generate_random_note(min, max);
+  var random_note = generate_random_note(min, max-12);
   var random_chord_type = ALL_CHORD_TYPES[ randomIntFromInterval(0, ALL_CHORD_TYPES.length-1) ];
 
-  var rand = randomIntFromInterval(0,model.chords.types.length-1);
+  /*var rand = randomIntFromInterval(0,model.chords.types.length-1);
   var type = model.chords.types[rand];
 
   rand = randomIntFromInterval(0,model.chords.play_types.length-1);
   var play_type = model.chords.play_types[rand];
-
+*/
 
   var play_type = CHORD_PLAY_TYPE.HARMONIC;
   var inversion = CHORD_INVERSION_TYPE.Root;

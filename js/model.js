@@ -65,8 +65,9 @@ var model = {
 	},
 	chords: {
 		enabled: false,
-		types: [],
+		three_note_types: [],
 		three_note_inversion_types: [],
+		four_note_types: [],
 		four_note_inversion_tpes: [],
 		play_types: [] 
 	},
