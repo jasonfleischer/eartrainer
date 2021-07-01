@@ -20,14 +20,8 @@ function isDurationExpired(){
 	function isDurationInfinte(){
 		return model.duration == DURATION.INFINITE;
 	}
-
 	function getDurationInMS(){
-		if (isDurationInfinte()){
-			logE("Infinte duration has no MS")
-			return DURATION.SIXTY_MINUTES;
-		} else {
-			return model.duration * 60000;
-		}
+		return model.duration * 60000;
 	}
 }
 

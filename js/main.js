@@ -45,6 +45,8 @@ function init() {
 		setup_chords_switch();
 		setup_chord_three_note_multiple_select();
 		setup_chord_three_note_inversion_multiple_select();
+		setup_chord_four_note_multiple_select();
+		setup_chord_four_note_inversion_multiple_select();
 		setup_chord_play_type_multiple_select();
 
 
@@ -556,7 +558,7 @@ function setup_chord_three_note_multiple_select() {
 
 			var type_enabled = model.chords.three_note_types.includes(type)
 
-			if(model.chords.three_note_types.length == 1 && type_enabled) {
+			if((model.chords.three_note_types.length + model.chords.four_note_types.length) == 1 && type_enabled) {
 				log("prevent no selection")
 				return;
 			}
@@ -603,6 +605,76 @@ function setup_chord_three_note_inversion_multiple_select() {
 			log("on chords three_note_inversion_types change: " + model.chords.three_note_inversion_types);
 			cookies.set_chord_three_note_inversion_type(type, !type_enabled);
 			update_UI_chord_three_note_inversion_type(pair);
+		});
+	}
+}
+
+function setup_chord_four_note_multiple_select() {
+	var element_id_play_type_pairs = [	["grid-item-maj-seventh", CHORD_TYPE.Major7], 
+										["grid-item-min-seventh", CHORD_TYPE.minor7], 
+										["grid-item-dominant-seventh", CHORD_TYPE.Dom7]];
+
+	for (i = 0; i < element_id_play_type_pairs.length; i++) {
+		var pair = element_id_play_type_pairs[i];
+		update_UI_chord_four_note_type(pair);
+		setupClickListener(pair);
+	}
+	function setupClickListener(pair){
+		var id = pair[0];
+		var type = pair[1];
+		$(id).addEventListener("click", function(e) {
+
+			var type_enabled = model.chords.four_note_types.includes(type)
+
+			if((model.chords.three_note_types.length + model.chords.four_note_types.length) == 1 && type_enabled) {
+				log("prevent no selection")
+				return;
+			}
+
+			if(type_enabled)
+				model.chords.four_note_types.remove(type);
+			else
+				model.chords.four_note_types.push(type);
+
+			log("on chords four_note_types change: " + model.chords.four_note_types);
+			cookies.set_chord_four_note_type(type, !type_enabled);
+			update_UI_chord_four_note_type(pair);
+		});
+	}
+}
+
+
+function setup_chord_four_note_inversion_multiple_select() {
+	var element_id_play_type_pairs = [	["grid-item-four_note_root", CHORD_INVERSION_TYPE.Root], 
+										["grid-item-four_note_first", CHORD_INVERSION_TYPE.First], 
+										["grid-item-four_note_second", CHORD_INVERSION_TYPE.Second],
+										["grid-item-four_note_third", CHORD_INVERSION_TYPE.Third]];
+
+	for (i = 0; i < element_id_play_type_pairs.length; i++) {
+		var pair = element_id_play_type_pairs[i];
+		update_UI_chord_four_note_inversion_type(pair);
+		setupClickListener(pair);
+	}
+	function setupClickListener(pair){
+		var id = pair[0];
+		var type = pair[1];
+		$(id).addEventListener("click", function(e) {
+
+			var type_enabled = model.chords.four_note_inversion_types.includes(type)
+
+			if(model.chords.four_note_inversion_types.length == 1 && type_enabled) {
+				log("prevent no selection")
+				return;
+			}
+
+			if(type_enabled)
+				model.chords.four_note_inversion_types.remove(type);
+			else
+				model.chords.four_note_inversion_types.push(type);
+
+			log("on chords four_note_inversion_types change: " + model.chords.four_note_inversion_types);
+			cookies.set_chord_four_note_inversion_type(type, !type_enabled);
+			update_UI_chord_four_note_inversion_type(pair);
 		});
 	}
 }
@@ -906,6 +978,14 @@ function update_UI_chord_three_note_type(pair) {
 		$(id).classList.add("enabled");
 	else
 		$(id).classList.remove("enabled");
+
+	var inversionIds = ["grid-item-three_note_root",
+						"grid-item-three_note_first",
+						"grid-item-three_note_second"];
+	var i;
+	for (i = 0; i < inversionIds.length; i++) {
+		$(inversionIds[i]).style.display = (model.chords.three_note_types.length == 0 ? "none" : "block");
+	}
 }
 
 function update_UI_chord_three_note_inversion_type(pair) {
@@ -924,12 +1004,20 @@ function update_UI_chord_four_note_type(pair) {
 		$(id).classList.add("enabled");
 	else
 		$(id).classList.remove("enabled");
+	var inversionIds = ["grid-item-four_note_root",
+						"grid-item-four_note_first",
+						"grid-item-four_note_second",
+						"grid-item-four_note_third"];
+	var i;
+	for (i = 0; i < inversionIds.length; i++) {
+		$(inversionIds[i]).style.display = (model.chords.four_note_types.length == 0 ? "none" : "block");
+	}
 }
 
 function update_UI_chord_four_note_inversion_type(pair) {
 	var id = pair[0];
 	var type = pair[1];
-	if(model.chords.four_note_inversion_tpes.includes(type))
+	if(model.chords.four_note_inversion_types.includes(type))
 		$(id).classList.add("enabled");
 	else
 		$(id).classList.remove("enabled");
@@ -965,11 +1053,7 @@ function startDurationTimer(){
 function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
-	//$("play_pause_button").innerHTML = TR("Play");
-	//$("mobile_play_pause_button").innerHTML = TR("Play");
-	//$("count_text").innerHTML = "\xa0";
 	$("init_view").style.display = "block"; // show
-	//time_view.stop();
 	hideAnswer();
 	stopDurationTimer();
 }

@@ -72,6 +72,21 @@ function load_cookies(){
 	if(cookies.get_chords_three_note_inversion_second(false))
 		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
 
+	if(cookies.get_chords_major_seven(false))
+		model.chords.four_note_types.push(CHORD_TYPE.Major7);
+	if(cookies.get_chords_minor_seven(false))
+		model.chords.four_note_types.push(CHORD_TYPE.minor7);
+	if(cookies.get_chords_dominant_seven(false))
+		model.chords.four_note_types.push(CHORD_TYPE.Dom7);
+
+	if(cookies.get_chords_four_note_inversion_root(true))
+		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
+	if(cookies.get_chords_four_note_inversion_first(false))
+		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.First);
+	if(cookies.get_chords_four_note_inversion_second(false))
+		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
+	if(cookies.get_chords_four_note_inversion_second(false))
+		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Third);
 
 	if(cookies.get_chords_harmonic(true))
 		model.chords.play_types.push(CHORD_PLAY_TYPE.HARMONIC)
@@ -469,6 +484,105 @@ cookies.set_chords_three_note_inversion_second = function(value){
 	document.cookie = cookies.CHORD_THREE_NOTE_SECOND + "=" + value;
 };
 
+
+///
+
+cookies.set_chord_four_note_type = function(type, value){
+	switch(type) {
+		case CHORD_TYPE.Major7:
+			cookies.set_chords_major_seven(value);
+			break;
+		case CHORD_TYPE.minor7:
+			cookies.set_chords_minor_seven(value);
+			break;
+		case CHORD_TYPE.Dom7:
+			cookies.set_chords_dominant_seven(value);
+			break;
+	}
+}
+cookies.CHORD_MAJOR_SEVEN = "CHORD_MAJOR_SEVEN";
+cookies.get_chords_major_seven = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_MAJOR_SEVEN, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_major_seven = function(value){
+	document.cookie = cookies.CHORD_MAJOR_SEVEN + "=" + value;
+};
+cookies.CHORD_MINOR_SEVEN = "CHORD_MINOR_SEVEN";
+cookies.get_chords_minor_seven = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_MINOR_SEVEN, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_minor_seven = function(value){
+	document.cookie = cookies.CHORD_MINOR_SEVEN + "=" + value;
+};
+cookies.CHORD_DOM_SEVEN = "CHORD_DOM_SEVEN";
+cookies.get_chords_dominant_seven = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_DOM_SEVEN, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_dominant_seven = function(value){
+	document.cookie = cookies.CHORD_DOM_SEVEN + "=" + value;
+};
+
+cookies.set_chord_four_note_inversion_type = function(type, value){
+	switch(type) {
+		case CHORD_INVERSION_TYPE.Root:
+			cookies.set_chords_four_note_inversion_root(value);
+			break;
+		case CHORD_INVERSION_TYPE.First:
+			cookies.set_chords_four_note_inversion_first(value);
+			break;
+		case CHORD_INVERSION_TYPE.Second:
+			cookies.set_chords_four_note_inversion_second(value);
+			break;
+		case CHORD_INVERSION_TYPE.Third:
+			cookies.set_chords_four_note_inversion_second(value);
+			break;
+	}
+}
+cookies.CHORD_FOUR_NOTE_ROOT = "CHORD_FOUR_NOTE_ROOT";
+cookies.get_chords_four_note_inversion_root = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_FOUR_NOTE_ROOT, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_four_note_inversion_root = function(value){
+	document.cookie = cookies.CHORD_FOUR_NOTE_ROOT + "=" + value;
+};
+cookies.CHORD_FOUR_NOTE_FIRST = "CHORD_FOUR_NOTE_FIRST";
+cookies.get_chords_four_note_inversion_first = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_FOUR_NOTE_FIRST, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_four_note_inversion_first = function(value){
+	document.cookie = cookies.CHORD_FOUR_NOTE_FIRST + "=" + value;
+};
+cookies.CHORD_FOUR_NOTE_SECOND = "CHORD_FOUR_NOTE_SECOND";
+cookies.get_chords_four_note_inversion_second = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_FOUR_NOTE_SECOND, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_four_note_inversion_second = function(value){
+	document.cookie = cookies.CHORD_FOUR_NOTE_SECOND + "=" + value;
+};
+cookies.CHORD_FOUR_NOTE_THIRD = "CHORD_FOUR_NOTE_THIRD";
+cookies.get_chords_four_note_inversion_second = function(default_value){
+	var value = cookies.getCookie(cookies.CHORD_FOUR_NOTE_THIRD, default_value);
+	return Boolean(value === "true" || value === true);
+};
+cookies.set_chords_four_note_inversion_second = function(value){
+	document.cookie = cookies.CHORD_FOUR_NOTE_THIRD + "=" + value;
+};
+
+
+///
+
+
+
+
+
+
+
 cookies.set_chord_play_type = function(play_type, value){
 	switch(play_type) {
 		case CHORD_PLAY_TYPE.ARPEGGIATE:
@@ -479,7 +593,6 @@ cookies.set_chord_play_type = function(play_type, value){
 			break;
 	}
 }
-
 cookies.ARPEGGIATE = "ARPEGGIATE";
 cookies.get_chords_arpeggiate = function(default_value){
 	var value = cookies.getCookie(cookies.ARPEGGIATE, default_value);
@@ -488,7 +601,6 @@ cookies.get_chords_arpeggiate = function(default_value){
 cookies.set_chords_arpeggiate = function(value){
 	document.cookie = cookies.ARPEGGIATE + "=" + value;
 };
-
 cookies.CHORDS_HARMONIC = "CHORDS_HARMONIC";
 cookies.get_chords_harmonic = function(default_value){
 	var value = cookies.getCookie(cookies.CHORDS_HARMONIC, default_value);

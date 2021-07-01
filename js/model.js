@@ -12,7 +12,7 @@ const INSTRUMENT = Object.freeze({
 });
 
 const DURATION = Object.freeze({
-    ONE_MINUTE: 1,
+    FIVE_MINUTE: 1,
     TEN_MINUTES: 10,
     FIFTEEN_MINUTES: 15,
     TWENTY_MINUTES: 20,
@@ -68,7 +68,7 @@ var model = {
 		three_note_types: [],
 		three_note_inversion_types: [],
 		four_note_types: [],
-		four_note_inversion_tpes: [],
+		four_note_inversion_types: [],
 		play_types: [] 
 	},
 

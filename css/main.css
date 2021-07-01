@@ -396,7 +396,7 @@ strong {
 #grid-container-chords_four_note {
     grid-template-rows: auto auto;
 }
-#grid-item-Maj-seventh {
+#grid-item-maj-seventh {
     grid-column-start: 1;
     grid-column-end: 5;
 }
