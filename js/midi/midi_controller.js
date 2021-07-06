@@ -57,12 +57,13 @@ midi_controller.playInterval = function(interval, duration_in_sec = 3.5) {
 
 midi_controller.playChord = function(chord, duration_in_sec = 3.5) {
 
+	var delay = this.audioContext.currentTime;
 	var i;
-
-	var delay_between_notes = this.audioContext.currentTime + (chord.delay_in_ms / 1000);
-
 	for(i = 0 ; i <chord.note_array.length; i++){
 		var note = chord.note_array[i];
-		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, this.audioContext.currentTime, note.note_value, this.duration_in_sec, model.volume);
-	}
+		this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, delay, note.note_value, this.duration_in_sec, model.volume);
+		if(chord.play_type == CHORD_PLAY_TYPE.ARPEGGIATE) {
+			delay = delay + (chord.delay_in_ms / 1000);
+		}
+	}	
 }
