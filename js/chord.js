@@ -36,25 +36,48 @@ class Chord {
 
     switch(chord_type){
     	case CHORD_TYPE.Major:
-    		this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7]];
-        this.note_labels = ["R", "M3", "5"];
-        this.structure = "Root, Major 3rd, Fifth";
+        if(this.inversion == CHORD_INVERSION_TYPE.Root) {
+    		  this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7]];
+          this.note_labels = ["R", "M3", "5"];
+          this.structure = "Root, Major 3rd, Fifth";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.First){
+          this.note_array = [all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 12]];
+          this.note_labels = ["M3", "5", "R"];
+          this.structure = "Major 3rd, Fifth, Root";
+        } else {
+          this.note_array = [all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 16]];
+          this.note_labels = ["5", "R", "M3"];
+          this.structure = "Fifth, Root, Major 3rd"; 
+        }
         this.file_name = [ root_note.note_name.file_name, "audio/chords/major.mp3" ];
     		break;
     	case CHORD_TYPE.minor:
-    		this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7]];
-        this.note_labels = ["R", "m3", "5"];
-        this.structure = "Root, minor 3rd, Fifth";
+        if(this.inversion == CHORD_INVERSION_TYPE.Root) {
+          this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7]];
+          this.note_labels = ["R", "m3", "5"];
+          this.structure = "Root, minor 3rd, Fifth";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.First){
+          this.note_array = [all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 12]];
+          this.note_labels = ["m3", "5", "R"];
+          this.structure = "minor 3rd, Fifth, Root";
+        } else {
+          this.note_array = [all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 15]];
+          this.note_labels = ["5", "R", "m3"];
+          this.structure = "Fifth, Root, minor 3rd"; 
+        }
+    		
         this.file_name = [ root_note.note_name.file_name, "audio/chords/minor.mp3" ];
     		break;
 
       case CHORD_TYPE.Aug:
+        this.inversion = CHORD_INVERSION_TYPE.Root;
         this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 8]];
         this.note_labels = ["R", "M3", "#5"];
         this.structure = "Root, Major 3rd, Sharp Fifth";
         this.file_name = [ root_note.note_name.file_name, "audio/chords/augmented.mp3" ];
         break;
       case CHORD_TYPE.Dim:
+        this.inversion = CHORD_INVERSION_TYPE.Root;
         this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 6]];
         this.note_labels = ["R", "m3", "b5"];
         this.structure = "Root, minor 3rd, Flat Fifth";
@@ -62,22 +85,68 @@ class Chord {
         break;
 
     	case CHORD_TYPE.Major7:
-    		this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 11]];
-    		this.note_labels = ["R", "M3", "5", "M7"];
-        this.structure = "Root, Major 3rd, Fifth, Major 7th";
+
+        if(this.inversion == CHORD_INVERSION_TYPE.Root) {
+          this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 11]];
+          this.note_labels = ["R", "M3", "5", "M7"];
+          this.structure = "Root, Major 3rd, Fifth, Major 7th";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.First){
+          this.note_array = [all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 11], all_notes[root_note.note_value + 12]];
+          this.note_labels = ["M3", "5", "M7", "R"];
+          this.structure = "Major 3rd, Fifth, Major 7th, Root";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.Second){
+          this.note_array = [all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 11], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 16]];
+          this.note_labels = ["5", "M7", "R", "M3"];
+          this.structure = "Fifth, Major 7th, Root, Major 3rd";
+        } else {
+          this.note_array = [all_notes[root_note.note_value + 11], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 16], all_notes[root_note.note_value + 19]];
+          this.note_labels = ["M7", "R", "M3", "5"];
+          this.structure = "Major 7th, Root, Major 3rd, Fifth";
+        }
         this.file_name = [ root_note.note_name.file_name, "audio/chords/major_seventh.mp3" ];
         break;
       case CHORD_TYPE.minor7:
-        this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10]];
-        this.note_labels = ["R", "m3", "5", "m7"];
-        this.structure = "Root, minor 3rd, Fifth, minor 7th";
+
+
+        if(this.inversion == CHORD_INVERSION_TYPE.Root) {
+          this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10]];
+          this.note_labels = ["R", "m3", "5", "m7"];
+          this.structure = "Root, minor 3rd, Fifth, minor 7th";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.First){
+          this.note_array = [all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10], all_notes[root_note.note_value + 12]];
+          this.note_labels = ["m3", "5", "m7", "R"];
+          this.structure = "minor 3rd, Fifth, minor 7th, Root";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.Second){
+          this.note_array = [all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 15]];
+          this.note_labels = ["5", "m7", "R", "m3"];
+          this.structure = "Fifth, minor 7th, Root, minor 3rd";
+        } else {
+          this.note_array = [all_notes[root_note.note_value + 10], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 15], all_notes[root_note.note_value + 19]];
+          this.note_labels = ["m7", "R", "m3", "5"];
+          this.structure = "minor 7th, Root, minor 3rd, Fifth";
+        }
         this.file_name = [ root_note.note_name.file_name, "audio/chords/minor_seventh.mp3" ];
         break;
 
       case CHORD_TYPE.Dom7:
-        this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10]];
-        this.note_labels = ["R", "M3", "5", "7"];
-        this.structure = "Root, Major 3rd, Fifth, 7th";
+        
+        if(this.inversion == CHORD_INVERSION_TYPE.Root) {
+          this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10]];
+          this.note_labels = ["R", "M3", "5", "7"];
+          this.structure = "Root, Major 3rd, Fifth, 7th";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.First){
+          this.note_array = [all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10], all_notes[root_note.note_value + 12]];
+          this.note_labels = ["M3", "5", "7", "R"];
+          this.structure = "Major 3rd, Fifth, 7th, Root";
+        } else if (this.inversion == CHORD_INVERSION_TYPE.Second){
+          this.note_array = [all_notes[root_note.note_value + 7], all_notes[root_note.note_value + 10], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 16]];
+          this.note_labels = ["5", "7", "R", "M3"];
+          this.structure = "Fifth, 7th, Root, Major 3rd";
+        } else {
+          this.note_array = [all_notes[root_note.note_value + 10], all_notes[root_note.note_value + 12], all_notes[root_note.note_value + 16], all_notes[root_note.note_value + 19]];
+          this.note_labels = ["7", "R", "M3", "5"];
+          this.structure = "7th, Root, Major 3rd, Fifth";
+        }
         this.file_name = [ root_note.note_name.file_name, "audio/chords/dominant_seventh.mp3" ];
         break;
 
@@ -106,23 +175,19 @@ function generate_random_chord(min, max){
     chord_array = model.chords.three_note_types.concat(model.chords.four_note_types);
   }
 
-
-  var random_note = generate_random_note(min, max-12);
+  var random_note = generate_random_note(min, max-18);// hack so it doesn't go out of bounds
   var random_chord_type = chord_array[ randomIntFromInterval(0, chord_array.length-1) ];
-
-  /*var rand = randomIntFromInterval(0,model.chords.types.length-1);
-  var type = model.chords.types[rand];
-
-  rand = randomIntFromInterval(0,model.chords.play_types.length-1);
-  var play_type = model.chords.play_types[rand];
-*/
 
   var play_type = model.chords.play_types[ randomIntFromInterval(0, model.chords.play_types.length-1) ];
   var inversion = CHORD_INVERSION_TYPE.Root;
+  if (type_is_three_notes(random_chord_type)){
+    inversion = model.chords.three_note_inversion_types[ randomIntFromInterval(0, model.chords.three_note_inversion_types.length-1) ];
+  } else{
+    inversion = model.chords.four_note_inversion_types[ randomIntFromInterval(0, model.chords.four_note_inversion_types.length-1) ];
+  }
   var random_chord = new Chord(random_note, random_chord_type, play_type, inversion);
 
   return random_chord;
-
 }
 
 

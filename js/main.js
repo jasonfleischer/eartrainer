@@ -1135,7 +1135,7 @@ function showChordAnswer(chord){
 
 	$("chord_name").innerHTML = chord.name;
 	$("chord_structure").innerHTML = "(" + chord.structure + ")";
-	$("chord_inversion").innerHTML = "Inversion: " + chord.inversion ;
+	$("chord_inversion").innerHTML = (chord.inversion == CHORD_INVERSION_TYPE.Root) ? "" : chord.inversion ;
 
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "none";

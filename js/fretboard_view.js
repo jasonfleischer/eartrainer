@@ -437,7 +437,7 @@ fretboard_view.drawNote = function(note){
 	fretboard_view.drawNoteWithColor(note);
 }
 
-fretboard_view.drawNoteWithColor = function(note) {
+fretboard_view.drawNoteWithColor = function(note, label) {
 	var canvas = document.getElementById("fretboard_canvas");
 	var ctx = canvas.getContext("2d");
 	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value]
@@ -452,6 +452,12 @@ fretboard_view.drawNoteWithColor = function(note) {
 
 		ctx.fill();
 		ctx.stroke();
+
+		ctx.fillStyle = 'black';
+    	ctx.font = radius + 'px san-serif';
+    	ctx.textAlign = 'center';
+    	ctx.fillText(label, note_positions[i][0], note_positions[i][1]+radius*.3, radius*2);
+
 	}
 }
 
@@ -484,8 +490,8 @@ fretboard_view.drawChord = function(chord){
 		var note = chord.note_array[j];
 		var label = chord.note_labels[j]
 		fretboard_view.drawNotePlaceholder(note, label);
-		if (j==0){
-			fretboard_view.drawNoteWithColor(note);
+		if (label == 'R'){
+			fretboard_view.drawNoteWithColor(note, label);
 		} else {
 			fretboard_view.drawNoteWithWhite(note, label);
 		}
