@@ -94,7 +94,6 @@ function load_cookies(){
 		model.chords.play_types.push(CHORD_PLAY_TYPE.ARPEGGIATE)
 
 	model.darkmode = cookies.get_darkmode(true);
-	translations.current_language = cookies.get_language(LANGUAGE.ENGLISH);
 }
 
 var cookies = {};

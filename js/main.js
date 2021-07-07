@@ -114,6 +114,10 @@ function window_resized_start(){
 	dismissInfo();	
 }
 
+function TR(translation) {
+	return translation
+}
+
 function window_resized_end(){
 
 	window_resize_start_event_occured = false;
