@@ -49,7 +49,7 @@ class Chord {
           this.note_labels = ["5", "R", "M3"];
           this.structure = "Fifth, Root, Major 3rd"; 
         }
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/major.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/major.mp3"]);
     		break;
     	case CHORD_TYPE.minor:
         if(this.inversion == CHORD_INVERSION_TYPE.Root) {
@@ -66,7 +66,7 @@ class Chord {
           this.structure = "Fifth, Root, minor 3rd"; 
         }
     		
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/minor.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/minor.mp3"]);
     		break;
 
       case CHORD_TYPE.Aug:
@@ -74,14 +74,14 @@ class Chord {
         this.note_array = [root_note, all_notes[root_note.note_value + 4], all_notes[root_note.note_value + 8]];
         this.note_labels = ["R", "M3", "#5"];
         this.structure = "Root, Major 3rd, Sharp Fifth";
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/augmented.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/augmented.mp3"]);
         break;
       case CHORD_TYPE.Dim:
         this.inversion = CHORD_INVERSION_TYPE.Root;
         this.note_array = [root_note, all_notes[root_note.note_value + 3], all_notes[root_note.note_value + 6]];
         this.note_labels = ["R", "m3", "b5"];
         this.structure = "Root, minor 3rd, Flat Fifth";
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/diminished.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/diminished.mp3"]);
         break;
 
     	case CHORD_TYPE.Major7:
@@ -103,7 +103,7 @@ class Chord {
           this.note_labels = ["M7", "R", "M3", "5"];
           this.structure = "Major 7th, Root, Major 3rd, Fifth";
         }
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/major_seventh.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/major_seventh.mp3"]);
         break;
       case CHORD_TYPE.minor7:
 
@@ -125,7 +125,7 @@ class Chord {
           this.note_labels = ["m7", "R", "m3", "5"];
           this.structure = "minor 7th, Root, minor 3rd, Fifth";
         }
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/minor_seventh.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/minor_seventh.mp3"]);
         break;
 
       case CHORD_TYPE.Dom7:
@@ -147,7 +147,7 @@ class Chord {
           this.note_labels = ["7", "R", "M3", "5"];
           this.structure = "7th, Root, Major 3rd, Fifth";
         }
-        this.file_name = [ root_note.note_name.file_name, "audio/chords/dominant_seventh.mp3" ];
+        this.file_name = root_note.note_name.file_name.concat(["audio/chords/dominant_seventh.mp3"]);
         break;
 
     }

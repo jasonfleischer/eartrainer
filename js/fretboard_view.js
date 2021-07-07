@@ -452,12 +452,12 @@ fretboard_view.drawNoteWithColor = function(note, label) {
 
 		ctx.fill();
 		ctx.stroke();
-
-		ctx.fillStyle = 'black';
-    	ctx.font = radius + 'px san-serif';
-    	ctx.textAlign = 'center';
-    	ctx.fillText(label, note_positions[i][0], note_positions[i][1]+radius*.3, radius*2);
-
+		if(label != undefined){
+			ctx.fillStyle = 'black';
+    		ctx.font = radius + 'px san-serif';
+    		ctx.textAlign = 'center';
+    		ctx.fillText(label, note_positions[i][0], note_positions[i][1]+radius*.3, radius*2);
+    	}
 	}
 }
 

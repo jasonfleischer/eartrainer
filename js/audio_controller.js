@@ -75,7 +75,7 @@ function playPause(){ // todo rename play
 	var loading = midi_controller.load();
 
 	var j;
-	for(j=0; j<4; j++){
+	for(j=0; j<5; j++){
 		audio_controller.preloaded_audio[j] = document.createElement("AUDIO");
 	}
 
@@ -316,7 +316,7 @@ function playInterval(interval) {
 }
 
 function playChord(chord) {
-	//playFile(interval.audio_file_name);
+	play_audio_string_sequence(chord.file_name);
 }
 
 var type = TYPE.SINGLE_NOTE;

@@ -49,7 +49,7 @@ class NoteName {
 	    		this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/C.mp3";
+	    		this.file_name = ["audio/notes/C.mp3"];
 	    		this.color = "#ff0000";
 	    		this.zodiac = "aries";
 	    		this.associated_note_values = get_associated_note_values(0);
@@ -67,7 +67,7 @@ class NoteName {
     			this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/D.mp3";
+	    		this.file_name = ["audio/notes/D.mp3"];
 	    		this.color = "#ffff00";
 	    		this.zodiac = "gemini";
 	    		this.associated_note_values = get_associated_note_values(2);
@@ -85,7 +85,7 @@ class NoteName {
     			this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/E.mp3";
+	    		this.file_name = ["audio/notes/E.mp3"];
 	    		this.color = "#00ff00";
 	    		this.zodiac = "leo";
 	    		this.associated_note_values = get_associated_note_values(4);
@@ -94,7 +94,7 @@ class NoteName {
     			this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/F.mp3";
+	    		this.file_name = ["audio/notes/F.mp3"];
 	    		this.color = "#00ff80";
 	    		this.zodiac = "virgo";
 	    		this.associated_note_values = get_associated_note_values(5);
@@ -112,7 +112,7 @@ class NoteName {
     			this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/G.mp3";
+	    		this.file_name = ["audio/notes/G.mp3"];
 	    		this.color = "#007fff";
 	    		this.zodiac = "scorpio";
 	    		this.associated_note_values = get_associated_note_values(7);
@@ -130,7 +130,7 @@ class NoteName {
     			this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/A.mp3";
+	    		this.file_name = ["audio/notes/A.mp3"];
 	    		this.color = "#8000ff";
 	    		this.zodiac = "capricorn";
 	    		this.associated_note_values = get_associated_note_values(9);
@@ -148,7 +148,7 @@ class NoteName {
     			this.is_sharp_or_flat = false;
 	    		this.sharp_name = this.name;
 	    		this.flat_name = this.name;
-	    		this.file_name = "audio/notes/B.mp3";
+	    		this.file_name = ["audio/notes/B.mp3"];
 	    		this.color = "#ff007f";
 	    		this.zodiac = "pisces";
 	    		this.associated_note_values = get_associated_note_values(11);
