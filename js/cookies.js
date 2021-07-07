@@ -1,20 +1,15 @@
 function load_cookies(){
-	model.duration = cookies.get_duration(DURATION.THIRTY_MINUTES);
+	model.duration = cookies.get_duration(DURATION.TEN_MINUTES);
 
 	
 	model.BPM = cookies.get_BPM(8);
 	model.volume = cookies.get_volume(0.1);//todo 1.0);
 	model.speak = cookies.get_speak(true);
 	model.speak_volume = cookies.get_speak_volume(0.25);//todo 1.0);
-	//model.time_signature = cookies.get_time_signature(TIME_SIGNATURE.TS_4_4);
-	//model.beat_division = cookies.get_subdivision(1);
-	//model.accent_first_beat = cookies.get_accent_first_beat(true);
-	//model.flash_screen = cookies.get_flash_screen(false);
-	//model.tone = cookies.get_tone(TONE.NORMAL);
 
-	model.single_notes.enabled = cookies.get_single_notes(false);
+	model.single_notes.enabled = cookies.get_single_notes(true);
 
-	model.interval.enabled = cookies.get_intervals(false);
+	model.interval.enabled = cookies.get_intervals(true);
 
 	if(cookies.get_minor_second(true))
 		model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
@@ -483,7 +478,6 @@ cookies.set_chords_three_note_inversion_second = function(value){
 	document.cookie = cookies.CHORD_THREE_NOTE_SECOND + "=" + value;
 };
 
-
 ///
 
 cookies.set_chord_four_note_type = function(type, value){
@@ -573,14 +567,7 @@ cookies.set_chords_four_note_inversion_second = function(value){
 	document.cookie = cookies.CHORD_FOUR_NOTE_THIRD + "=" + value;
 };
 
-
 ///
-
-
-
-
-
-
 
 cookies.set_chord_play_type = function(play_type, value){
 	switch(play_type) {
@@ -609,39 +596,6 @@ cookies.set_chords_harmonic = function(value){
 	document.cookie = cookies.CHORDS_HARMONIC + "=" + value;
 };
 
-/*cookies.TIME_SIGNATURE_KEY = "TIME_SIGNATURE_KEY";
-cookies.get_time_signature = function(default_value){
-	return parseInt(cookies.getCookie(cookies.TIME_SIGNATURE_KEY, default_value));
-};
-cookies.set_time_signature = function(value){
-	document.cookie = cookies.TIME_SIGNATURE_KEY + "=" + value;
-};
-
-cookies.SUBDIVISION_KEY = "SUBDIVISION_KEY";
-cookies.get_subdivision = function(default_value){
-	return parseInt(cookies.getCookie(cookies.SUBDIVISION_KEY, default_value));
-};
-cookies.set_subdivision = function(value){
-	document.cookie = cookies.SUBDIVISION_KEY + "=" + value;
-};
-
-cookies.ACCENT_FIRST_BEAT_KEY = "ACCENT_FIRST_BEAT_KEY";
-cookies.get_accent_first_beat = function(default_value){
-	var value = cookies.getCookie(cookies.ACCENT_FIRST_BEAT_KEY, default_value);
-	return Boolean(value === "true" || value === true);
-};
-cookies.set_accent_first_beat = function(value){
-	document.cookie = cookies.ACCENT_FIRST_BEAT_KEY + "=" + value;
-};
-
-cookies.TONE_KEY = "TONE_KEY";
-cookies.get_tone = function(default_value){
-	return parseInt(cookies.getCookie(cookies.TONE_KEY, default_value));
-};
-cookies.set_tone = function(value){
-	document.cookie = cookies.TONE_KEY + "=" + value;
-};*/
-
 cookies.DARKMODE_KEY = "DARKMODE_KEY";
 cookies.get_darkmode = function(default_value){
 	var value = cookies.getCookie(cookies.DARKMODE_KEY, default_value);
@@ -649,15 +603,6 @@ cookies.get_darkmode = function(default_value){
 };
 cookies.set_darkmode = function(value){
 	document.cookie = cookies.DARKMODE_KEY + "=" + value;
-};
-
-cookies.LANGUAGE_KEY = "LANGUAGE_KEY";
-cookies.get_language = function(default_value){
-	var value = cookies.getCookie(cookies.LANGUAGE_KEY, default_value);
-	return value;
-};
-cookies.set_language = function(value){
-	document.cookie = cookies.LANGUAGE_KEY + "=" + value;
 };
 
 cookies.setCookie = function(cname, cvalue, exdays) {
