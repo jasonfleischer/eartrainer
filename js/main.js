@@ -1,7 +1,6 @@
 
 //todo 
 
- 
 // mobile 
 //	safari - no midi sound
 //	chrome - no sound for midi, landscape portait (need to reload)
@@ -288,7 +287,8 @@ function setup_bpm_controls() {
 	//setup_bpm_dial(min, max, step);
 	setup_bpm_range(min, max, step);
 	//setup_bpm_prompt();
-	//$("bpm_row_text").innerHTML = "BPM: " + model.BPM;
+	$("speed_text").innerHTML = (BPMtoMilliSeconds(model.BPM) / 1000).toFixed(1) + "s";
+	
 
 	/*function setup_bpm_dial(min, max, step){
 		var on_range_control_changed = function(BPM_value){
@@ -825,6 +825,7 @@ function setup_darkmode_switch() {
 }
 
 // update_UI
+function BPMtoMilliSeconds(BPM) { return 1000 / (BPM / 60); }
 
 function update_UI_BPM(value) {
 	var range = $("bpm_range");
@@ -834,6 +835,11 @@ function update_UI_BPM(value) {
 	//range_control.resize_bpm_text();
 
 	//$("bpm_row_text").innerHTML = "BPM: " + value
+
+
+
+
+	$("speed_text").innerHTML = (BPMtoMilliSeconds(value) / 1000).toFixed(1) + "s";
 
 	function update_UI_tempo_marking(BPM){
 		var tempo_marking = "";

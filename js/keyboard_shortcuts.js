@@ -11,7 +11,7 @@ function setup_keyboard_listeners() {
 				playPause();
 				play_button.focus();
 			}
-		} else if (code === 'ArrowUp' || code === 'NumpadAdd' || code === 'Equal') {
+		} /*else if (code === 'ArrowUp' || code === 'NumpadAdd' || code === 'Equal') {
 			range_control.plus_pressed();
 		} else if (code === 'ArrowDown' || code === 'NumpadSubtract' || code === 'Minus') {
 			range_control.minus_pressed();
@@ -47,7 +47,7 @@ function setup_keyboard_listeners() {
 			setBPM(180);
 		} else if (code == 'Digit0' || code == 'Numpad0') {
 			setBPM(195);
-		}
+		}*/
 
 		function setBPM(bpm){
 			model.BPM = bpm;
@@ -89,7 +89,7 @@ function show_keyboard_shortcuts(){
 	var contents = "<table style='width:100%; text-align: left;'>"+
 			"<tr><th>"+TR("Key")+"</th><th>"+TR("Command")+"</th></tr>"+
 			"<tr><td>"+TR("Space")+"</td><td>"+TR("Play or stop")+"</td></tr>"+
-			"<tr><td>"+TR("Up arrow")+"</td><td>"+TR("Increment tempo")+"</td></tr>"+
+			/*"<tr><td>"+TR("Up arrow")+"</td><td>"+TR("Increment tempo")+"</td></tr>"+
 			"<tr><td>"+TR("Down arrow")+"</td><td>"+TR("Decrement tempo")+"</td></tr>"+
 			"<tr><td>"+TR("Left arrow")+"</td><td>"+TR("Decrement subdivision")+"</td></tr>"+
 			"<tr><td>"+TR("Right arrow")+"</td><td>"+TR("Increment subdivision")+"</td></tr>"+
@@ -105,7 +105,7 @@ function show_keyboard_shortcuts(){
 			"<tr><td>"+TR("Digit")+" 7</td><td>150 BPM</td></tr>"+
 			"<tr><td>"+TR("Digit")+" 8</td><td>165 BPM</td></tr>"+
 			"<tr><td>"+TR("Digit")+" 9</td><td>180 BPM</td></tr>"+
-			"<tr><td>"+TR("Digit")+" 0</td><td>195 BPM</td></tr>" +
+			"<tr><td>"+TR("Digit")+" 0</td><td>195 BPM</td></tr>" +*/
 		"</table>";
 	contents = contents.replaceAll("< tr>", "<tr>");
 	keyboard_shorcut_window.document.write(contents);

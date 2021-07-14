@@ -1,0 +1,36 @@
+{
+	"short_name": "Ear Trainer",
+  	"name": "Ear Trainer",
+  	"description": "train your ear to hear different musical sounds",
+  	"icons": [
+  		{
+      		"src": "img/icon/512.png",
+      		"sizes": "512x512",
+      		"type": "image/png",
+      		"purpose": "any maskable"
+    	},
+    	{
+      		"src": "img/icon/512.png",
+      		"sizes": "512x512",
+      		"type": "image/png"
+    	},
+    	{
+      		"src": "img/icon/192.png",
+      		"sizes": "192x192",
+      		"type": "image/png"
+    	}
+  	],
+  	"screenshots": [
+    	{
+      		"src": "screenshots/screen.png",
+      		"sizes": "2290×1630",
+      		"type": "image/png",
+      		"purpose": "any maskable"
+    	}
+  	],
+	"display": "standalone",
+	"orientation": "portrait",
+	"start_url": "/eartrainer/",
+	"theme_color": "#000000",
+	"background_color": "#ffffff"
+}

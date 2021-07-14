@@ -658,13 +658,13 @@ button:hover {
     pointer-events: none
 }
 
-#bpm_text {
+#speed_text {
     position: absolute;
-    top: 106px;
-    left: 0px; /* set in js */
+    top: 115px;
+    left: 62px; /* set in js */
     color: var(--primary-font-color);
     text-align: center;
-    font-size: 65px;
+    font-size: 11px;
     cursor: pointer;
 }
 #tempo_marking{
