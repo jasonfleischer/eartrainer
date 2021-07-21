@@ -17,7 +17,7 @@ function init() {
 
 	build_all_notes();
 
-	load_cookies();
+	storage.load();
 
 	//translations.load();
 	
@@ -269,7 +269,7 @@ function setup_duration_select() {
 		var value = parseInt(this.value);
 		log("on duration_select: " + value);
 		model.duration = value;
-		cookies.set_duration(value);
+		storage.set_duration(value);
 		durationStartTime = new Date();
 		audio_controller.reloadDuration();
 		update_UI_duration(model.duration * 60000);
@@ -294,7 +294,7 @@ function setup_bpm_controls() {
 		var on_range_control_changed = function(BPM_value){
 			log("on BPM dial change: " + BPM_value);
 			model.BPM = BPM_value;
-			cookies.set_BPM(model.BPM);
+			storage.set_BPM(model.BPM);
 			update_UI_BPM(model.BPM);
 			reloadBPM();
 		};
@@ -311,7 +311,7 @@ function setup_bpm_controls() {
 			model.BPM = parseFloat(this.value);
 			log("on BPM range change: " + model.BPM);
 			//range_control.load(range_control.on_range_control_changed, "", min , max, step, model.BPM, false, 0);
-			cookies.set_BPM(model.BPM);
+			storage.set_BPM(model.BPM);
 			update_UI_BPM(model.BPM);
 			reloadBPM();
 		});
@@ -319,7 +319,7 @@ function setup_bpm_controls() {
 		bpm_range.addEventListener('input', function(){
 			model.BPM = parseFloat(this.value);
 			log("on BPM range change: " + model.BPM);
-			cookies.set_BPM(model.BPM);
+			storage.set_BPM(model.BPM);
 			update_UI_BPM(model.BPM);
 			reloadBPM();
 		}, true);
@@ -337,7 +337,7 @@ function setup_bpm_controls() {
 				log("on BPM prompt change: " + BPM);
 				model.BPM = BPM;
 				range_control.load(range_control.on_range_control_changed, "", MIN_BPM , MAX_BPM, 1, model.BPM, false, 0);
-				cookies.set_BPM(model.BPM);
+				storage.set_BPM(model.BPM);
 				update_UI_BPM(model.BPM);
 				reloadBPM();
 				if(was_playing) playPause(); 
@@ -364,14 +364,14 @@ function setup_volume_control() {
 		range.addEventListener("change", function(e){
 			model.volume = parseFloat(this.value);
 			log("on Volume range change: " + model.volume);
-			cookies.set_volume(model.volume);
+			storage.set_volume(model.volume);
 			update_UI_volume(model.volume);
 		});
 
 		range.addEventListener('input', function(){
 			model.volume = parseFloat(this.value);
 			log("on Volume range change: " + model.volume);
-			cookies.set_volume(model.volume);
+			storage.set_volume(model.volume);
 			update_UI_volume(model.volume);
 		}, true);
 	}
@@ -388,7 +388,7 @@ function setup_single_notes_switch() {
 		var value = this.checked;
 		log("on single notes change: " + value);
 		model.single_notes.enabled = value;
-		cookies.set_single_notes(value);
+		storage.set_single_notes(value);
 	});
 	$("single_notes_checkbox").checked = model.single_notes.enabled;
 }
@@ -405,7 +405,7 @@ function setup_speak_switch() {
 		var value = this.checked;
 		log("on speak change: " + value);
 		model.speak = value;
-		cookies.set_speak(value);
+		storage.set_speak(value);
 		update_UI_speak();
 	});
 	$("speak_checkbox").checked = model.speak;
@@ -427,14 +427,14 @@ function setup_speak_volume_control() {
 		range.addEventListener("change", function(e){
 			model.speak_volume = parseFloat(this.value);
 			log("on Speak Volume range change: " + model.speak_volume);
-			cookies.set_speak_volume(model.speak_volume);
+			storage.set_speak_volume(model.speak_volume);
 			update_UI_speak_volume(model.speak_volume);
 		});
 
 		range.addEventListener('input', function(){
 			model.speak_volume = parseFloat(this.value);
 			log("on Speak Volume range change: " + model.speak_volume);
-			cookies.set_speak_volume(model.speak_volume);
+			storage.set_speak_volume(model.speak_volume);
 			update_UI_speak_volume(model.speak_volume);
 		}, true);
 	}
@@ -458,7 +458,7 @@ function setup_interval_switch() {
 		var value = this.checked;
 		log("on intervals change: " + value);
 		model.interval.enabled = value;
-		cookies.set_intervals(value);
+		storage.set_intervals(value);
 		update_UI_intervals();
 	});
 	$("intervals_checkbox").checked = model.interval.enabled;
@@ -504,7 +504,7 @@ function setup_interval_type_multiple_select() {
 				model.interval.types.push(type);
 
 			log("on interval type change: " + model.interval.types);
-			cookies.set_interval_type(type, !type_enabled);
+			storage.set_interval_type(type, !type_enabled);
 			update_UI_interval_type(pair);
 		});
 	}
@@ -538,7 +538,7 @@ function setup_interval_play_type_multiple_select() {
 				model.interval.play_types.push(type);
 
 			log("on interval type change: " + model.interval.play_types);
-			cookies.set_interval_play_type(type, !type_enabled);
+			storage.set_interval_play_type(type, !type_enabled);
 			update_UI_interval_play_type(pair);
 		});
 	}
@@ -573,7 +573,7 @@ function setup_chord_three_note_multiple_select() {
 				model.chords.three_note_types.push(type);
 
 			log("on chords three_note_types change: " + model.chords.three_note_types);
-			cookies.set_chord_three_note_type(type, !type_enabled);
+			storage.set_chord_three_note_type(type, !type_enabled);
 			update_UI_chord_three_note_type(pair);
 		});
 	}
@@ -607,7 +607,7 @@ function setup_chord_three_note_inversion_multiple_select() {
 				model.chords.three_note_inversion_types.push(type);
 
 			log("on chords three_note_inversion_types change: " + model.chords.three_note_inversion_types);
-			cookies.set_chord_three_note_inversion_type(type, !type_enabled);
+			storage.set_chord_three_note_inversion_type(type, !type_enabled);
 			update_UI_chord_three_note_inversion_type(pair);
 		});
 	}
@@ -641,7 +641,7 @@ function setup_chord_four_note_multiple_select() {
 				model.chords.four_note_types.push(type);
 
 			log("on chords four_note_types change: " + model.chords.four_note_types);
-			cookies.set_chord_four_note_type(type, !type_enabled);
+			storage.set_chord_four_note_type(type, !type_enabled);
 			update_UI_chord_four_note_type(pair);
 		});
 	}
@@ -677,7 +677,7 @@ function setup_chord_four_note_inversion_multiple_select() {
 				model.chords.four_note_inversion_types.push(type);
 
 			log("on chords four_note_inversion_types change: " + model.chords.four_note_inversion_types);
-			cookies.set_chord_four_note_inversion_type(type, !type_enabled);
+			storage.set_chord_four_note_inversion_type(type, !type_enabled);
 			update_UI_chord_four_note_inversion_type(pair);
 		});
 	}
@@ -710,7 +710,7 @@ function setup_chord_play_type_multiple_select() {
 				model.chords.play_types.push(type);
 
 			log("on chords type change: " + model.chords.play_types);
-			cookies.set_chord_play_type(type, !type_enabled);
+			storage.set_chord_play_type(type, !type_enabled);
 			update_UI_chord_play_type(pair);
 		});
 	}
@@ -727,7 +727,7 @@ function setup_chords_switch() {
 		var value = this.checked;
 		log("on chords change: " + value);
 		model.chords.enabled = value;
-		cookies.set_chords(value);
+		storage.set_chords(value);
 		update_UI_chords()
 	});
 	$("chords_checkbox").checked = model.chords.enabled;
@@ -739,7 +739,7 @@ function setup_chords_switch() {
 		var value = parseInt(this.value);
 		log("on tone_select: " + value);
 		model.tone = value;
-		cookies.set_tone(value);
+		storage.set_tone(value);
 		update_UI_tone();
 		audio_controller.reloadSounds();
 	});
@@ -752,7 +752,7 @@ function setup_time_signature_select() {
 		var value = parseInt(this.value);
 		log("on time_signature_select: " + value);
 		model.time_signature = value ;
-		cookies.set_time_signature(value);
+		storage.set_time_signature(value);
 		reloadActivePlayer();
 	});
 	$("time_signature_select").value = model.time_signature;
@@ -762,7 +762,7 @@ function setup_beat_division_select() {
 	$("division_select").addEventListener("change", function(e){
 		var value = parseInt(this.value);
 		log("on division_select: " + value);
-		cookies.set_subdivision(value);
+		storage.set_subdivision(value);
 		reloadDivisions(value);
 	});
 	$("division_select").value = model.beat_division;
@@ -779,7 +779,7 @@ function setup_accent_first_beat_switch() {
 		var value = this.checked;
 		log("on accent beat change: " + value);
 		model.accent_first_beat = value;
-		cookies.set_accent_first_beat(value);
+		storage.set_accent_first_beat(value);
 	});
 	$("accent_first_beat_checkbox").checked = model.accent_first_beat;
 }
@@ -795,7 +795,7 @@ function setup_flash_screen_switch() {
 		var value = this.checked;
 		log("on screen flash change: " + value);
 		model.flash_screen = value;
-		cookies.set_flash_screen(value);
+		storage.set_flash_screen(value);
 	});
 	$("screen_flash_checkbox").checked = model.flash_screen;
 }*/
@@ -816,7 +816,7 @@ function setup_darkmode_switch() {
 			var value = this.checked;
 			log("on darkmode change: " + value);
 			model.darkmode = value;
-			cookies.set_darkmode(value);
+			storage.set_darkmode(value);
 			update_UI_darkmode();
 		});
 		checkbox_obj.checked = model.darkmode;
