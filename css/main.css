@@ -1,7 +1,8 @@
 @font-face {
     font-family: "SF Display Thin";
+    font-style: normal;
     font-display: block;
-    src: url("../fonts/SF_Pro_Display_Thin.woff2");
+    src: url("../fonts/SF_Pro_Display_Thin.woff2") format('woff2');
 }
 
 html, body {
