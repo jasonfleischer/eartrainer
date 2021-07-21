@@ -91,7 +91,7 @@ html, body {
     }
 
     #bpm_control {
-        /*display: none;*/
+        position: relative;
     }
 
     #ul_wrapper {
@@ -181,7 +181,7 @@ html, body {
     }
 
     #bpm_control{
-        display: block;
+        position: relative;
     }
 
     #ul_wrapper {
@@ -660,7 +660,7 @@ button:hover {
 
 #speed_text {
     position: absolute;
-    top: 115px;
+    top: 17px;
     left: 62px; /* set in js */
     color: var(--primary-font-color);
     text-align: center;
