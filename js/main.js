@@ -1041,7 +1041,7 @@ function update_UI_tone(){
 function update_UI_playing(){
 	$("play_pause_button").innerHTML = TR("Stop"); 
 	$("mobile_play_pause_button").innerHTML = TR("Stop");
-	$("init_view").style.display = "none"; // hide
+	$("status_msg").innerHTML = TR("What sound are you hearing?")
 	//time_view.start(model.time_signature, model.BPM);
 	startDurationTimer();
 }
@@ -1063,6 +1063,7 @@ function startDurationTimer(){
 function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
+	update_UI_tone()
 	$("init_view").style.display = "block"; // show
 	hideAnswer();
 	stopDurationTimer();
@@ -1075,14 +1076,16 @@ function stopDurationTimer(){
 function hideAnswer(){
 	$("note_display").style.display = "none";
 	$("fretboard").style.display = "none";
-	$("answer_container").style.display = "none";
+	$("answer_container").style.display = "none"
+	$("init_view").style.display = "block";
+	$("status_msg").innerHTML = TR("What sound are you hearing?")
 }
 
 function showNoteAnswer(note){
 
 	
 	update_UI_note("note", note);
-
+	$("init_view").style.display = "none";
 	$("note_display").style.display = "flex";
 	$("interval_display").style.display = "none";
 	$("chord_display").style.display = "none";
@@ -1133,6 +1136,7 @@ function showIntervalAnswer(interval){
 		$("interval_play_type").innerHTML = "&";	
 	}
 	
+	$("init_view").style.display = "none";
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "flex";
 	$("chord_display").style.display = "none";
@@ -1143,6 +1147,7 @@ function showIntervalAnswer(interval){
 
 function showChordAnswer(chord){
 
+	$("init_view").style.display = "none";
 	$("chord_name").innerHTML = chord.name;
 	$("chord_structure").innerHTML = "(" + chord.structure + ")";
 	$("chord_inversion").innerHTML = (chord.inversion == CHORD_INVERSION_TYPE.Root) ? "" : chord.inversion ;
