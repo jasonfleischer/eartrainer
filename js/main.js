@@ -19,7 +19,7 @@ function init() {
 
 	storage.load();
 
-	var isSafariMobile = window.mobileCheck() && isSafari
+	var isSafariMobile = window.mobileAndTabletCheck() && isSafari
 	if (isSafariMobile && !isFromHomeScreen()){
 		install.showAlert()
 	}
