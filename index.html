@@ -15,44 +15,29 @@
 	<meta name="author" content="Jason Fleischer">
 	<meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no'>
 	<meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
-	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/icon/favicon.png">
+	<link rel="stylesheet" href="css/root.css">
+	<link rel="stylesheet" href="css/button.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/slider.css">
 	<link rel="stylesheet" href="css/switch.css">
 	<link rel="stylesheet" href="css/select.css">
 	<link rel="stylesheet" href="css/fretboard.css">
+	<link rel="stylesheet" href="css/alert.css">
 	<link rel="manifest" href="manifest.json">
+	<link rel="apple-touch-icon" href="img/icon/192.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="img/icon/152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="img/icon/180.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="img/icon/167.png">
 </head>
 <body onload="init()">
-	<div id="flash_screen">
-	</div>
-	<div id="info_alert_container">
-		<div id="info_alert">
-			<div id="info_alert_header">
-				<h3>Information</h3>
-				<button id="dismiss_alert_button" onclick="dismissInfo()" ><img id="dismiss_close_button_svg" src="img/close_black.svg" alt="Dismiss info"/></button>
+	<div id="alert_container">
+		<div id="alert">
+			<div id="alert_header">
+				<h3 id="alert_title"></h3>
+				<button id="dismiss_alert_button" ><img height="16" id="dismiss_close_button_svg" src="img/close_black.svg" alt="Dismiss alert"/></button>
 			</div>
-			<div>
-			<ul class="desktop-only">
-				<li id="darkmode">
-					<div class="nav-toggle-item">
-						<span>Dark Mode</span>
-						<label id="darkmode_checkbox_switch" class="switch">
-							<input id="darkmode_checkbox" type="checkbox" checked="checked"/>
-							<span class="switch_track round" tabindex="0"></span>
-						</label>
-					</div>
-				</li>
-			</ul>
-		</div>
-			<br class="desktop-only" />
-			<p onclick="openMailToDeveloper()">Thank you for using this website. If you wish to submit feedback, comment or report an error click <strong>here</strong>.</p>
-			<br/>
-			<p onclick="openURL('https://surikov.github.io/webaudiofont/')">Special thanks to Surikov for their <strong>WebAudioFont</strong> library.</p>
-			<br/>
-			<p onclick="openURL('https://jasonfleischer.github.io/website/');">Information about the developer can be found <strong>here</strong>.</p>
-			<br class="desktop-only"/>
-			<button class="desktop-only" onclick="show_keyboard_shortcuts()">Keyboard Shortcuts</button>
+			<div id="alert_contents"></div>
 		</div>
 	</div>
 	<div id="header">
@@ -275,8 +260,12 @@
 	<script src="js/storage.js"></script>
 	<script src="js/fretboard_view.js"></script>
 	<script src="js/audio_controller.js"></script>
+	<script src="js/alert.js"></script>
+	<script src="js/information.js"></script>
 	<script src="js/keyboard_shortcuts.js"></script>
 	<script src="js/midi/midi_controller.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/install.js"></script>
+	<script src="service_worker.js"></script>
 </body>
 </html>

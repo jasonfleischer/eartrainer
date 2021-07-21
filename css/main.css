@@ -1,15 +1,3 @@
-
-:root{
-    --row-height: 45px;
-    --left-column-width: 320px;
-    --header-height: 50px;
-    --highlight-color:#444;
-    --primary-background-color: #252525;
-    --secondary-background-color: #000;
-    --tertiary-background-color: #494949;
-    --primary-font-color: #fff;
-}
-
 @font-face {
     font-family: "SF Display Thin";
     font-display: block;
@@ -441,26 +429,7 @@ strong {
 
 
 button {
-    color: var(--primary-font-color);
-    height: 36px;
     width: 100%;
-    cursor: pointer;
-    padding: 0px;
-    margin: 0px;
-    font-weight: 200;
-    border: 1px solid var(--tertiary-background-color);
-    font-size: 18px;
-    background-color: var(--secondary-background-color);   
-    border-radius: .22rem;
-    font-family : inherit;
-}
-button:focus {
-    outline: 0;
-    border: 1px solid var(--highlight-color);
-}
-button:hover {
-    background-color: var(--primary-background-color);
-    cursor: pointer;
 }
 
 #button_control_container {
@@ -591,6 +560,7 @@ button:hover {
 }
 
 #kofi_button {
+    padding:  0px;
     float: left;
     height: 36px;
     position: absolute;

@@ -53,7 +53,7 @@ function init() {
 	}
 
 	setup_keyboard_listeners();
-	setup_info_alert();
+	alert.init()
 	setup_settings_menu_on_click();
 	setup_left_column_hide_close();
 
@@ -163,20 +163,11 @@ function kofi(){
 	window.open("https://ko-fi.com/jasonfleischer", "_blank");
 }
 
-function setup_info_alert(){
-	$("info_alert_container").addEventListener("click", function(event){
-		dismissInfo();
-	});
-	$("info_alert").addEventListener("click", function(event){
-		event.stopPropagation();
-		return false;
-	});
-}
 function info(){
-	$("info_alert_container").style.display = "block"; // show
+	information.showAlert()
 }
 function dismissInfo(){
-	$("info_alert_container").style.display = "none"; // hide
+	information.dismissAlert()
 }
 
 function toggle_settings(){
@@ -801,26 +792,25 @@ function setup_flash_screen_switch() {
 }*/
 
 function setup_darkmode_switch() {
-
-	setup_darkmode($("darkmode"), $("darkmode_checkbox_switch"), $("darkmode_checkbox"));
 	setup_darkmode($("mobile_darkmode"), $("mobile_darkmode_checkbox_switch"), $("mobile_darkmode_checkbox"));
-	function setup_darkmode(background_obj, switch_obj, checkbox_obj ){
+}
+function setup_darkmode(background_obj, switch_obj, checkbox_obj ){
 
-		background_obj.addEventListener("click", function(e){
-			checkbox_obj.click();
-		});
-		switch_obj.addEventListener('keyup', function(event){
-			if (event.code === 'Space'|| event.code === 'Enter') $("darkmode_checkbox").click();
-		});
-		checkbox_obj.addEventListener("change", function(e){
-			var value = this.checked;
-			log("on darkmode change: " + value);
-			model.darkmode = value;
-			storage.set_darkmode(value);
-			update_UI_darkmode();
-		});
-		checkbox_obj.checked = model.darkmode;
-	}
+	background_obj.addEventListener("click", function(e){
+		checkbox_obj.click();
+	});
+	switch_obj.addEventListener('keyup', function(event){
+		if (event.code === 'Space'|| event.code === 'Enter') $("darkmode_checkbox").click();
+	});
+	checkbox_obj.addEventListener("change", function(e){
+		var value = this.checked;
+		log("on darkmode change: " + value);
+		model.darkmode = value;
+		storage.set_darkmode(value);
+		update_UI_darkmode();
+	});
+	checkbox_obj.checked = model.darkmode;
+	
 	update_UI_darkmode();
 }
 
@@ -1033,11 +1023,6 @@ function update_UI_chord_four_note_inversion_type(pair) {
 		$(id).classList.remove("enabled");
 }
 
-function update_UI_tone(){
-	$("accent_first_beat").style.display = (model.tone == TONE.NORMAL || model.tone == TONE.DRUM) ? "block" : "none";
-	$("status_msg").innerHTML = model.tone == TONE.TALKING ? TR("Configure then press 'Play' to begin. Talking setting works best at lower BPMs.") : TR("Configure then press 'Play' to begin");
-}
-
 function update_UI_playing(){
 	$("play_pause_button").innerHTML = TR("Stop"); 
 	$("mobile_play_pause_button").innerHTML = TR("Stop");
@@ -1063,7 +1048,7 @@ function startDurationTimer(){
 function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
-	update_UI_tone()
+	$("status_msg").innerHTML = TR("Configure then press 'Play' to begin");
 	$("init_view").style.display = "block"; // show
 	hideAnswer();
 	stopDurationTimer();
@@ -1169,7 +1154,6 @@ function update_UI_darkmode(){
 	//range_control.reload_colors();
 	//time_view.reload_colors();
 
-	$("darkmode_checkbox").checked = model.darkmode;
 	$("mobile_darkmode_checkbox").checked = model.darkmode;
 
 	function setDarkMode(){
