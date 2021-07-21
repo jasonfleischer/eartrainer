@@ -1041,7 +1041,7 @@ function update_UI_tone(){
 function update_UI_playing(){
 	$("play_pause_button").innerHTML = TR("Stop"); 
 	$("mobile_play_pause_button").innerHTML = TR("Stop");
-	$("status_msg").innerHTML = TR("What sound are you hearing?")
+	$("status_msg").innerHTML = TR("What musical sound are you hearing?")
 	//time_view.start(model.time_signature, model.BPM);
 	startDurationTimer();
 }
@@ -1078,7 +1078,7 @@ function hideAnswer(){
 	$("fretboard").style.display = "none";
 	$("answer_container").style.display = "none"
 	$("init_view").style.display = "block";
-	$("status_msg").innerHTML = TR("What sound are you hearing?")
+	$("status_msg").innerHTML = TR("What musical sound are you hearing?")
 }
 
 function showNoteAnswer(note){
