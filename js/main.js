@@ -19,6 +19,11 @@ function init() {
 
 	storage.load();
 
+	var isSafariMobile = window.mobileCheck() && isSafari
+	if (isSafariMobile && !isFromHomeScreen()){
+		install.showAlert()
+	}
+
 	//translations.load();
 	
 	setup_audio()
