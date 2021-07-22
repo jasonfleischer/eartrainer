@@ -62,7 +62,7 @@ function init() {
 	setup_settings_menu_on_click();
 	setup_left_column_hide_close();
 
-	if(window.mobileCheck()){
+	if(window.mobileAndTabletCheck()){
 		setup_mobile();
 	}
 
