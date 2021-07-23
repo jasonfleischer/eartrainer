@@ -30,7 +30,7 @@
   	],
 	"display": "standalone",
 	"orientation": "portrait",
-	"start_url": "/eartrainer/",
+	"start_url": "/eartrainer/?from=homescreen",
 	"theme_color": "#000000",
 	"background_color": "#ffffff"
 }
