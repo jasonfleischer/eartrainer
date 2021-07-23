@@ -42,8 +42,6 @@ install.showAlert = function(install_action){
 		<p>`+TR("Install this app on your device to easily access it anytime. Installing this app will result in better performance, improved fullscreen experience, and usage without an internet connection.")+`</p>
 		<br/>
 	`
-
-	var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 	var isSafariMobile = window.mobileAndTabletCheck() && isSafari
 	if (isSafariMobile){
 		contents += `
