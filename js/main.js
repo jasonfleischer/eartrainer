@@ -1072,7 +1072,7 @@ function hideAnswer(){
 	$("piano").style.display = "none";
 	$("answer_container").style.display = "none"
 	$("init_view").style.display = "block";
-	$("status_msg").innerHTML = TR("What musical sound are you hearing?")
+	//$("status_msg").innerHTML = TR("What musical sound are you hearing?")
 }
 
 function showNoteAnswer(note){
