@@ -67,6 +67,7 @@ function init() {
 	}
 
 	fretboard_view.init();
+	piano_view.init();
 
 
 	setup_darkmode_switch();
@@ -74,6 +75,7 @@ function init() {
 	show_hidden_views();
 
 	fretboard_view.resize($("answer_container").clientWidth - 25);
+	piano_view.resize($("answer_container").clientWidth - 25);
 }
 
 function setup_mobile(){
@@ -152,6 +154,7 @@ function window_resized_end(){
 
 
 	fretboard_view.resize($("answer_container").clientWidth - 25);
+	piano_view.resize($("answer_container").clientWidth - 25);
 
 	//$("fretboard_background_canvas").width = 100;
 	//$("fretboard_canvas").width = 100;
@@ -1066,6 +1069,7 @@ function stopDurationTimer(){
 function hideAnswer(){
 	$("note_display").style.display = "none";
 	$("fretboard").style.display = "none";
+	$("piano").style.display = "none";
 	$("answer_container").style.display = "none"
 	$("init_view").style.display = "block";
 	$("status_msg").innerHTML = TR("What musical sound are you hearing?")
@@ -1081,6 +1085,7 @@ function showNoteAnswer(note){
 	$("chord_display").style.display = "none";
 
 	$("fretboard").style.display = "block";
+	$("piano").style.display = "block";
 	$("answer_container").style.display = "block";
 }
 
@@ -1132,6 +1137,7 @@ function showIntervalAnswer(interval){
 	$("chord_display").style.display = "none";
 
 	$("fretboard").style.display = "block";
+	$("piano").style.display = "block";
 	$("answer_container").style.display = "block";
 }
 
@@ -1147,6 +1153,7 @@ function showChordAnswer(chord){
 	$("chord_display").style.display = "flex";
 
 	$("fretboard").style.display = "block";
+	$("piano").style.display = "block";
 	$("answer_container").style.display = "block";
 }
 

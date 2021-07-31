@@ -26,6 +26,7 @@
 	<link rel="stylesheet" href="css/switch.css">
 	<link rel="stylesheet" href="css/select.css">
 	<link rel="stylesheet" href="css/fretboard.css">
+	<link rel="stylesheet" href="css/piano.css">
 	<link rel="stylesheet" href="css/alert.css">
 	<link rel="manifest" href="manifest.json">
 	<link rel="apple-touch-icon" href="img/icon/192.png">
@@ -90,14 +91,14 @@
 						</div>
 					</div>
 				</li>
-				<li>
+				<!--<li>
 					<div class="nav-side-menu-item">
 					<span>Instrument</span>
 					<select id="time_signature_select">
 						<option value="0">Piano</option>
 						<option value="1" selected="selected">Guitar</option>
 					</select>
-				</li>
+				</li>-->
 				<li id="speak">
 					<div class="nav-toggle-item">
 						<span>Speak</span>
@@ -244,6 +245,11 @@
 				<canvas id="fretboard_background_canvas"></canvas>
 				<canvas id="fretboard_canvas"></canvas>
 			</div>
+			<br />
+			<div id="piano">
+				<canvas id="piano_background_canvas"></canvas>
+				<canvas id="piano_canvas"></canvas>
+			</div>
 		</div>
 		<div id="hide_show_left_column">
 			<img id="hide_show_left_column_img" src="img/left_chevron_white.svg" />
@@ -262,6 +268,7 @@
 	<script src="js/prototypes.js"></script>
 	<script src="js/storage.js"></script>
 	<script src="js/fretboard_view.js"></script>
+	<script src="js/piano_view.js"></script>
 	<script defer src="js/audio_controller.js"></script>
 	<script src="js/alert.js"></script>
 	<script src="js/information.js"></script>

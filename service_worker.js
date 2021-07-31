@@ -20,6 +20,7 @@ const CACHE = [
         '/eartrainer/js/scale.js',
         '/eartrainer/js/note.js',
         '/eartrainer/js/fretboard_view.js',
+        '/eartrainer/js/piano_view.js',
         '/eartrainer/js/prototypes.js',
         '/eartrainer/js/storage.js',
         '/eartrainer/js/audio_controller.js',

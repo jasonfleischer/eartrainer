@@ -1,0 +1,14 @@
+#piano {
+    display: none;
+    margin-left: 10px;
+    position: relative;
+    width:1000px;
+    height: 230px;
+}
+#piano_background_canvas, #piano_canvas {
+    width:1000px;
+    height: 230px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}

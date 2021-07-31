@@ -377,6 +377,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playNoteName(note);
 			}
 			fretboard_view.drawNote(note);
+			piano_view.drawNote(note);
 
 		} else {
 			hideAnswer();
@@ -394,6 +395,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playInterval(interval);
 			}
 			fretboard_view.drawInterval(interval);
+			piano_view.drawInterval(interval);
 		} else  {
 			hideAnswer();
 			audio_controller.interval = createRandomInterval(40, 84);
@@ -412,6 +414,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playChord(chord);
 			}
 			fretboard_view.drawChord(chord);
+			piano_view.drawChord(chord);
 		} else  {
 			hideAnswer();
 			audio_controller.chord = generate_random_chord(40, 84);
