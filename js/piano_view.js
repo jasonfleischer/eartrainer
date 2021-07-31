@@ -37,21 +37,11 @@ class PianoKey {
     	ctx.textAlign = 'center';
     	
     	if (this.note.note_name.name == 'C' && this.note.octave == 4) {
-    		//ctx.fillText(this.note.note_name.name + this.note.octave, this.x + (this.x2)/2, this.y2 - 10);
-
-
-
-ctx.beginPath();
-ctx.arc(this.x + (this.x2)/2, this.y2 - this.y2*0.10, this.x2 * 0.15, 0, 2 * Math.PI, false);
-ctx.fillStyle = '#666';
-ctx.fill();
-
-
-    	}/* else {
-    		if (!this.note.note_name.is_sharp_or_flat) {
-    			ctx.fillText(this.note.note_name.name, this.x + (this.x2 - this.x)/2, this.y2 - 10);
-    		}
-    	}*/
+			ctx.beginPath();
+			ctx.arc(this.x + (this.x2)/2, this.y2 - this.y2*0.10, this.x2 * 0.15, 0, 2 * Math.PI, false);
+			ctx.fillStyle = '#666';
+			ctx.fill();
+    	}
 	}
 
 	drawWithColor(ctx, color) {
@@ -107,7 +97,7 @@ piano_view.draw_background = function(){
 	/*ctx.beginPath();
 	ctx.lineWidth = piano_view.BORDER_WIDTH;
 	ctx.strokeStyle = "#000";
-	ctx.fillStyle = "orange";
+	ctx.fillStyle = "#000";
 	ctx.rect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
 	ctx.fill();
 	ctx.stroke();*/
@@ -132,7 +122,7 @@ piano_view.draw_background = function(){
 	var white_keys = [];
 	
 	var i;
-	var x = piano_view.BORDER_WIDTH;
+	var x = piano_view.BORDER_WIDTH + (piano_view.WIDTH - ((white_key_width + piano_view.BORDER_WIDTH ) * number_of_white_keys))/2;//.WIDTH - ((number_of_white_keys+1)*piano_view.BORDER_WIDTH) )/2;
 	for(i = piano_view.min_note_value; i <= piano_view.max_note_value; i++){
 		var note = all_notes[i];
 		if(!note.note_name.is_sharp_or_flat){
