@@ -36,8 +36,17 @@ class PianoKey {
     	ctx.font = 10 + 'px san-serif';
     	ctx.textAlign = 'center';
     	
-    	if (this.note.note_name.name == 'C') {
-    		//ctx.fillText(this.note.note_name.name + this.note.octave, this.x + (this.x2 - this.x)/2, this.y2 - 10);
+    	if (this.note.note_name.name == 'C' && this.note.octave == 4) {
+    		//ctx.fillText(this.note.note_name.name + this.note.octave, this.x + (this.x2)/2, this.y2 - 10);
+
+
+
+ctx.beginPath();
+ctx.arc(this.x + (this.x2)/2, this.y2 - this.y2*0.10, this.x2 * 0.15, 0, 2 * Math.PI, false);
+ctx.fillStyle = '#666';
+ctx.fill();
+
+
     	}/* else {
     		if (!this.note.note_name.is_sharp_or_flat) {
     			ctx.fillText(this.note.note_name.name, this.x + (this.x2 - this.x)/2, this.y2 - 10);
