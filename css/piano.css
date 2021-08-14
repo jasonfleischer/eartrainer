@@ -5,7 +5,7 @@
     width:1000px;
     height: 230px;
 }
-#piano_background_canvas, #piano_canvas {
+#piano_background_canvas, #piano_white_keys_canvas, #piano_black_keys_canvas {
     width:1000px;
     height: 230px;
     position: absolute;

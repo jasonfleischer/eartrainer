@@ -9,59 +9,47 @@ var piano_view = {
 
 	note_value_to_piano_key_map: {},
 
-	canvas: {},
+	black_keys_canvas: {},
+	white_keys_canvas: {},
 	canvas_background: {}
 }
 
 class PianoKey {
-	constructor(x, y, x2, y2, note, color){
+	constructor(x, y, width, height, note, color){
 		this.x = x;
 		this.y = y;
-		this.x2 = x2; // width
-		this.y2 = y2; //height
+		this.width = width;
+		this.height = height;
 		this.note = note;
 		this.color = color;
 	}
 
-	draw(ctx) {
-		ctx.beginPath();
-		ctx.lineWidth = 0;
-		ctx.fillStyle = this.color;
-		ctx.rect(this.x, this.y, this.x2, this.y2);
-		ctx.fill();
-		ctx.stroke();
-
-
-		ctx.fillStyle = 'black';
-    	ctx.font = 10 + 'px san-serif';
-    	ctx.textAlign = 'center';
-    	
-    	if (this.note.note_name.name == 'C' && this.note.octave == 4) {
-			ctx.beginPath();
-			ctx.arc(this.x + (this.x2)/2, this.y2 - this.y2*0.10, this.x2 * 0.15, 0, 2 * Math.PI, false);
-			ctx.fillStyle = '#666';
-			ctx.fill();
-    	}
-	}
-
-	drawWithColor(ctx, color) {
+	draw(ctx, color = this.color) {
 		ctx.beginPath();
 		ctx.lineWidth = 0;
 		ctx.fillStyle = color;
-		ctx.rect(this.x, this.y, this.x2, this.y2);
+		ctx.rect(this.x, this.y, this.width, this.height);
 		ctx.fill();
 		ctx.stroke();
+    	
+    	if (this.note.note_name.name == 'C' && this.note.octave == 4) {
+			ctx.beginPath();
+			ctx.arc(this.x + (this.width)/2, this.height - this.height*0.10, this.width * 0.15, 0, 2 * Math.PI, false);
+			ctx.fillStyle = '#666';
+			ctx.fill();
+    	}
 	}
 }
 
 piano_view.init = function(){
 
-	//piano_view.WIDTH = 1000;
-	//piano_view.HEIGHT = 160;
+	piano_view.black_keys_canvas = document.getElementById("piano_black_keys_canvas");
+	piano_view.black_keys_canvas.width=piano_view.WIDTH;
+	piano_view.black_keys_canvas.height=piano_view.HEIGHT;
 
-	piano_view.canvas = document.getElementById("piano_canvas");
-	piano_view.canvas.width=piano_view.WIDTH;
-	piano_view.canvas.height=piano_view.HEIGHT;
+	piano_view.white_keys_canvas = document.getElementById("piano_white_keys_canvas");
+	piano_view.white_keys_canvas.width=piano_view.WIDTH;
+	piano_view.white_keys_canvas.height=piano_view.HEIGHT;
 
 	piano_view.canvas_background = document.getElementById("piano_background_canvas");
 	piano_view.canvas_background.width=piano_view.WIDTH;
@@ -76,31 +64,18 @@ piano_view.resize = function(newWidth) {
 	var newHeight = newWidth * (piano_view.HEIGHT/piano_view.WIDTH);
 	$("piano").style.height = newHeight + "px";
 	piano_view.canvas_background.style.height = newHeight + "px";
-	piano_view.canvas.style.height = newHeight + "px";
+	piano_view.black_keys_canvas.style.height = newHeight + "px";
+	piano_view.white_keys_canvas.style.height = newHeight + "px";
 
 	$("piano").style.width = newWidth + "px";
 	piano_view.canvas_background.style.width = newWidth + "px";
-	piano_view.canvas.style.width = newWidth + "px";
-
-	//this.draw_background();
+	piano_view.black_keys_canvas.style.width = newWidth + "px";
+	piano_view.white_keys_canvas.style.width = newWidth + "px";
 }
 
 piano_view.draw_background = function(){
 
-
 	var ctx = piano_view.canvas_background.getContext("2d");
-
-	
-
-	
-
-	/*ctx.beginPath();
-	ctx.lineWidth = piano_view.BORDER_WIDTH;
-	ctx.strokeStyle = "#000";
-	ctx.fillStyle = "#000";
-	ctx.rect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
-	ctx.fill();
-	ctx.stroke();*/
 
 	let number_of_white_keys = 0;
 	let number_of_black_keys = 0;
@@ -113,8 +88,6 @@ piano_view.draw_background = function(){
 			number_of_black_keys++;
 		}
 	}
-	
-
 
 	let white_key_width = Math.floor((piano_view.WIDTH - ((number_of_white_keys+1)*piano_view.BORDER_WIDTH) )/ number_of_white_keys);
 	let white_key_height =  Math.floor(white_key_width * 5);
@@ -171,20 +144,26 @@ piano_view.draw_background = function(){
 	}
 }
 
+piano_view.clearCanvases = function(){
+
+	piano_view.black_keys_canvas.getContext("2d").clearRect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
+	piano_view.white_keys_canvas.getContext("2d").clearRect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
+}
+
 
 piano_view.drawNote = function(note){
 
-	var ctx = piano_view.canvas.getContext("2d");
-	ctx.clearRect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
+	piano_view.clearCanvases();
 	piano_view.drawNoteWithColor(note);
 }
 
 piano_view.drawNoteWithColor = function(note, color=note.note_name.color){
 
-	var ctx = piano_view.canvas.getContext("2d");
+	var ctx = note.note_name.is_sharp_or_flat ? piano_view.black_keys_canvas.getContext("2d") : 
+												piano_view.white_keys_canvas.getContext("2d");
 
 	let key = piano_view.note_value_to_piano_key_map[note.note_value];
-	key.drawWithColor(ctx, color);
+	key.draw(ctx, color);
 	if (!note.note_name.is_sharp_or_flat){
 
 		var flat_key = piano_view.note_value_to_piano_key_map[note.note_value-1];
@@ -203,24 +182,17 @@ piano_view.drawInterval = function(interval){
 	var play_type = interval.play_type;
 	var first_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.lower_note : interval.higher_note;
 
-	var ctx = piano_view.canvas.getContext("2d");
-	ctx.clearRect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
-
-	//fretboard_view.drawNoteWithColor(first_note);
+	piano_view.clearCanvases();
 	piano_view.drawNoteWithColor(first_note);
-	// delay
-
 	setTimeout(() => {
 		var second_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.higher_note : interval.lower_note;
-		//fretboard_view.drawNoteWithColor(second_note);
 		piano_view.drawNoteWithColor(second_note);
 	}, (interval.play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
 }
 
 piano_view.drawChord = function(chord){
 
-	var ctx = piano_view.canvas.getContext("2d");
-	ctx.clearRect(0, 0, piano_view.WIDTH, piano_view.HEIGHT);
+	piano_view.clearCanvases();
 
 	var j;
 	for(j=0; j<chord.note_array.length; j++) {
