@@ -197,16 +197,12 @@ piano_view.drawChord = function(chord){
 	var j;
 	for(j=0; j<chord.note_array.length; j++) {
 		var note = chord.note_array[j];
-		var label = chord.note_labels[j]
-		/*fretboard_view.drawNotePlaceholder(note, label);*/
+		var label = chord.note_labels[j];
 		if (label == 'R'){
-			//fretboard_view.drawNoteWithColor(note, label);
 			piano_view.drawNoteWithColor(note);
 		} else {
-			//fretboard_view.drawNoteWithWhite(note, label);
 			piano_view.drawNoteWithColor(note, "#999");
 		}
-		//piano_view.drawNoteWithColor(note);
 	}
 }
 
