@@ -1131,8 +1131,8 @@ function update_UI_note(id_prefix, note) {
 function showIntervalAnswer(interval){
 
 	let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
-	update_UI_note("first_note", interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING ? interval.lower_note : interval.get_higher_note(musicKit.all_notes));
-	update_UI_note("second_note", interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING ? interval.get_higher_note(musicKit.all_notes): interval.lower_note);
+	update_UI_note("first_note", interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING ? interval.lower_note : interval.getHigherNote(musicKit.all_notes));
+	update_UI_note("second_note", interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING ? interval.getHigherNote(musicKit.all_notes): interval.lower_note);
 
 	$("interval_type").innerHTML = interval.type + ":";
 	//$("interval_play_type").innerHTML = interval.play_type;	

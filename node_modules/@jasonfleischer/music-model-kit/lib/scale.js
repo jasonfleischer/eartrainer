@@ -138,7 +138,7 @@ class Scale {
 		return result;
 	}
 
-	to_string() {
+	toString() {
 		return  "SCALE: " + this.root_note.note_name.type + ": " + this.structure;
 	}
 }

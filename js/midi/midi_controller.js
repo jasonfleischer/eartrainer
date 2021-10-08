@@ -38,7 +38,7 @@ midi_controller.playNote = function(note, duration_in_sec = 3.5) {
 midi_controller.playInterval = function(interval, duration_in_sec = 3.5) {
 
 	var lower_note = interval.lower_note;
-	var higher_note = interval.get_higher_note(musicKit.all_notes);
+	var higher_note = interval.getHigherNote(musicKit.all_notes);
 	var play_type = interval.play_type;	
 
 	var delay_between_notes = this.audioContext.currentTime + (interval.delay_in_ms / 1000);

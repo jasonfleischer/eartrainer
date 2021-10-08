@@ -459,7 +459,7 @@ fretboard_view.drawNoteWithColor = function(note, label) {
 fretboard_view.drawInterval = function(interval){
 
 	var play_type = interval.play_type;
-	let higher_note = interval.get_higher_note(musicKit.all_notes);
+	let higher_note = interval.getHigherNote(musicKit.all_notes);
 	var first_note = (play_type == musicKit.Interval.PLAY_TYPE.ASCENDING) ? interval.lower_note : higher_note;
 
 	var canvas = document.getElementById("fretboard_canvas");
