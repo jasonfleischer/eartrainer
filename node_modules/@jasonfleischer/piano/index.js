@@ -42,7 +42,12 @@ function pianoBuilder(options) {
 		this.hover = options.hover;
 	}
 
-	this.view = new PianoView(this.id, this.width, this.range, options.onClick, this.hover);
+	let backgroundColor = "#000";
+	if (options.backgroundColor !== undefined){
+		backgroundColor = options.backgroundColor;
+	}
+
+	this.view = new PianoView(this.id, this.width, this.range, options.onClick, this.hover, backgroundColor);
 	return this.view;
 }
 
