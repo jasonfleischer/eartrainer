@@ -19,15 +19,7 @@
 	<meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
 	<link rel="preload" as="font" href="fonts/SF_Pro_Display_Thin.woff2" type="font/woff2" crossorigin="anonymous">
 	<link rel="icon" type="image/png" sizes="32x32" href="img/icon/favicon.png">
-	<link rel="stylesheet" href="css/root.css">
-	<link rel="stylesheet" href="css/button.css">
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/slider.css">
-	<link rel="stylesheet" href="css/switch.css">
-	<link rel="stylesheet" href="css/select.css">
-	<link rel="stylesheet" href="css/fretboard.css">
-	<link rel="stylesheet" href="css/piano.css">
-	<link rel="stylesheet" href="css/alert.css">
+	<link rel="stylesheet" href="css/bundle.css">
 	<link rel="manifest" href="manifest.json">
 	<link rel="apple-touch-icon" href="img/icon/192.png">
 	<link rel="apple-touch-icon" sizes="152x152" href="img/icon/152.png">
@@ -45,17 +37,17 @@
 		</div>
 	</div>
 	<div id="header">
-		<p id="page_name" onclick="info()">Ear Trainer</p>
-		<button id="kofi_button" onclick="kofi()">
+		<p id="page_name">Ear Trainer</p>
+		<button id="kofi_button">
 			<img src="img/kofi.svg" width="25" height="25" alt="Buy Me a Coffee at ko-fi.com" />
 			<span class="desktop-only">Support the Developer</span>
 		</button>
-		<button id="info_button" onclick="info()" ><img id="info_button_svg" src="img/info_white.svg" alt="Info" width="16" height="19"/></button>
-		<button id="setting_button" class="mobile-only" onclick="toggle_settings()" ><img id="setting_button_svg" src="img/gear_white.svg" alt="Settings" width="16" height="19"/></button>
+		<button id="info_button"><img id="info_button_svg" src="img/info_white.svg" alt="Info" width="16" height="19"/></button>
+		<button id="setting_button" class="mobile-only"><img id="setting_button_svg" src="img/gear_white.svg" alt="Settings" width="16" height="19"/></button>
 	</div>
 	<div id="nav-side-menu" >
 		<div id="button_control_container">
-			<button id="play_pause_button" class="desktop-only" onclick="playPause()">Play<span id="play_pause_button_span">(00:00)</span></button>
+			<button id="play_pause_button" class="desktop-only">Play<span id="play_pause_button_span">(00:00)</span></button>
 		</div>
 		<div id="ul_wrapper">
 			<ul id="nav-menu-ul">	
@@ -246,37 +238,18 @@
 				<canvas id="fretboard_canvas"></canvas>
 			</div>
 			<br />
-			<div id="piano">
-				<canvas id="piano_background_canvas"></canvas>
-				<canvas id="piano_white_keys_canvas"></canvas>
-				<canvas id="piano_black_keys_canvas"></canvas>
-			</div>
+			<div id="piano"></div>
 		</div>
 		<div id="hide_show_left_column">
 			<img id="hide_show_left_column_img" src="img/left_chevron_white.svg" />
 		</div>
 	</div>
 	<footer id="mobile_button_control_container" class="mobile-only">
-		<button id="mobile_play_pause_button" onclick="playPause()">Play</button>
+		<button id="mobile_play_pause_button">Play</button>
 	</footer>
-	<script defer src="js/midi/webAudioFontPlayer.js"></script>
-	<script defer src="js/midi/midi_0000_JCLive_sf2_file.js"></script>
-	<script src="js/log.js"></script>
-	<script src="js/model.js"></script>
-	<script src="js/note.js"></script>
-	<script src="js/interval.js"></script>
-	<script src="js/chord.js"></script>
-	<script src="js/prototypes.js"></script>
-	<script src="js/storage.js"></script>
-	<script src="js/fretboard_view.js"></script>
-	<script src="js/piano_view.js"></script>
-	<script defer src="js/audio_controller.js"></script>
-	<script src="js/alert.js"></script>
-	<script src="js/information.js"></script>
-	<script src="js/keyboard_shortcuts.js"></script>
-	<script defer src="js/midi/midi_controller.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/install.js"></script>
-	<script src="service_worker.js"></script>
+
+	<script src="js/midi/webAudioFontPlayer.js"></script>
+	<script src="js/midi/midi_0000_JCLive_sf2_file.js"></script>
+	<script src="js/bundle.js"></script>
 </body>
 </html>

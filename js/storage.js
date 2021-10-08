@@ -3,7 +3,6 @@ var storage = {};
 storage.load = function(){
 	model.duration = storage.get_duration(DURATION.TEN_MINUTES);
 
-	
 	model.BPM = storage.get_BPM(8);
 	model.volume = storage.get_volume(0.1);//todo 1.0);
 	model.speak = storage.get_speak(true);
@@ -13,6 +12,7 @@ storage.load = function(){
 
 	model.interval.enabled = storage.get_intervals(true);
 
+	let INTERVAL_TYPE = musicKit.Interval.TYPE;
 	if(storage.get_minor_second(true))
 		model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
 	if(storage.get_major_second(true))
@@ -38,6 +38,7 @@ storage.load = function(){
 	if(storage.get_octave(true))
 		model.interval.types.push(INTERVAL_TYPE.OCTAVE)
 
+	let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
 	if(storage.get_ascending(true))
 		model.interval.play_types.push(INTERVAL_PLAY_TYPE.ASCENDING)
 	if(storage.get_descending(true))
@@ -47,6 +48,7 @@ storage.load = function(){
 
 	model.chords.enabled = storage.get_chords(true);
 
+	let CHORD_TYPE = musicKit.Chord.TYPE;
 	if(storage.get_chords_major(true))
 		model.chords.three_note_types.push(CHORD_TYPE.Major);
 	if(storage.get_chords_minor(true))
@@ -62,6 +64,7 @@ storage.load = function(){
 	if(storage.get_chords_dominant7(false))
 		model.chords.four_note_types.push(CHORD_TYPE.Dom7);
 
+	let CHORD_INVERSION_TYPE = musicKit.Chord.INVERSION_TYPE;
 	if(storage.get_chords_three_note_inversion_root(true))
 		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
 	if(storage.get_chords_three_note_inversion_first(false))
@@ -85,6 +88,7 @@ storage.load = function(){
 	if(storage.get_chords_four_note_inversion_second(false))
 		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Third);
 
+	let CHORD_PLAY_TYPE = musicKit.Chord.PLAY_TYPE;
 	if(storage.get_chords_harmonic(true))
 		model.chords.play_types.push(CHORD_PLAY_TYPE.HARMONIC)
 	if(storage.get_chords_arpeggiate(false))
@@ -155,6 +159,7 @@ storage.set_intervals = function(value){
 };
 
 storage.set_interval_type = function(interval_type, value){
+	let INTERVAL_TYPE = musicKit.Interval.TYPE;
 	switch(interval_type) {
 		case INTERVAL_TYPE.MINOR_SECOND:
 			storage.set_minor_second(value);
@@ -304,6 +309,7 @@ storage.set_octave = function(value){
 };
 
 storage.set_interval_play_type = function(interval_play_type, value){
+	let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
 	switch(interval_play_type) {
 		case INTERVAL_PLAY_TYPE.ASCENDING:
 			storage.set_ascending(value);
@@ -355,6 +361,7 @@ storage.set_chords = function(value){
 };
 
 storage.set_chord_three_note_type = function(type, value){
+	let CHORD_TYPE = musicKit.Chord.TYPE;
 	switch(type) {
 		case CHORD_TYPE.Major:
 			storage.set_chords_major(value);
@@ -437,6 +444,7 @@ storage.set_chords_dominant7 = function(value){
 };
 
 storage.set_chord_three_note_inversion_type = function(type, value){
+	let CHORD_INVERSION_TYPE = musicKit.Chord.INVERSION_TYPE;
 	switch(type) {
 		case CHORD_INVERSION_TYPE.Root:
 			storage.set_chords_three_note_inversion_root(value);
@@ -477,6 +485,7 @@ storage.set_chords_three_note_inversion_second = function(value){
 ///
 
 storage.set_chord_four_note_type = function(type, value){
+	let CHORD_TYPE = musicKit.Chord.TYPE;
 	switch(type) {
 		case CHORD_TYPE.Major7:
 			storage.set_chords_major_seven(value);
@@ -515,6 +524,7 @@ storage.set_chords_dominant_seven = function(value){
 };
 
 storage.set_chord_four_note_inversion_type = function(type, value){
+	let CHORD_INVERSION_TYPE = musicKit.Chord.INVERSION_TYPE;
 	switch(type) {
 		case CHORD_INVERSION_TYPE.Root:
 			storage.set_chords_four_note_inversion_root(value);
@@ -566,6 +576,7 @@ storage.set_chords_four_note_inversion_second = function(value){
 ///
 
 storage.set_chord_play_type = function(play_type, value){
+	let CHORD_PLAY_TYPE = musicKit.Chord.PLAY_TYPE;
 	switch(play_type) {
 		case CHORD_PLAY_TYPE.ARPEGGIATE:
 			storage.set_chords_arpeggiate(value);

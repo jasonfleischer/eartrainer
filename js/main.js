@@ -12,10 +12,16 @@
 // python -m SimpleHTTPServer 8000
 // http://localhost:8000/
 
+const pianoKit = require("@jasonfleischer/piano")
+const musicKit = require("@jasonfleischer/music-model-kit");
+musicKit.init();
+const log = require("@jasonfleischer/log");
+
+let pianoView = pianoKit({
+	id: 'piano'
+});
 
 function init() {
-
-	build_all_notes();
 
 	storage.load();
 
@@ -34,6 +40,8 @@ function init() {
 
 	setup_controls();
 	function setup_controls(){
+
+		setup_onclicks();
 
 		setup_duration_select();
 		setup_volume_control();
@@ -67,7 +75,7 @@ function init() {
 	}
 
 	fretboard_view.init();
-	piano_view.init();
+	//piano_view.init();
 
 
 	setup_darkmode_switch();
@@ -75,7 +83,8 @@ function init() {
 	show_hidden_views();
 
 	fretboard_view.resize($("answer_container").clientWidth - 25);
-	piano_view.resize($("answer_container").clientWidth - 25);
+	//piano_view.resize($("answer_container").clientWidth - 25);
+	pianoView.resize($("answer_container").clientWidth - 25);
 }
 
 function setup_mobile(){
@@ -154,8 +163,8 @@ function window_resized_end(){
 
 
 	fretboard_view.resize($("answer_container").clientWidth - 25);
-	piano_view.resize($("answer_container").clientWidth - 25);
-
+	//piano_view.resize($("answer_container").clientWidth - 25);
+	pianoView.resize($("answer_container").clientWidth - 25);
 	//$("fretboard_background_canvas").width = 100;
 	//$("fretboard_canvas").width = 100;
 	//time_view.resize();
@@ -263,10 +272,19 @@ function openMailToDeveloper(){
 
 // setup controls
 
+function setup_onclicks() {
+	$("page_name").onclick = function() { info(); };
+	$("kofi_button").onclick = function() { kofi(); };
+	$("info_button").onclick = function() { info(); };
+	$("setting_button").onclick = function() { toggle_settings(); };
+	$("play_pause_button").onclick = function() { playPause(); };
+	$("mobile_play_pause_button").onclick = function() { playPause(); };
+}
+
 function setup_duration_select() {
 	$("duration_select").addEventListener("change", function(e){
 		var value = parseInt(this.value);
-		log("on duration_select: " + value);
+		log.i("on duration_select: " + value);
 		model.duration = value;
 		storage.set_duration(value);
 		durationStartTime = new Date();
@@ -291,7 +309,7 @@ function setup_bpm_controls() {
 
 	/*function setup_bpm_dial(min, max, step){
 		var on_range_control_changed = function(BPM_value){
-			log("on BPM dial change: " + BPM_value);
+			log.i("on BPM dial change: " + BPM_value);
 			model.BPM = BPM_value;
 			storage.set_BPM(model.BPM);
 			update_UI_BPM(model.BPM);
@@ -308,7 +326,7 @@ function setup_bpm_controls() {
 		bpm_range.step = step;
 		bpm_range.addEventListener("change", function(e){
 			model.BPM = parseFloat(this.value);
-			log("on BPM range change: " + model.BPM);
+			log.i("on BPM range change: " + model.BPM);
 			//range_control.load(range_control.on_range_control_changed, "", min , max, step, model.BPM, false, 0);
 			storage.set_BPM(model.BPM);
 			update_UI_BPM(model.BPM);
@@ -317,7 +335,7 @@ function setup_bpm_controls() {
 
 		bpm_range.addEventListener('input', function(){
 			model.BPM = parseFloat(this.value);
-			log("on BPM range change: " + model.BPM);
+			log.i("on BPM range change: " + model.BPM);
 			storage.set_BPM(model.BPM);
 			update_UI_BPM(model.BPM);
 			reloadBPM();
@@ -333,7 +351,7 @@ function setup_bpm_controls() {
 			var was_playing = forceStop();
 			var BPM = parseInt(prompt("Enter a BPM value:", model.BPM));
 			if(BPM >= MIN_BPM && BPM <= MAX_BPM){
-				log("on BPM prompt change: " + BPM);
+				log.i("on BPM prompt change: " + BPM);
 				model.BPM = BPM;
 				range_control.load(range_control.on_range_control_changed, "", MIN_BPM , MAX_BPM, 1, model.BPM, false, 0);
 				storage.set_BPM(model.BPM);
@@ -341,7 +359,7 @@ function setup_bpm_controls() {
 				reloadBPM();
 				if(was_playing) playPause(); 
 			}else {
-				log("Invalid BPM value" + BPM);
+				log.i("Invalid BPM value" + BPM);
 			}
 		}
 	}*/
@@ -362,14 +380,14 @@ function setup_volume_control() {
 		range.step = step;
 		range.addEventListener("change", function(e){
 			model.volume = parseFloat(this.value);
-			log("on Volume range change: " + model.volume);
+			log.i("on Volume range change: " + model.volume);
 			storage.set_volume(model.volume);
 			update_UI_volume(model.volume);
 		});
 
 		range.addEventListener('input', function(){
 			model.volume = parseFloat(this.value);
-			log("on Volume range change: " + model.volume);
+			log.i("on Volume range change: " + model.volume);
 			storage.set_volume(model.volume);
 			update_UI_volume(model.volume);
 		}, true);
@@ -385,7 +403,7 @@ function setup_single_notes_switch() {
 	});
 	$("single_notes_checkbox").addEventListener("change", function(e){
 		var value = this.checked;
-		log("on single notes change: " + value);
+		log.i("on single notes change: " + value);
 		model.single_notes.enabled = value;
 		storage.set_single_notes(value);
 	});
@@ -402,7 +420,7 @@ function setup_speak_switch() {
 	});
 	$("speak_checkbox").addEventListener("change", function(e){
 		var value = this.checked;
-		log("on speak change: " + value);
+		log.i("on speak change: " + value);
 		model.speak = value;
 		storage.set_speak(value);
 		update_UI_speak();
@@ -425,14 +443,14 @@ function setup_speak_volume_control() {
 		range.step = step;
 		range.addEventListener("change", function(e){
 			model.speak_volume = parseFloat(this.value);
-			log("on Speak Volume range change: " + model.speak_volume);
+			log.i("on Speak Volume range change: " + model.speak_volume);
 			storage.set_speak_volume(model.speak_volume);
 			update_UI_speak_volume(model.speak_volume);
 		});
 
 		range.addEventListener('input', function(){
 			model.speak_volume = parseFloat(this.value);
-			log("on Speak Volume range change: " + model.speak_volume);
+			log.i("on Speak Volume range change: " + model.speak_volume);
 			storage.set_speak_volume(model.speak_volume);
 			update_UI_speak_volume(model.speak_volume);
 		}, true);
@@ -455,7 +473,7 @@ function setup_interval_switch() {
 	});
 	$("intervals_checkbox").addEventListener("change", function(e){
 		var value = this.checked;
-		log("on intervals change: " + value);
+		log.i("on intervals change: " + value);
 		model.interval.enabled = value;
 		storage.set_intervals(value);
 		update_UI_intervals();
@@ -464,6 +482,7 @@ function setup_interval_switch() {
 }
 
 function setup_interval_type_multiple_select() {
+	let INTERVAL_TYPE = musicKit.Interval.TYPE;
 	var element_id_type_pairs = [	["grid-item-m2", INTERVAL_TYPE.MINOR_SECOND], 
 									["grid-item-M2", INTERVAL_TYPE.MAJOR_SECOND],
 									["grid-item-m3", INTERVAL_TYPE.MINOR_THIRD],
@@ -493,7 +512,7 @@ function setup_interval_type_multiple_select() {
 			var type_enabled = model.interval.types.includes(type)
 
 			if(model.interval.types.length == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -502,7 +521,7 @@ function setup_interval_type_multiple_select() {
 			else
 				model.interval.types.push(type);
 
-			log("on interval type change: " + model.interval.types);
+			log.i("on interval type change: " + model.interval.types);
 			storage.set_interval_type(type, !type_enabled);
 			update_UI_interval_type(pair);
 		});
@@ -510,6 +529,7 @@ function setup_interval_type_multiple_select() {
 }
 	
 function setup_interval_play_type_multiple_select() {
+	let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
 	var element_id_play_type_pairs = [	["grid-item-ascending", INTERVAL_PLAY_TYPE.ASCENDING], 
 										["grid-item-descending", INTERVAL_PLAY_TYPE.DESCENDING],
 										["grid-item-harmonic", INTERVAL_PLAY_TYPE.HARMONIC]];
@@ -527,7 +547,7 @@ function setup_interval_play_type_multiple_select() {
 			var type_enabled = model.interval.play_types.includes(type)
 
 			if(model.interval.play_types.length == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -536,7 +556,7 @@ function setup_interval_play_type_multiple_select() {
 			else
 				model.interval.play_types.push(type);
 
-			log("on interval type change: " + model.interval.play_types);
+			log.i("on interval type change: " + model.interval.play_types);
 			storage.set_interval_play_type(type, !type_enabled);
 			update_UI_interval_play_type(pair);
 		});
@@ -544,10 +564,10 @@ function setup_interval_play_type_multiple_select() {
 }
 
 function setup_chord_three_note_multiple_select() {
-	var element_id_play_type_pairs = [	["grid-item-min", CHORD_TYPE.minor], 
-										["grid-item-maj", CHORD_TYPE.Major], 
-										["grid-item-aug", CHORD_TYPE.Aug], 
-										["grid-item-dim", CHORD_TYPE.Dim]];
+	var element_id_play_type_pairs = [	["grid-item-min", musicKit.Chord.TYPE.minor], 
+										["grid-item-maj", musicKit.Chord.TYPE.Major], 
+										["grid-item-aug", musicKit.Chord.TYPE.Aug], 
+										["grid-item-dim", musicKit.Chord.TYPE.Dim]];
 
 	for (i = 0; i < element_id_play_type_pairs.length; i++) {
 		var pair = element_id_play_type_pairs[i];
@@ -562,7 +582,7 @@ function setup_chord_three_note_multiple_select() {
 			var type_enabled = model.chords.three_note_types.includes(type)
 
 			if((model.chords.three_note_types.length + model.chords.four_note_types.length) == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -571,7 +591,7 @@ function setup_chord_three_note_multiple_select() {
 			else
 				model.chords.three_note_types.push(type);
 
-			log("on chords three_note_types change: " + model.chords.three_note_types);
+			log.i("on chords three_note_types change: " + model.chords.three_note_types);
 			storage.set_chord_three_note_type(type, !type_enabled);
 			update_UI_chord_three_note_type(pair);
 		});
@@ -579,9 +599,9 @@ function setup_chord_three_note_multiple_select() {
 }
 
 function setup_chord_three_note_inversion_multiple_select() {
-	var element_id_play_type_pairs = [	["grid-item-three_note_root", CHORD_INVERSION_TYPE.Root], 
-										["grid-item-three_note_first", CHORD_INVERSION_TYPE.First], 
-										["grid-item-three_note_second", CHORD_INVERSION_TYPE.Second]];
+	var element_id_play_type_pairs = [	["grid-item-three_note_root", musicKit.Chord.INVERSION_TYPE.Root], 
+										["grid-item-three_note_first", musicKit.Chord.INVERSION_TYPE.First], 
+										["grid-item-three_note_second", musicKit.Chord.INVERSION_TYPE.Second]];
 
 	for (i = 0; i < element_id_play_type_pairs.length; i++) {
 		var pair = element_id_play_type_pairs[i];
@@ -596,7 +616,7 @@ function setup_chord_three_note_inversion_multiple_select() {
 			var type_enabled = model.chords.three_note_inversion_types.includes(type)
 
 			if(model.chords.three_note_inversion_types.length == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -605,7 +625,7 @@ function setup_chord_three_note_inversion_multiple_select() {
 			else
 				model.chords.three_note_inversion_types.push(type);
 
-			log("on chords three_note_inversion_types change: " + model.chords.three_note_inversion_types);
+			log.i("on chords three_note_inversion_types change: " + model.chords.three_note_inversion_types);
 			storage.set_chord_three_note_inversion_type(type, !type_enabled);
 			update_UI_chord_three_note_inversion_type(pair);
 		});
@@ -613,9 +633,9 @@ function setup_chord_three_note_inversion_multiple_select() {
 }
 
 function setup_chord_four_note_multiple_select() {
-	var element_id_play_type_pairs = [	["grid-item-maj-seventh", CHORD_TYPE.Major7], 
-										["grid-item-min-seventh", CHORD_TYPE.minor7], 
-										["grid-item-dominant-seventh", CHORD_TYPE.Dom7]];
+	var element_id_play_type_pairs = [	["grid-item-maj-seventh", musicKit.Chord.TYPE.Major7], 
+										["grid-item-min-seventh", musicKit.Chord.TYPE.minor7], 
+										["grid-item-dominant-seventh", musicKit.Chord.TYPE.Dom7]];
 
 	for (i = 0; i < element_id_play_type_pairs.length; i++) {
 		var pair = element_id_play_type_pairs[i];
@@ -630,7 +650,7 @@ function setup_chord_four_note_multiple_select() {
 			var type_enabled = model.chords.four_note_types.includes(type)
 
 			if((model.chords.three_note_types.length + model.chords.four_note_types.length) == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -639,7 +659,7 @@ function setup_chord_four_note_multiple_select() {
 			else
 				model.chords.four_note_types.push(type);
 
-			log("on chords four_note_types change: " + model.chords.four_note_types);
+			log.i("on chords four_note_types change: " + model.chords.four_note_types);
 			storage.set_chord_four_note_type(type, !type_enabled);
 			update_UI_chord_four_note_type(pair);
 		});
@@ -648,10 +668,10 @@ function setup_chord_four_note_multiple_select() {
 
 
 function setup_chord_four_note_inversion_multiple_select() {
-	var element_id_play_type_pairs = [	["grid-item-four_note_root", CHORD_INVERSION_TYPE.Root], 
-										["grid-item-four_note_first", CHORD_INVERSION_TYPE.First], 
-										["grid-item-four_note_second", CHORD_INVERSION_TYPE.Second],
-										["grid-item-four_note_third", CHORD_INVERSION_TYPE.Third]];
+	var element_id_play_type_pairs = [	["grid-item-four_note_root", musicKit.Chord.INVERSION_TYPE.Root], 
+										["grid-item-four_note_first", musicKit.Chord.INVERSION_TYPE.First], 
+										["grid-item-four_note_second", musicKit.Chord.INVERSION_TYPE.Second],
+										["grid-item-four_note_third", musicKit.Chord.INVERSION_TYPE.Third]];
 
 	for (i = 0; i < element_id_play_type_pairs.length; i++) {
 		var pair = element_id_play_type_pairs[i];
@@ -666,7 +686,7 @@ function setup_chord_four_note_inversion_multiple_select() {
 			var type_enabled = model.chords.four_note_inversion_types.includes(type)
 
 			if(model.chords.four_note_inversion_types.length == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -675,7 +695,7 @@ function setup_chord_four_note_inversion_multiple_select() {
 			else
 				model.chords.four_note_inversion_types.push(type);
 
-			log("on chords four_note_inversion_types change: " + model.chords.four_note_inversion_types);
+			log.i("on chords four_note_inversion_types change: " + model.chords.four_note_inversion_types);
 			storage.set_chord_four_note_inversion_type(type, !type_enabled);
 			update_UI_chord_four_note_inversion_type(pair);
 		});
@@ -683,8 +703,8 @@ function setup_chord_four_note_inversion_multiple_select() {
 }
 
 function setup_chord_play_type_multiple_select() {
-	var element_id_play_type_pairs = [	["grid-item-chord-harmonic", CHORD_PLAY_TYPE.HARMONIC], 
-										["grid-item-chord-arpeggiate", CHORD_PLAY_TYPE.ARPEGGIATE]];
+	var element_id_play_type_pairs = [	["grid-item-chord-harmonic", musicKit.Chord.PLAY_TYPE.HARMONIC], 
+										["grid-item-chord-arpeggiate", musicKit.Chord.PLAY_TYPE.ARPEGGIATE]];
 
 	for (i = 0; i < element_id_play_type_pairs.length; i++) {
 		var pair = element_id_play_type_pairs[i];
@@ -699,7 +719,7 @@ function setup_chord_play_type_multiple_select() {
 			var type_enabled = model.chords.play_types.includes(type)
 
 			if(model.chords.play_types.length == 1 && type_enabled) {
-				log("prevent no selection")
+				log.i("prevent no selection")
 				return;
 			}
 
@@ -708,7 +728,7 @@ function setup_chord_play_type_multiple_select() {
 			else
 				model.chords.play_types.push(type);
 
-			log("on chords type change: " + model.chords.play_types);
+			log.i("on chords type change: " + model.chords.play_types);
 			storage.set_chord_play_type(type, !type_enabled);
 			update_UI_chord_play_type(pair);
 		});
@@ -724,7 +744,7 @@ function setup_chords_switch() {
 	});
 	$("chords_checkbox").addEventListener("change", function(e){
 		var value = this.checked;
-		log("on chords change: " + value);
+		log.i("on chords change: " + value);
 		model.chords.enabled = value;
 		storage.set_chords(value);
 		update_UI_chords()
@@ -736,7 +756,7 @@ function setup_chords_switch() {
 /*function setup_tone_select() {
 	$("tone_select").addEventListener("change", function(e){
 		var value = parseInt(this.value);
-		log("on tone_select: " + value);
+		log.i("on tone_select: " + value);
 		model.tone = value;
 		storage.set_tone(value);
 		update_UI_tone();
@@ -749,7 +769,7 @@ function setup_chords_switch() {
 function setup_time_signature_select() {
 	$("time_signature_select").addEventListener("change", function(e){
 		var value = parseInt(this.value);
-		log("on time_signature_select: " + value);
+		log.i("on time_signature_select: " + value);
 		model.time_signature = value ;
 		storage.set_time_signature(value);
 		reloadActivePlayer();
@@ -760,7 +780,7 @@ function setup_time_signature_select() {
 function setup_beat_division_select() {
 	$("division_select").addEventListener("change", function(e){
 		var value = parseInt(this.value);
-		log("on division_select: " + value);
+		log.i("on division_select: " + value);
 		storage.set_subdivision(value);
 		reloadDivisions(value);
 	});
@@ -776,7 +796,7 @@ function setup_accent_first_beat_switch() {
 	});
 	$("accent_first_beat_checkbox").addEventListener("change", function(e){
 		var value = this.checked;
-		log("on accent beat change: " + value);
+		log.i("on accent beat change: " + value);
 		model.accent_first_beat = value;
 		storage.set_accent_first_beat(value);
 	});
@@ -792,7 +812,7 @@ function setup_flash_screen_switch() {
 	});
 	$("screen_flash_checkbox").addEventListener("change", function(e){
 		var value = this.checked;
-		log("on screen flash change: " + value);
+		log.i("on screen flash change: " + value);
 		model.flash_screen = value;
 		storage.set_flash_screen(value);
 	});
@@ -812,7 +832,7 @@ function setup_darkmode(background_obj, switch_obj, checkbox_obj ){
 	});
 	checkbox_obj.addEventListener("change", function(e){
 		var value = this.checked;
-		log("on darkmode change: " + value);
+		log.i("on darkmode change: " + value);
 		model.darkmode = value;
 		storage.set_darkmode(value);
 		update_UI_darkmode();
@@ -1091,11 +1111,11 @@ function showNoteAnswer(note){
 
 function update_UI_note(id_prefix, note) {
 
-	$(id_prefix + "_name").innerHTML = note.note_name.name;
+	$(id_prefix + "_name").innerHTML = note.note_name.type;
 	$(id_prefix + "_octave").innerHTML = note.octave;
 	$(id_prefix + "_color").style.backgroundColor = note.note_name.color;
 	//piano 21, 108
-	var gray_scale_percent = (note.note_value - 21) / (108 - 21)
+	var gray_scale_percent = (note.midi_value - 21) / (108 - 21)
 
 	function hexToRgb(hex) {
 		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -1110,19 +1130,20 @@ function update_UI_note(id_prefix, note) {
 
 function showIntervalAnswer(interval){
 
-	update_UI_note("first_note", interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING ? interval.lower_note : interval.higher_note);
-	update_UI_note("second_note", interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING ? interval.higher_note: interval.lower_note);
+	let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
+	update_UI_note("first_note", interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING ? interval.lower_note : interval.get_higher_note(musicKit.all_notes));
+	update_UI_note("second_note", interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING ? interval.get_higher_note(musicKit.all_notes): interval.lower_note);
 
 	$("interval_type").innerHTML = interval.type + ":";
 	//$("interval_play_type").innerHTML = interval.play_type;	
 
 	var img_color = model.darkmode ? "white" : "black"
-	if(interval.play_type == INTERVAL_PLAY_TYPE.ASCENDING) {
+	if(interval.play_type == musicKit.Interval.PLAY_TYPE.ASCENDING) {
 		$("interval_play_type_img").style.display = "block";
 		$("interval_play_type_img").src = "img/up_arrow_"+img_color+".svg";
 		$("interval_play_type").innerHTML = "";
 	}
-	else if (interval.play_type == INTERVAL_PLAY_TYPE.DESCENDING) {
+	else if (interval.play_type == musicKit.Interval.PLAY_TYPE.DESCENDING) {
 		$("interval_play_type_img").style.display = "block";
 		$("interval_play_type_img").src = "img/down_arrow_"+img_color+".svg";
 		$("interval_play_type").innerHTML = "";
@@ -1146,7 +1167,7 @@ function showChordAnswer(chord){
 	$("init_view").style.display = "none";
 	$("chord_name").innerHTML = chord.name;
 	$("chord_structure").innerHTML = "(" + chord.structure + ")";
-	$("chord_inversion").innerHTML = (chord.inversion == CHORD_INVERSION_TYPE.Root) ? "" : chord.inversion ;
+	$("chord_inversion").innerHTML = (chord.inversion == musicKit.Chord.INVERSION_TYPE.Root) ? "" : chord.inversion ;
 
 	$("note_display").style.display = "none";
 	$("interval_display").style.display = "none";

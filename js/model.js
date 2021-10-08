@@ -37,6 +37,11 @@ var model = {
 	speak_volume: 1,
 	darkmode: false,
 
+	range: {
+		min: 40,
+		max: 84
+	},
+
 	single_notes: {
 		enabled: true
 	},

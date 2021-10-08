@@ -1,17 +1,13 @@
 // audio files generated here:
 // https://ttsmp3.com/ with Joey then modified with Audacity
 
-
-
-
-
 function isDurationExpired(){
 
 	if(!isDurationInfinte()) {
 		var running_time = new Date() - audio_controller.start_time;
 		var durationInMS = getDurationInMS()
 		if(running_time > durationInMS){
-			log("Duration expired")
+			log.i("Duration expired")
 			return true;
 		}
 	}
@@ -67,9 +63,6 @@ function forceStop(){
 	return was_playing;
 }
 
-
-
-
 function playPause(){ // todo rename play
 
 	var loading = midi_controller.load();
@@ -79,12 +72,9 @@ function playPause(){ // todo rename play
 		audio_controller.preloaded_audio[j] = document.createElement("AUDIO");
 	}
 
-	
-	
-
 	if(loading) {
 		setTimeout(function() {
-			log("delayed execution for midi loading")
+			log.i("delayed execution for midi loading")
 			continuePlay();
 		}, 500);
 	} else {
@@ -176,7 +166,7 @@ audio_controller.play = function(){
 	function step() {
 
 		if(isDurationExpired() && (audio_controller.index % 2 != 0)) {
-			logE("force close")
+			log.i("force close")
 			clearInterval(audio_controller.timer_id);
 			forceStop();
 			update_UI_stopped();
@@ -189,7 +179,7 @@ audio_controller.play = function(){
 
 	    var drift = Date.now() - expected; 
 	    if (drift > interval) {
-	    	logE("something really bad happened. Maybe the browser (tab) was inactive? possibly special handling to avoid futile 'catch up' run");
+	    	log.e("something really bad happened. Maybe the browser (tab) was inactive? possibly special handling to avoid futile 'catch up' run");
 	        audio_controller.pause();
 	    }
 		audio_queue_index = (audio_queue_index + 1) % audio_controller.audio_queue.length;
@@ -289,7 +279,7 @@ function playFile(file){
 	/*if (promise !== undefined) {
 	    promise.catch(error => {
 	        // Auto-play was prevented
-	        logE("Play Error:  " + error);
+	        log.e("Play Error:  " + error);
 	    }).then(() => {
 	        // Auto-play started
 	    });
@@ -307,9 +297,9 @@ function playNoteName(note) {
 
 function playInterval(interval) {
 	var audio_file_names = [interval.audio_file_name];
-	if(interval.play_type ==  INTERVAL_PLAY_TYPE.ASCENDING){
+	if(interval.play_type ==  musicKit.Interval.PLAY_TYPE.ASCENDING){
 		audio_file_names.push("audio/intervals/ascending.mp3")
-	} else if(interval.play_type ==  INTERVAL_PLAY_TYPE.DESCENDING){
+	} else if(interval.play_type ==  musicKit.Interval.PLAY_TYPE.DESCENDING){
 		audio_file_names.push("audio/intervals/descending.mp3")
 	}
 	play_audio_string_sequence(audio_file_names);
@@ -334,7 +324,7 @@ function getAudioType(){
 	if(audio_types.count == 0)
 		return TYPE.SINGLE_NOTE;
 
-	var rand = randomIntFromInterval(0,audio_types.length-1);
+	var rand = randomInteger(0,audio_types.length-1);
     return audio_types[rand];
 }
 
@@ -361,13 +351,10 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 	} else if(type == TYPE.CHORD){
 		executeChord();
 	} else {
-		logE("unknown type");
+		log.e("unknown type");
 		executeSingleNote();
 	}
 	audio_controller.index = audio_controller.index + 1;
-
-
-
 
 	function executeSingleNote() {
 		if(audio_controller.index % 2 == 0){
@@ -377,11 +364,13 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playNoteName(note);
 			}
 			fretboard_view.drawNote(note);
-			piano_view.drawNote(note);
+			pianoView.clear();
+			pianoView.drawNote(note);
 
 		} else {
 			hideAnswer();
-			audio_controller.note = generate_random_note(40, 84);
+
+			audio_controller.note = musicKit.Note.getRandom(musicKit.all_notes, musicKit.guitar_range);
 		}
 
 		midi_controller.playNote(audio_controller.note, time_division_milli_seconds/1000);
@@ -395,10 +384,11 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playInterval(interval);
 			}
 			fretboard_view.drawInterval(interval);
-			piano_view.drawInterval(interval);
+			pianoView.clear();
+			pianoView.drawInterval(interval);
 		} else  {
 			hideAnswer();
-			audio_controller.interval = createRandomInterval(40, 84);
+			audio_controller.interval = musicKit.Interval.generateRandom(musicKit.all_notes, musicKit.guitar_range, model.interval.types, model.interval.play_types);
 		}
 
 		midi_controller.playInterval(audio_controller.interval);
@@ -414,10 +404,12 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playChord(chord);
 			}
 			fretboard_view.drawChord(chord);
-			piano_view.drawChord(chord);
+			pianoView.clear();
+			pianoView.drawChord(chord);
 		} else  {
 			hideAnswer();
-			audio_controller.chord = generate_random_chord(40, 84);
+			let chord_types = model.chords.three_note_types.concat(model.chords.four_note_types);
+			audio_controller.chord = musicKit.Chord.generateRandom(musicKit.all_notes, musicKit.guitar_range, chord_types, model.chords.play_types, model.chords.three_note_inversion_types, model.chords.four_note_inversion_types);
 		}
 		midi_controller.playChord(audio_controller.chord);
 	}

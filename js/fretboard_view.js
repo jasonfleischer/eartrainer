@@ -169,11 +169,6 @@ fretboard_view.draw_background = function(){
 		prev_buffer = buffer;
 	}
 
-	
-
-
-	
-
 	// setup
 	radius = fretboard_view.HEIGHT * 0.06;
 
@@ -365,7 +360,7 @@ fretboard_view.draw_background = function(){
 }
 
 fretboard_view.getNotePositionsFromNoteType = function(note_type) {
-
+	let NOTE_TYPE = musicKit.Note.Name.TYPE;
 	var note_positions = fretboard_view.note_positions
 	switch(note_type){
     	case NOTE_TYPE.C:
@@ -440,7 +435,7 @@ fretboard_view.drawNote = function(note){
 fretboard_view.drawNoteWithColor = function(note, label) {
 	var canvas = document.getElementById("fretboard_canvas");
 	var ctx = canvas.getContext("2d");
-	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value]
+	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.midi_value]
 
 	var i;
 	for( i=0; i<note_positions.length; i++)  {
@@ -464,7 +459,8 @@ fretboard_view.drawNoteWithColor = function(note, label) {
 fretboard_view.drawInterval = function(interval){
 
 	var play_type = interval.play_type;
-	var first_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.lower_note : interval.higher_note;
+	let higher_note = interval.get_higher_note(musicKit.all_notes);
+	var first_note = (play_type == musicKit.Interval.PLAY_TYPE.ASCENDING) ? interval.lower_note : higher_note;
 
 	var canvas = document.getElementById("fretboard_canvas");
 	var ctx = canvas.getContext("2d");
@@ -475,9 +471,9 @@ fretboard_view.drawInterval = function(interval){
 	// delay
 
 	setTimeout(() => {
-		var second_note = (play_type == INTERVAL_PLAY_TYPE.ASCENDING) ? interval.higher_note : interval.lower_note;
+		var second_note = (play_type == musicKit.Interval.PLAY_TYPE.ASCENDING) ? higher_note : interval.lower_note;
 		fretboard_view.drawNoteWithColor(second_note);
-	}, (interval.play_type == INTERVAL_PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
+	}, (interval.play_type == musicKit.Interval.PLAY_TYPE.HARMONIC) ? 0 : interval.delay_in_ms);	
 }
 
 fretboard_view.drawChord = function(chord){
@@ -485,9 +481,10 @@ fretboard_view.drawChord = function(chord){
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, fretboard_view.WIDTH, fretboard_view.HEIGHT);
 
+	let note_array = chord.getNoteArray(musicKit.all_notes, model.range);
 	var j;
-	for(j=0; j<chord.note_array.length; j++) {
-		var note = chord.note_array[j];
+	for(j=0; j<note_array.length; j++) {
+		var note = note_array[j];
 		var label = chord.note_labels[j]
 		fretboard_view.drawNotePlaceholder(note, label);
 		if (label == 'R'){
@@ -501,7 +498,7 @@ fretboard_view.drawChord = function(chord){
 fretboard_view.drawNotePlaceholder = function(note, label) {
 	var canvas = document.getElementById("fretboard_canvas");
 	var ctx = canvas.getContext("2d");
-	var note_positions = fretboard_view.getNotePositionsFromNoteType(note.note_name.name)
+	var note_positions = fretboard_view.getNotePositionsFromNoteType(note.note_name.type)
 
 	var i;
 	for( i=0; i<note_positions.length; i++)  {
@@ -525,7 +522,7 @@ fretboard_view.drawNotePlaceholder = function(note, label) {
 fretboard_view.drawNoteWithWhite = function(note, label) {
 	var canvas = document.getElementById("fretboard_canvas");
 	var ctx = canvas.getContext("2d");
-	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.note_value]
+	var note_positions = fretboard_view.noteValueToNotePositionsDict[note.midi_value]
 
 	var i;
 	for( i=0; i<note_positions.length; i++)  {

@@ -708,7 +708,9 @@ button {
     margin-top: 6px;
 }
 
-
+#piano {
+    margin-left: 10px;
+}
 
 #note_octave, #first_note_octave, #second_note_octave {
     margin-right: 10px;

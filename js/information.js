@@ -17,17 +17,24 @@ information.showAlert = function(){
 			</ul>
 		</div>
 		<br class="desktop-only" />
-		<p onclick="openMailToDeveloper()">`+TR("Thank you for using this website. If you wish to submit feedback, comment or report an error click <strong>here</strong>.")+`</p>
+		<p id="openMailToDeveloper">`+TR("Thank you for using this website. If you wish to submit feedback, comment or report an error click <strong>here</strong>.")+`</p>
 		<br/>
-		<p onclick="openURL('https://surikov.github.io/webaudiofont/')">`+TR("Special thanks to Surikov for their <strong>WebAudioFont</strong> library.")+`</p>
+		<p id="surikov">`+TR("Special thanks to Surikov for their <strong>WebAudioFont</strong> library.")+`</p>
 		<br/>
-		<p onclick="openURL('https://jasonfleischer.github.io/website/');">`+TR("Information about the developer can be found <strong>here</strong>.")+`</p>
+		<p id="personalWebsite">`+TR("Information about the developer can be found <strong>here</strong>.")+`</p>
 		<br class="desktop-only"/>
-		<button class="desktop-only" onclick="show_keyboard_shortcuts()">`+TR("Keyboard Shortcuts")+`</button>
+		<button class="desktop-only" id="keyboard_shortcuts">`+TR("Keyboard Shortcuts")+`</button>
 	`
 	alert.show(TR("Information"), contents)
+	information.setupOnClicks();
+	information.setup_darkmode();
+}
 
-	information.setup_darkmode()
+information.setupOnClicks = function(){
+	$("openMailToDeveloper").onclick = function() { openMailToDeveloper(); };
+	$("surikov").onclick = function() { openURL('https://surikov.github.io/webaudiofont/'); };
+	$("personalWebsite").onclick = function() { openURL('https://jasonfleischer.github.io/website/'); };
+	$("keyboard_shortcuts").onclick = function() { show_keyboard_shortcuts(); };
 }
 
 information.dismissAlert = function(){
