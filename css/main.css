@@ -673,6 +673,9 @@ button {
     font-size: 25px;
 }
 
+#answer_display {
+
+}
 #note_display, #interval_display, #chord_display {
     display: flex;
     visibility: hidden;
@@ -682,6 +685,7 @@ button {
     margin-right: 15px;
     margin-left: 15px;
     margin-top: 10px; 
+    position: relative;
 }
 
 #interval_type{
