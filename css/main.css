@@ -679,7 +679,7 @@ button {
 }
 #note_display, #interval_display, #chord_display {
     display: flex;
-    /*visibility: hidden;*/
+    visibility: hidden;
     font-size: 24px;
     width: calc(100% - 30px);
     flex-direction: row;
