@@ -674,7 +674,7 @@ button {
 }
 
 #answer_display {
-    height: 28px;
+    height: 38px;
     position: relative;
 }
 #note_display, #interval_display, #chord_display {
