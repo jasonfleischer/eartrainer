@@ -674,7 +674,7 @@ button {
 }
 
 #answer_display {
-
+    position: relative;
 }
 #note_display, #interval_display, #chord_display {
     display: flex;
