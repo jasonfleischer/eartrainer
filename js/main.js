@@ -1064,11 +1064,14 @@ function stopDurationTimer(){
 }
 
 function hideAnswer(){
+	$("init_view").style.visibility = "visible";
 	$("note_display").style.visibility = "hidden";
+	$("interval_display").style.visibility = "hidden";
+	$("chord_display").style.visibility = "hidden";
+
 	$("fretboard").style.visibility = "hidden";
 	$("piano").style.visibility = "hidden";
 	$("answer_container").style.visibility = "hidden";
-	$("init_view").style.visibility = "visible";
 }
 
 function showNoteAnswer(note){
