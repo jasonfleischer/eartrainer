@@ -493,6 +493,10 @@ button {
     width:100%;
 }
 
+#answer_container {
+    background-color: #f00;
+}
+
 #google_translate_element, #mobile_google_translate_element{
     height: 33px;
     position: relative;
