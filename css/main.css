@@ -674,7 +674,7 @@ button {
 }
 
 #note_display, #interval_display, #chord_display {
-    display: block;
+    display: flex;
     visibility: hidden;
     font-size: 24px;
     width: calc(100% - 30px);
