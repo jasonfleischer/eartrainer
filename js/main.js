@@ -68,9 +68,7 @@ function init() {
 	show_hidden_views();
 
 	fretboardView.resize($("answer_container").clientWidth - 25);
-	fretboardView.style.visibilty = "hidden";
 	pianoView.resize($("answer_container").clientWidth - 25);
-	pianoView.style.visibilty = "hidden";
 }
 
 function setup_mobile(){
