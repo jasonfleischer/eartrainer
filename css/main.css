@@ -23,7 +23,6 @@ html, body {
 
 #nav-side-menu, #content_view, #header{
     min-width: 320px;
-    display: none;
 }
 
 @media (min-width: 800px), (min-height: 500px) { /*desktop*/
