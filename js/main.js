@@ -1054,7 +1054,7 @@ function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
 	$("status_msg").innerHTML = TR("Configure then press 'Play' to begin");
-	$("init_view").style.visibilty = "visibile";
+	$("init_view").style.visibility = "visibile";
 	hideAnswer();
 	stopDurationTimer();
 }
@@ -1064,25 +1064,25 @@ function stopDurationTimer(){
 }
 
 function hideAnswer(){
-	$("note_display").style.visibilty = "hidden";
-	$("fretboard").style.visibilty = "hidden";
-	$("piano").style.visibilty = "hidden";
-	$("answer_container").style.visibilty = "hidden";
-	$("init_view").style.visibilty = "visibile";
+	$("note_display").style.visibility = "hidden";
+	$("fretboard").style.visibility = "hidden";
+	$("piano").style.visibility = "hidden";
+	$("answer_container").style.visibility = "hidden";
+	$("init_view").style.visibility = "visibile";
 }
 
 function showNoteAnswer(note){
 
 	
 	update_UI_note("note", note);
-	$("init_view").style.visibilty = "hidden";
-	$("note_display").style.visibilty = "visibile";
-	$("interval_display").style.visibilty = "hidden";
-	$("chord_display").style.visibilty = "hidden";
+	$("init_view").style.visibility = "hidden";
+	$("note_display").style.visibility = "visibile";
+	$("interval_display").style.visibility = "hidden";
+	$("chord_display").style.visibility = "hidden";
 
-	$("fretboard").style.visibilty = "visibile";
-	$("piano").style.visibilty = "visibile";
-	$("answer_container").style.visibilty = "visibile";
+	$("fretboard").style.visibility = "visibile";
+	$("piano").style.visibility = "visibile";
+	$("answer_container").style.visibility = "visibile";
 }
 
 function update_UI_note(id_prefix, note) {
@@ -1128,14 +1128,14 @@ function showIntervalAnswer(interval){
 		$("interval_play_type").innerHTML = "&";	
 	}
 	
-	$("init_view").style.visibilty = "hidden";
-	$("note_display").style.visibilty = "hidden";
-	$("interval_display").style.visibilty = "visibile";
-	$("chord_display").style.visibilty = "hidden";
+	$("init_view").style.visibility = "hidden";
+	$("note_display").style.visibility = "hidden";
+	$("interval_display").style.visibility = "visibile";
+	$("chord_display").style.visibility = "hidden";
 
-	$("fretboard").style.visibilty = "visibile";
-	$("piano").style.visibilty = "visibile";
-	$("answer_container").style.visibilty = "visibile";
+	$("fretboard").style.visibility = "visibile";
+	$("piano").style.visibility = "visibile";
+	$("answer_container").style.visibility = "visibile";
 }
 
 function showChordAnswer(chord){
@@ -1145,14 +1145,14 @@ function showChordAnswer(chord){
 	$("chord_structure").innerHTML = "(" + chord.structure + ")";
 	$("chord_inversion").innerHTML = (chord.inversion == musicKit.Chord.INVERSION_TYPE.Root) ? "" : chord.inversion ;
 
-	$("init_view").style.visibilty = "hidden";
-	$("note_display").style.visibilty = "hidden";
-	$("interval_display").style.visibilty = "hidden";
-	$("chord_display").style.visibilty = "visibile";
+	$("init_view").style.visibility = "hidden";
+	$("note_display").style.visibility = "hidden";
+	$("interval_display").style.visibility = "hidden";
+	$("chord_display").style.visibility = "visibile";
 
-	$("fretboard").style.visibilty = "visibile";
-	$("piano").style.visibilty = "visibile";
-	$("answer_container").style.visibilty = "visibile";
+	$("fretboard").style.visibility = "visibile";
+	$("piano").style.visibility = "visibile";
+	$("answer_container").style.visibility = "visibile";
 }
 
 function update_UI_darkmode(){
