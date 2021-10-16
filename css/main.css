@@ -674,18 +674,18 @@ button {
 }
 
 #answer_display {
-    position: relative;
+    position: absolute;
 }
 #note_display, #interval_display, #chord_display {
     display: flex;
-    visibility: hidden;
+    /*visibility: hidden;*/
     font-size: 24px;
     width: calc(100% - 30px);
     flex-direction: row;
     margin-right: 15px;
     margin-left: 15px;
     margin-top: 10px; 
-    position: absolute;
+    position: relative;
 }
 
 #interval_type{
