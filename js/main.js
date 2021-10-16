@@ -1,17 +1,3 @@
-
-//todo 
-
-// mobile 
-//	safari - no midi sound
-//	chrome - no sound for midi, landscape portait (need to reload)
-// other browsers
-//	safari - no issues
-//  firefox - no issues
-//	edge - no issue
-
-// python -m SimpleHTTPServer 8000
-// http://localhost:8000/
-
 const pianoKit = require("@jasonfleischer/piano")
 const fretboardKit = require("@jasonfleischer/fretboard");
 const musicKit = require("@jasonfleischer/music-model-kit");
@@ -55,8 +41,6 @@ function init() {
 		setup_speak_switch();
 		setup_speak_volume_control();
 
-		//setup_language_select();
-
 		setup_single_notes_switch();
 		setup_interval_controls();
 
@@ -66,7 +50,6 @@ function init() {
 		setup_chord_four_note_multiple_select();
 		setup_chord_four_note_inversion_multiple_select();
 		setup_chord_play_type_multiple_select();
-
 
 		setup_bpm_controls();
 	}
@@ -249,6 +232,7 @@ function setup_left_column_hide_close() {
 			$("hide_show_left_column_img").src = "img/left_chevron_" + (model.darkmode ? "white" : "black") +".svg"
 		}
 		fretboardView.resize($("answer_container").clientWidth - 25);
+		pianoView.resize($("answer_container").clientWidth - 25);
 		is_left_column_showing = !is_left_column_showing
 	});
 }
