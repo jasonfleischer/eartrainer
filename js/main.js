@@ -1075,13 +1075,13 @@ function showNoteAnswer(note){
 
 	
 	update_UI_note("note", note);
-	$("init_view").style.display = "none";
-	$("note_display").style.display = "flex";
-	$("interval_display").style.display = "none";
-	$("chord_display").style.display = "none";
+	$("init_view").style.visibilty = "hidden";
+	$("note_display").style.visibilty = "visibile";
+	$("interval_display").style.visibilty = "hidden";
+	$("chord_display").style.visibilty = "hidden";
 
-	$("fretboard").style.display = "block";
-	$("piano").style.display = "block";
+	$("fretboard").style.visibilty = "visibile";
+	$("piano").style.visibilty = "visibile";
 	$("answer_container").style.visibilty = "visibile";
 }
 
@@ -1128,26 +1128,27 @@ function showIntervalAnswer(interval){
 		$("interval_play_type").innerHTML = "&";	
 	}
 	
-	$("init_view").style.display = "none";
-	$("note_display").style.display = "none";
-	$("interval_display").style.display = "flex";
-	$("chord_display").style.display = "none";
+	$("init_view").style.visibilty = "hidden";
+	$("note_display").style.visibilty = "hidden";
+	$("interval_display").style.visibilty = "visibile";
+	$("chord_display").style.visibilty = "hidden";
 
-	$("fretboard").style.display = "block";
-	$("piano").style.display = "block";
+	$("fretboard").style.visibilty = "visibile";
+	$("piano").style.visibilty = "visibile";
 	$("answer_container").style.visibilty = "visibile";
 }
 
 function showChordAnswer(chord){
 
-	$("init_view").style.display = "none";
+	
 	$("chord_name").innerHTML = chord.name;
 	$("chord_structure").innerHTML = "(" + chord.structure + ")";
 	$("chord_inversion").innerHTML = (chord.inversion == musicKit.Chord.INVERSION_TYPE.Root) ? "" : chord.inversion ;
 
-	$("note_display").style.display = "none";
-	$("interval_display").style.display = "none";
-	$("chord_display").style.display = "flex";
+	$("init_view")style.visibilty = "hidden";
+	$("note_display")style.visibilty = "hidden";
+	$("interval_display")style.visibilty = "hidden";
+	$("chord_display").style.visibilty = "visibile";
 
 	$("fretboard").style.display = "block";
 	$("piano").style.display = "block";
