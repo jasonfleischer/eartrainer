@@ -685,7 +685,7 @@ button {
     margin-right: 15px;
     margin-left: 15px;
     margin-top: 10px; 
-    position: relative;
+    position: absolute;
 }
 
 #interval_type{
