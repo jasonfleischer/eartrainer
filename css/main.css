@@ -53,6 +53,7 @@ html, body {
     #init_view{
         position: absolute;
         overflow: hidden;
+        width: calc(100% - var(--left-column-width));
         height: 100%;  
     }
     #init_view p {
