@@ -717,6 +717,7 @@ button {
 
 #piano, #fretboard {
     margin-left: 10px;
+    display: contents;
 }
 
 #note_octave, #first_note_octave, #second_note_octave {
