@@ -13,12 +13,18 @@
 // http://localhost:8000/
 
 const pianoKit = require("@jasonfleischer/piano")
+const fretboardKit = require("@jasonfleischer/fretboard");
 const musicKit = require("@jasonfleischer/music-model-kit");
 musicKit.init();
 const log = require("@jasonfleischer/log");
 
 let pianoView = pianoKit({
 	id: 'piano'
+});
+
+const fretboardView = fretboardKit({
+	id: 'fretboard',
+	showLabels: false
 });
 
 function init() {
@@ -74,16 +80,11 @@ function init() {
 		setup_mobile();
 	}
 
-	fretboard_view.init();
-	//piano_view.init();
-
-
 	setup_darkmode_switch();
 	setup_bpm_controls();
 	show_hidden_views();
 
-	fretboard_view.resize($("answer_container").clientWidth - 25);
-	//piano_view.resize($("answer_container").clientWidth - 25);
+	fretboardView.resize($("answer_container").clientWidth - 25);
 	pianoView.resize($("answer_container").clientWidth - 25);
 }
 
@@ -162,16 +163,8 @@ function window_resized_end(){
 
 
 
-	fretboard_view.resize($("answer_container").clientWidth - 25);
-	//piano_view.resize($("answer_container").clientWidth - 25);
+	fretboardView.resize($("answer_container").clientWidth - 25);
 	pianoView.resize($("answer_container").clientWidth - 25);
-	//$("fretboard_background_canvas").width = 100;
-	//$("fretboard_canvas").width = 100;
-	//time_view.resize();
-	//time_view.draw_background();
-	
-	//$("bpm_text").style.display = "block"; // show
-	//range_control.resize_bpm_text();
 }
 
 // on click
@@ -255,7 +248,7 @@ function setup_left_column_hide_close() {
 			$("content_view").style.paddingLeft = column_width;
 			$("hide_show_left_column_img").src = "img/left_chevron_" + (model.darkmode ? "white" : "black") +".svg"
 		}
-		fretboard_view.resize($("answer_container").clientWidth - 25)
+		fretboardView.resize($("answer_container").clientWidth - 25);
 		is_left_column_showing = !is_left_column_showing
 	});
 }
@@ -1204,8 +1197,8 @@ function update_UI_darkmode(){
 		else 
 			$("setting_button_svg").src = "img/close_white.svg";
 
-
-		$("hide_show_left_column_img").src = "img/"+ (is_left_column_showing ? "left" : "right") +"_chevron_white.svg"
+		$("hide_show_left_column_img").src = "img/"+ (is_left_column_showing ? "left" : "right") +"_chevron_white.svg";
+		fretboardView.setDarkMode();
 	}
 
 	function setLightMode(){
@@ -1223,7 +1216,8 @@ function update_UI_darkmode(){
 		else 
 			$("setting_button_svg").src = "img/close_black.svg";
 
-		$("hide_show_left_column_img").src = "img/"+ (is_left_column_showing ? "left" : "right") +"_chevron_black.svg"
+		$("hide_show_left_column_img").src = "img/"+ (is_left_column_showing ? "left" : "right") +"_chevron_black.svg";
+		fretboardView.setLightMode();
 	}
 }
 

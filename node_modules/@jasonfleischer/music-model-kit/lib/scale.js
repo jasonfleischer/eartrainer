@@ -127,6 +127,15 @@ class Scale {
 		return result;
 	}
 
+	getLabel(note) {
+		let all_labels = ["R", "m2", "M2", "m3", "M3", "P4", "TT", "P5", "m6", "M6", "m7", "M7"];
+		if(note.midi_value >= this.root_note.midi_value) {
+			return all_labels[(note.midi_value - this.root_note.midi_value) % 12];
+		} else {
+			return all_labels[(12 - (this.root_note.midi_value - note.midi_value)) % 12];
+		}
+	}
+
 	getStructure() {
 		let result = [];
 		let all_labels = ["Root", "minor 2nd", "Mahor 2nd", "minor 3rd", "Major 3rd", "Fourth",

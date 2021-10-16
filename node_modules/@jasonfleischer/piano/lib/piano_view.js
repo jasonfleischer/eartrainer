@@ -2,7 +2,7 @@ const musicKit = require("@jasonfleischer/music-model-kit");
 const log = require("@jasonfleischer/log")
 
 class PianoView {
-	constructor(id = "piano_view_id", width = 1000, range = musicKit.piano_range, onClick, hover = false, backgroundColor="#000") {
+	constructor(id = "piano_view_id", width = 1000, range = musicKit.piano_range, onClick, hover = false, backgroundColor="#00000000") {
 
 	  	this.id = id;
 		this.BORDER_WIDTH = 1;

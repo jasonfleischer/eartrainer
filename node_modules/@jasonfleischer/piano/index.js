@@ -42,7 +42,7 @@ function pianoBuilder(options) {
 		this.hover = options.hover;
 	}
 
-	let backgroundColor = "#000";
+	let backgroundColor = "#00000000";
 	if (options.backgroundColor !== undefined){
 		backgroundColor = options.backgroundColor;
 	}

@@ -201,8 +201,6 @@ audio_controller.play = function(){
 				expected = Date.now() + interval;
 				audio_controller.timer_id = setTimeout(step, interval);
 				
-				//time_view.reloadBPM(audio_queue_index);
-
 			} else if(audio_queue_index%model.beat_division == 0 && audio_controller.divisions_changed){
 
 				audio_controller.divisions_changed = false;
@@ -363,7 +361,8 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 			if(model.speak){
 				playNoteName(note);
 			}
-			fretboard_view.drawNote(note);
+			fretboardView.clear();
+			fretboardView.drawNote(note);
 			pianoView.clear();
 			pianoView.drawNote(note);
 
@@ -383,7 +382,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 			if(model.speak){
 				playInterval(interval);
 			}
-			fretboard_view.drawInterval(interval);
+			fretboardView.drawInterval(interval);
 			pianoView.clear();
 			pianoView.drawInterval(interval);
 		} else  {
@@ -403,7 +402,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 			if(model.speak){
 				playChord(chord);
 			}
-			fretboard_view.drawChord(chord);
+			fretboardView.drawChord(chord);
 			pianoView.clear();
 			pianoView.drawChord(chord);
 		} else  {
