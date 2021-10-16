@@ -85,7 +85,7 @@ function show_hidden_views(){
 			$("hide_show_left_column").style.display = "block";
 		
 	}
-	$("content_view").style.display = "block";
+	//$("content_view").style.display = "block";
 }
 
 // window resize
