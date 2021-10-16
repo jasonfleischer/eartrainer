@@ -495,6 +495,7 @@ button {
 
 #answer_container {
     background-color: #f00;
+    max-width: 1000px;
 }
 
 #google_translate_element, #mobile_google_translate_element{
