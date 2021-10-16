@@ -1145,9 +1145,9 @@ function showChordAnswer(chord){
 	$("chord_structure").innerHTML = "(" + chord.structure + ")";
 	$("chord_inversion").innerHTML = (chord.inversion == musicKit.Chord.INVERSION_TYPE.Root) ? "" : chord.inversion ;
 
-	$("init_view")style.visibilty = "hidden";
-	$("note_display")style.visibilty = "hidden";
-	$("interval_display")style.visibilty = "hidden";
+	$("init_view").style.visibilty = "hidden";
+	$("note_display").style.visibilty = "hidden";
+	$("interval_display").style.visibilty = "hidden";
 	$("chord_display").style.visibilty = "visibile";
 
 	$("fretboard").style.display = "block";
