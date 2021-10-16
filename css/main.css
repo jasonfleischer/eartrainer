@@ -717,6 +717,10 @@ button {
     margin-left: 10px;
     position: relative;
 }
+#piano {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 #note_octave, #first_note_octave, #second_note_octave {
     margin-right: 10px;
