@@ -51,7 +51,7 @@ html, body {
         height: calc(100vh - var(--header-height) );
     }
     #init_view{
-        position: relative;
+        position: absolute;
         overflow: hidden;
         /*width: calc(100% - var(--left-column-width));*/
         height: 100%;  
@@ -496,6 +496,7 @@ button {
 #answer_container {
     margin: auto;
     visibility: hidden;
+    position: absolute;
     max-width: 1000px;
 }
 
