@@ -1064,11 +1064,11 @@ function stopDurationTimer(){
 }
 
 function hideAnswer(){
-	$("note_display").style.display = "none";
-	$("fretboard").style.display = "none";
-	$("piano").style.display = "none";
+	$("note_display").style.visibilty = "hidden";
+	$("fretboard").style.visibilty = "hidden";
+	$("piano").style.visibilty = "hidden";
 	$("answer_container").style.visibilty = "hidden";
-	$("init_view").style.display = "block";
+	$("init_view").style.visibilty = "visibile";
 }
 
 function showNoteAnswer(note){
@@ -1150,8 +1150,8 @@ function showChordAnswer(chord){
 	$("interval_display").style.visibilty = "hidden";
 	$("chord_display").style.visibilty = "visibile";
 
-	$("fretboard").style.display = "block";
-	$("piano").style.display = "block";
+	$("fretboard").style.visibilty = "visibile";
+	$("piano").style.visibilty = "visibile";
 	$("answer_container").style.visibilty = "visibile";
 }
 
