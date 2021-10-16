@@ -494,6 +494,7 @@ button {
 }
 
 #answer_container {
+    margin: auto;
     background-color: #f00;
     max-width: 1000px;
 }
