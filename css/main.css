@@ -673,17 +673,14 @@ button {
 }
 
 #note_display, #interval_display, #chord_display {
-    display: none;
+    display: block;
+    visibility: hidden;
     font-size: 24px;
-}
-
-#note_display, #interval_display, #chord_display {
-  width: calc(100% - 30px);
-  flex-direction: row;
-  margin-right: 15px;
-  margin-left: 15px;
-  margin-top: 10px;
-  
+    width: calc(100% - 30px);
+    flex-direction: row;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 10px; 
 }
 
 #interval_type{
@@ -716,6 +713,7 @@ button {
 
 #piano, #fretboard {
     margin-left: 10px;
+    position: relative;
 }
 
 #note_octave, #first_note_octave, #second_note_octave {

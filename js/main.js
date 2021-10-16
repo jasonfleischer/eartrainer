@@ -1054,7 +1054,7 @@ function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
 	$("status_msg").innerHTML = TR("Configure then press 'Play' to begin");
-	$("init_view").style.display = "block"; // show
+	$("init_view").style.visibilty = "visibile";
 	hideAnswer();
 	stopDurationTimer();
 }
