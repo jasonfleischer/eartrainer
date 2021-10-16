@@ -1054,7 +1054,7 @@ function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
 	$("status_msg").innerHTML = TR("Configure then press 'Play' to begin");
-	$("init_view").style.visibility = "visibile";
+	$("init_view").style.visibility = "visible";
 	hideAnswer();
 	stopDurationTimer();
 }
@@ -1068,7 +1068,7 @@ function hideAnswer(){
 	$("fretboard").style.visibility = "hidden";
 	$("piano").style.visibility = "hidden";
 	$("answer_container").style.visibility = "hidden";
-	$("init_view").style.visibility = "visibile";
+	$("init_view").style.visibility = "visible";
 }
 
 function showNoteAnswer(note){
@@ -1076,13 +1076,13 @@ function showNoteAnswer(note){
 	
 	update_UI_note("note", note);
 	$("init_view").style.visibility = "hidden";
-	$("note_display").style.visibility = "visibile";
+	$("note_display").style.visibility = "visible";
 	$("interval_display").style.visibility = "hidden";
 	$("chord_display").style.visibility = "hidden";
 
-	$("fretboard").style.visibility = "visibile";
-	$("piano").style.visibility = "visibile";
-	$("answer_container").style.visibility = "visibile";
+	$("fretboard").style.visibility = "visible";
+	$("piano").style.visibility = "visible";
+	$("answer_container").style.visibility = "visible";
 }
 
 function update_UI_note(id_prefix, note) {
@@ -1130,12 +1130,12 @@ function showIntervalAnswer(interval){
 	
 	$("init_view").style.visibility = "hidden";
 	$("note_display").style.visibility = "hidden";
-	$("interval_display").style.visibility = "visibile";
+	$("interval_display").style.visibility = "visible";
 	$("chord_display").style.visibility = "hidden";
 
-	$("fretboard").style.visibility = "visibile";
-	$("piano").style.visibility = "visibile";
-	$("answer_container").style.visibility = "visibile";
+	$("fretboard").style.visibility = "visible";
+	$("piano").style.visibility = "visible";
+	$("answer_container").style.visibility = "visible";
 }
 
 function showChordAnswer(chord){
@@ -1148,11 +1148,11 @@ function showChordAnswer(chord){
 	$("init_view").style.visibility = "hidden";
 	$("note_display").style.visibility = "hidden";
 	$("interval_display").style.visibility = "hidden";
-	$("chord_display").style.visibility = "visibile";
+	$("chord_display").style.visibility = "visible";
 
-	$("fretboard").style.visibility = "visibile";
-	$("piano").style.visibility = "visibile";
-	$("answer_container").style.visibility = "visibile";
+	$("fretboard").style.visibility = "visible";
+	$("piano").style.visibility = "visible";
+	$("answer_container").style.visibility = "visible";
 }
 
 function update_UI_darkmode(){
