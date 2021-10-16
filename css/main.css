@@ -53,7 +53,7 @@ html, body {
     #init_view{
         position: absolute;
         overflow: hidden;
-        /*width: calc(100% - var(--left-column-width));*/
+        width: calc(100% - var(--left-column-width));
         height: 100%;  
     }
     #init_view p {
@@ -495,7 +495,6 @@ button {
 
 #answer_container {
     margin: auto;
-    visibility: hidden;
     position: absolute;
     max-width: 1000px;
 }
