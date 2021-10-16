@@ -496,7 +496,6 @@ button {
 #answer_container {
     margin: auto;
     visibility: hidden;
-    display: contents;
     max-width: 1000px;
 }
 
