@@ -140,11 +140,11 @@ function window_resized_end(){
 	if(!audio_controller.playing){
 		$("status_msg").style.display = "block"; // show
 	}
-	let paddingLeftRight = 30;
 
-	//$("answer_display")
+	let fretboardPaddingLeftRight = 34;
 	fretboardView.resize(Math.min(contentWidth-paddingLeftRight, 1000));
-	pianoView.resize(Math.min(contentWidth-paddingLeftRight, 1000));
+	let pianoPaddingLeftRight = 30;
+	pianoView.resize(Math.min(contentWidth-pianoPaddingLeftRight, 1000));
 }
 
 // on click
