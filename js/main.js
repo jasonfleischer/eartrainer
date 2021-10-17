@@ -1076,7 +1076,7 @@ function showNoteAnswer(note){
 
 function update_UI_note(id_prefix, note) {
 
-	$(id_prefix + "_name").innerHTML = note.note_name.type.substring(0,2);
+	$(id_prefix + "_name").innerHTML = is_compact_window() ? note.note_name.type.substring(0,2) : note.note_name.type;
 	$(id_prefix + "_octave").innerHTML = note.octave;
 	$(id_prefix + "_color").style.backgroundColor = note.note_name.color;
 	//piano 21, 108
