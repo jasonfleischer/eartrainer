@@ -473,8 +473,8 @@ button {
 #answer_container {
 	margin: auto;
 	position: absolute;
-	width: calc(100% - var(--left-column-width));
-	max-width: 1000px;
+	width: 100%;
+	max-width: 600px;
 }
 
 #google_translate_element, #mobile_google_translate_element{
@@ -652,8 +652,6 @@ button {
 
 #answer_display {
 	height: 38px;
-	margin: auto;
-	max-width: 1000px;
 	position: relative;
 }
 #note_display, #interval_display, #chord_display {
