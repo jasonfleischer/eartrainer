@@ -142,6 +142,7 @@ function window_resized_end(){
 		} else {
 
 			$("nav-side-menu").style.display = "none";
+			$("content_view").style.paddingLeft = "0px";
 
 			$("init_view").style.width = "100%";
 			$("answer_container").style.width = "100%";
