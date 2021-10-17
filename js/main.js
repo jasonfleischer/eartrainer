@@ -141,8 +141,8 @@ function window_resized_end(){
 		$("status_msg").style.display = "block"; // show
 	}
 	let paddingLeftRight = 20;
-	fretboardView.resize(contentWidth-paddingLeftRight);
-	pianoView.resize(contentWidth-paddingLeftRight);
+	fretboardView.resize(Math.min(contentWidth-paddingLeftRight, 600);
+	pianoView.resize(Math.min(contentWidth-paddingLeftRight, 600);
 }
 
 // on click
@@ -211,23 +211,11 @@ function setup_settings_menu_on_click(){
 var is_left_column_showing = true;
 function setup_left_column_hide_close() {
 	$("hide_show_left_column").addEventListener("click", function(event){
-
-
 		if(is_left_column_showing){
-			//$("mobile_play_pause_button").style.display = "block";
-			//$("nav-side-menu").style.display = "none";
-			//$("content_view").style.paddingLeft = "0px";
 			$("hide_show_left_column_img").src = "img/right_chevron_" + (model.darkmode ? "white" : "black") +".svg"
-		}
-		else{
-			//$("mobile_play_pause_button").style.display = "none";
-			//var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width");
-			//$("nav-side-menu").style.display = "block";
-			//$("content_view").style.paddingLeft = column_width;
+		} else{
 			$("hide_show_left_column_img").src = "img/left_chevron_" + (model.darkmode ? "white" : "black") +".svg"
 		}
-		//fretboardView.resize($("answer_container").clientWidth - 25);
-		//pianoView.resize($("answer_container").clientWidth - 25);
 		is_left_column_showing = !is_left_column_showing
 
 		window_resized_end()
