@@ -747,7 +747,6 @@ button {
 #piano, #fretboard {
 	visibility: hidden;
 	margin-left: 10px;
-	position: relative;
 }
 #piano {
 	margin-top: 15px;
