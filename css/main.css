@@ -132,7 +132,7 @@ html, body {
     #nav-menu-ul{
         background-color: var(--secondary-background-color);
     }
-    #content_view{
+    #content_view, #init_view{
         padding-left: 0px;
         height: calc(100% - var(--header-height) * 2 - 10px);
         position: absolute;
