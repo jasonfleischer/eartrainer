@@ -133,7 +133,7 @@ function window_resized_end(){
 		}
 	}
 
-	var column_width = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--left-column-width").replace("px", ""));
+	var column_width = parseInt($("content_view").style.marginLeft.replace("px", ""));
 	let contentWidth = document.body.clientWidth - column_width;
 	log.e("contentWidth: " + contentWidth + ": "+ (typeof contentWidth) + " b;" + document.body.clientWidth + " , "+ $("content_view").style.marginLeft)
 	$("init_view").style.width = contentWidth + "px";
