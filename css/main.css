@@ -661,8 +661,8 @@ button {
 	font-size: 24px;
 	width: calc(100% - 30px);
 	flex-direction: row;
-	margin-right: 10px;
-	margin-left: 10px;
+	margin-right: 5px;
+	margin-left: 5px;
 	margin-top: 10px; 
 	position: absolute;
 	white-space: nowrap;
