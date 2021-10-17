@@ -105,15 +105,10 @@ window.onresize = function(){
 
 function window_resized_start(){
 	
-
-
 	$("content_view").style.visibility = "hidden";
 	$("hide_show_left_column").style.visibility = "hidden";
-
 	dismissInfo();	
 }
-
-
 
 function window_resized_end(){
 
@@ -246,7 +241,7 @@ function setup_left_column_hide_close() {
 		//pianoView.resize($("answer_container").clientWidth - 25);
 		is_left_column_showing = !is_left_column_showing
 
-		window_resized_end()
+		//window_resized_end()
 	});
 }
 
