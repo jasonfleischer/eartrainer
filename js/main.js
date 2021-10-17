@@ -128,7 +128,6 @@ function window_resized_end(){
 	} else {
 		
 		$("content_view").style.visibility = "visible";
-
 		$("hide_show_left_column").style.visibility = "visible";
 
 		if(is_left_column_showing) {
@@ -142,6 +141,7 @@ function window_resized_end(){
 
 		} else {
 
+			$("nav-side-menu").style.display = "none";
 
 			$("init_view").style.width = "100%";
 			$("answer_container").style.width = "100%";
