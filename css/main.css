@@ -345,7 +345,7 @@ strong {
 
 #content_view {
 	margin-left: 0px;
-	height: calc(100% - var(--header-height) * 2 - 10px);
+	height: calc(100% - var(--header-height));
 	position: absolute;
 	width: 100%;
 }
