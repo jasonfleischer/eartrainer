@@ -116,7 +116,7 @@ function window_resized_end(){
 	if(is_compact_window()) {
 		hide_settings();
 		$("hide_show_left_column").style.visibility = "hidden";
-		$("content_view").style.paddingLeft = "0px";
+		$("content_view").style.marginLeft = "0px";
 
 	} else {
 		
@@ -125,11 +125,11 @@ function window_resized_end(){
 		if(is_left_column_showing) {
 			$("nav-side-menu").style.display = "block";
 			var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
-			$("content_view").style.paddingLeft = column_width;
+			$("content_view").style.marginLeft = column_width;
 		} else {
 
 			$("nav-side-menu").style.display = "none";
-			$("content_view").style.paddingLeft = "0px";
+			$("content_view").style.marginLeft = "0px";
 		}
 	}
 
