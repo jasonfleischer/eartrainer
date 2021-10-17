@@ -142,9 +142,9 @@ function window_resized_end(){
 	if(!audio_controller.playing){
 		$("status_msg").style.display = "block"; // show
 	}
-
-	fretboardView.resize(contentWidth-20);
-	pianoView.resize(contentWidth-20);
+	let paddingLeftRight = 20;
+	fretboardView.resize(contentWidth-paddingLeftRight);
+	pianoView.resize(contentWidth-paddingLeftRight);
 }
 
 // on click
