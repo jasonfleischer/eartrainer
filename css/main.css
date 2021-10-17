@@ -664,6 +664,10 @@ button {
 	margin-left: 15px;
 	margin-top: 10px; 
 	position: absolute;
+
+	white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 }
 
 #interval_type{
