@@ -114,40 +114,31 @@ function window_resized_end(){
 
 	window_resize_start_event_occured = false;
 
+	$("content_view").style.visibility = "visible";
+
 	if(is_compact_window()) {
 		hide_settings();
 		$("hide_show_left_column").style.visibility = "hidden";
-		
-		$("content_view").style.visibility = "visible";
 		$("content_view").style.paddingLeft = "0px";
-
-		$("init_view").style.width = "100%";
-		$("answer_container").style.width = "100%";
-	
 
 	} else {
 		
-		$("content_view").style.visibility = "visible";
 		$("hide_show_left_column").style.visibility = "visible";
 
 		if(is_left_column_showing) {
 			$("nav-side-menu").style.display = "block";
 			var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
 			$("content_view").style.paddingLeft = column_width;
-
-			let bodyWidth = document.body.clientWidth
-			$("init_view").style.width = (bodyWidth - column_width) + "px";
-			$("answer_container").style.width = (bodyWidth - column_width) + "px";
-
 		} else {
 
 			$("nav-side-menu").style.display = "none";
 			$("content_view").style.paddingLeft = "0px";
-
-			$("init_view").style.width = "100%";
-			$("answer_container").style.width = "100%";
 		}
 	}
+
+	let contentWidth = $("content_view").clientWidth;
+	$("init_view").style.width = contentWidth + "px";
+	$("answer_container").style.width = contentWidth + "px";
 
 	if(!audio_controller.playing){
 		$("status_msg").style.display = "block"; // show
