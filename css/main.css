@@ -474,7 +474,6 @@ button {
 	margin: auto;
 	position: absolute;
 	width: calc(100% - var(--left-column-width));
-	max-width: 600px;
 }
 
 #google_translate_element, #mobile_google_translate_element{
@@ -651,6 +650,8 @@ button {
 }
 
 #answer_display {
+	margin: auto;
+	max-width: 600px;
 	height: 38px;
 	position: relative;
 }
