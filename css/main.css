@@ -44,12 +44,12 @@ html, body {
         overflow: hidden;
         display: block;
     }
-    #content_view, #init_view {
+    #content_view {
         overflow-x: hidden;
         padding-left: var(--left-column-width);
         height: calc(100vh - var(--header-height) );
     }
-    /*#init_view{
+    #init_view{
         position: absolute;
         overflow: hidden;
         width: 100%;
@@ -68,7 +68,7 @@ html, body {
         margin-right: auto;
         vertical-align: middle;
         opacity: 0.3;
-    }*/
+    }
 
     #page_contents{
         padding: 15px;
@@ -132,13 +132,13 @@ html, body {
     #nav-menu-ul{
         background-color: var(--secondary-background-color);
     }
-    #content_view, #init_view{
+    #content_view {
         padding-left: 0px;
         height: calc(100% - var(--header-height) * 2 - 10px);
         position: absolute;
         width: 100%;
     }
-    /*#init_view{
+    #init_view{
         position: relative;
         overflow: hidden;
         width: 100%;
@@ -157,7 +157,7 @@ html, body {
         margin-right: auto;
         vertical-align: middle;
         opacity: 0.3;
-    }*/
+    }
 
     #page_contents{
         padding: 0px;
