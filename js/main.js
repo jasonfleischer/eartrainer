@@ -103,7 +103,7 @@ window.onresize = function(){
 function window_resized_start(){
 	
 	$("content_view").style.visibility = "hidden";
-	$("hide_show_left_column").style.visibility = "hidden";
+	//$("hide_show_left_column").style.visibility = "hidden";
 	dismissInfo();	
 }
 
