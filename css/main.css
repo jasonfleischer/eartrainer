@@ -709,7 +709,7 @@ button {
 }
 
 #note_octave, #first_note_octave, #second_note_octave {
-	margin-right: 10px;
+	margin-right: 8px;
 	margin-top: 10px;
 	font-size: 15px;
 }
