@@ -141,6 +141,8 @@ function window_resized_end(){
 		$("status_msg").style.display = "block"; // show
 	}
 	let paddingLeftRight = 20;
+
+	//$("answer_display")
 	fretboardView.resize(Math.min(contentWidth-paddingLeftRight, 600));
 	pianoView.resize(Math.min(contentWidth-paddingLeftRight, 600));
 }
