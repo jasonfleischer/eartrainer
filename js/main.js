@@ -143,8 +143,8 @@ function window_resized_end(){
 		$("status_msg").style.display = "block"; // show
 	}
 
-	fretboardView.resize(contentWidth);
-	pianoView.resize(contentWidth);
+	fretboardView.resize(contentWidth-20);
+	pianoView.resize(contentWidth-20);
 }
 
 // on click
