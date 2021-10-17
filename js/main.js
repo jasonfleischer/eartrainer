@@ -142,7 +142,7 @@ function window_resized_end(){
 	}
 
 	let fretboardPaddingLeftRight = 34;
-	fretboardView.resize(Math.min(contentWidth-paddingLeftRight, 1000));
+	fretboardView.resize(Math.min(contentWidth-fretboardPaddingLeftRight, 1000));
 	let pianoPaddingLeftRight = 30;
 	pianoView.resize(Math.min(contentWidth-pianoPaddingLeftRight, 1000));
 }
