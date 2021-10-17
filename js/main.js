@@ -135,7 +135,7 @@ function window_resized_end(){
 
 	var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
 	let contentWidth = document.body.clientWidth - column_width;
-	log.e("contentWidth: " + contentWidth + ": "+ column_width + " b;" + document.body.clientWidth + " , "+ $("content_view").clientWidth)
+	log.e("contentWidth: " + contentWidth + ": "+ column_width + " b;" + document.body.clientWidth + " , "+ $("content_view").style.marginLeft)
 	$("init_view").style.width = contentWidth + "px";
 	$("answer_container").style.width = contentWidth + "px";
 
