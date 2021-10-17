@@ -113,9 +113,7 @@ function window_resized_start(){
 	dismissInfo();	
 }
 
-function TR(translation) {
-	return translation
-}
+
 
 function window_resized_end(){
 
@@ -125,6 +123,8 @@ function window_resized_end(){
 		hide_settings();
 		$("hide_show_left_column").style.display = "none";
 		$("content_view").style.paddingLeft = "0px";
+	
+
 	} else {
 		
 		$("kofi_button").style.display = "block";
@@ -242,7 +242,7 @@ function openURL(url){
 }
 
 function openMailToDeveloper(){
-	var subject = TR("Metronome Website Feedback");
+	var subject = "Metronome Website Feedback";
 	subject = subject.replaceAll(" ", "%20");
 	openURL("mailto:jason_fleischer@hotmail.ca?Subject=" + subject);
 }
@@ -880,11 +880,11 @@ function update_UI_BPM(value) {
 function update_UI_duration(duration_in_MS){
 	var new_text;
 	if(duration_in_MS < 0)
-		new_text = audio_controller.playing ? TR("Stop"): TR("Play");
+		new_text = audio_controller.playing ? "Stop": "Play";
 	else {
 		var time_display =  " (" + human_readable_duration(duration_in_MS) + ")"
 		if (time_display == " ()"){ time_display = ""; }
-		new_text = (audio_controller.playing ? TR("Stop"): TR("Play")) + "<span id='play_pause_button_span'>" + time_display + "</span>" ;
+		new_text = (audio_controller.playing ? "Stop": "Play") + "<span id='play_pause_button_span'>" + time_display + "</span>" ;
 	}
 	$("play_pause_button").innerHTML = new_text
 	$("mobile_play_pause_button").innerHTML = new_text
@@ -1029,9 +1029,9 @@ function update_UI_chord_four_note_inversion_type(pair) {
 }
 
 function update_UI_playing(){
-	$("play_pause_button").innerHTML = TR("Stop"); 
-	$("mobile_play_pause_button").innerHTML = TR("Stop");
-	$("status_msg").innerHTML = TR("What musical sound are you hearing?")
+	$("play_pause_button").innerHTML = "Stop"; 
+	$("mobile_play_pause_button").innerHTML = "Stop";
+	$("status_msg").innerHTML = "What musical sound are you hearing?";
 	//time_view.start(model.time_signature, model.BPM);
 	startDurationTimer();
 }
@@ -1053,7 +1053,7 @@ function startDurationTimer(){
 function update_UI_stopped(){
 
 	update_UI_duration(model.duration*60000)
-	$("status_msg").innerHTML = TR("Configure then press 'Play' to begin");
+	$("status_msg").innerHTML = "Configure then press 'Play' to begin";
 	$("init_view").style.visibility = "visible";
 	hideAnswer();
 	stopDurationTimer();
