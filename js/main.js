@@ -141,8 +141,8 @@ function window_resized_end(){
 		$("status_msg").style.display = "block"; // show
 	}
 
-	fretboardView.resize($("answer_container").clientWidth - 25);
-	pianoView.resize($("answer_container").clientWidth - 25);
+	fretboardView.resize(contentWidth);
+	pianoView.resize(contentWidth);
 }
 
 // on click
