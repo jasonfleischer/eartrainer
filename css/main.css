@@ -651,7 +651,7 @@ button {
 
 #answer_display {
 	margin: auto;
-	max-width: 600px;
+	max-width: 1000px;
 	height: 38px;
 	position: relative;
 }
