@@ -102,13 +102,11 @@ window.onresize = function(){
 };
 
 function window_resized_start(){
-	//$("bpm_text").style.display = "none"; // hide
-	//$("time_view_container").style.display = "none"; // hide
-	//$("status_msg").style.display = "none"; // hide
-	//$("nav-side-menu").style.display = "none"; // hide
+	
 
 
-
+	//$("content_view").style.visibility = "hidden";
+	//$("hide_show_left_column").style.visibility = "hidden";
 
 	dismissInfo();	
 }
@@ -121,30 +119,42 @@ function window_resized_end(){
 
 	if(is_compact_window()) {
 		hide_settings();
-		$("hide_show_left_column").style.display = "none";
+		$("hide_show_left_column").style.visibility = "hidden";
+		
+		$("content_view").style.visibility = "visible";
 		$("content_view").style.paddingLeft = "0px";
+
+		$("init_view").style.width = "100%";
+		$("answer_container").style.width = "100%";
 	
 
 	} else {
 		
-		$("kofi_button").style.display = "block";
-		$("info_button").style.display = "block";
-		$("hide_show_left_column").style.display = "block";
+		//$("kofi_button").style.display = "block";
+		//$("info_button").style.display = "block";
+
+		$("hide_show_left_column").style.visibility = "visible";
 
 		if(is_left_column_showing) {
 			$("nav-side-menu").style.display = "block";
 			var column_width = getComputedStyle(document.documentElement).getPropertyValue("--left-column-width")
 			$("content_view").style.paddingLeft = column_width;
+
+			let bodyWidth = document.body.clientWidth
+			$("init_view").style.width = (bodyWidth - column_width) + "px";
+			$("answer_container").style.width = (bodyWidth - column_width) + "px";
+
+		} else {
+
+
+			$("init_view").style.width = "100%";
+			$("answer_container").style.width = "100%";
 		}
 	}
 
-	if(audio_controller.playing){
-		//$("time_view_container").style.display = "block"; // show
-	} else {
+	if(!audio_controller.playing){
 		$("status_msg").style.display = "block"; // show
 	}
-
-
 
 	fretboardView.resize($("answer_container").clientWidth - 25);
 	pianoView.resize($("answer_container").clientWidth - 25);
