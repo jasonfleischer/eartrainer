@@ -1142,7 +1142,7 @@ function showChordAnswer(chord){
 
 	
 	$("chord_name").innerHTML = chord.name;
-	$("chord_structure").innerHTML = is_compact_window() ? "" : "(" + chord.structure.toString() + ")";
+	$("chord_structure").innerHTML = is_compact_window() ? "" : "(" + chord.structure.toString() + chord.structure.length + ")";
 	$("chord_inversion").innerHTML = (chord.inversion == musicKit.Chord.INVERSION_TYPE.Root) ? "" : chord.inversion ;
 
 	$("init_view").style.visibility = "hidden";
