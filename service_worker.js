@@ -1,4 +1,4 @@
-let CACHE_NAME = 'v09';
+let CACHE_NAME = 'v10';
 const CACHE = [
         '/eartrainer/index.html',
         '/eartrainer/fonts/SF_Pro_Display_Thin.woff2',

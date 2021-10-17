@@ -67,9 +67,6 @@ function init() {
 	setup_bpm_controls();
 	show_hidden_views();
 
-	fretboardView.resize($("answer_container").clientWidth - 25);
-	pianoView.resize($("answer_container").clientWidth - 25);
-
 	window_resized_end();
 }
 
