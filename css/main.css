@@ -44,7 +44,7 @@ html, body {
         overflow: hidden;
         display: block;
     }
-    #content_view {
+    #content_view, #init_view {
         overflow-x: hidden;
         padding-left: var(--left-column-width);
         height: calc(100vh - var(--header-height) );
