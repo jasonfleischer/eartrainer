@@ -140,7 +140,7 @@ function window_resized_end(){
 	if(!audio_controller.playing){
 		$("status_msg").style.display = "block"; // show
 	}
-	let paddingLeftRight = 20;
+	let paddingLeftRight = 30;
 
 	//$("answer_display")
 	fretboardView.resize(Math.min(contentWidth-paddingLeftRight, 1000));
