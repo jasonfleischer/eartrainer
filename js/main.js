@@ -134,6 +134,7 @@ function window_resized_end(){
 	}
 
 	let contentWidth = $("content_view").clientWidth;
+	log.e("contentWidth: " + contentWidth)
 	$("init_view").style.width = contentWidth + "px";
 	$("answer_container").style.width = contentWidth + "px";
 

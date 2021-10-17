@@ -344,7 +344,7 @@ strong {
 
 
 #content_view {
-	padding-left: 0px;
+	margin-left: 0px;
 	height: calc(100% - var(--header-height) * 2 - 10px);
 	position: absolute;
 	width: 100%;
