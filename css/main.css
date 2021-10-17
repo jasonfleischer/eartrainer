@@ -652,6 +652,8 @@ button {
 
 #answer_display {
 	height: 38px;
+	margin: auto;
+	max-width: 1000px;
 	position: relative;
 }
 #note_display, #interval_display, #chord_display {
