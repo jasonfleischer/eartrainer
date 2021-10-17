@@ -225,7 +225,6 @@ audio_controller.play = function(){
 
 function play_audio_string_sequence(audio_string_array){
 
-	//var audio_array = audio_controller.preloaded_audio;
 	var j;
 	for(j=0; j<audio_string_array.length; j++){
 		//var audio = document.createElement("AUDIO");
@@ -268,20 +267,7 @@ function playFile(file){
 	var audio = audio_controller.preloaded_audio[0];
 	audio.setAttribute("src", file);
 	audio.volume = model.speak_volume;
-	
-
-	/*var promise = */
 	audio.play();
-
-	//is this needed for mobile?
-	/*if (promise !== undefined) {
-	    promise.catch(error => {
-	        // Auto-play was prevented
-	        log.e("Play Error:  " + error);
-	    }).then(() => {
-	        // Auto-play started
-	    });
-	}*/
 }
 
 function playNoteName(note) {
@@ -328,7 +314,6 @@ function getAudioType(){
 
 audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, text_queue, time_division_milli_seconds) {
 
-
 	if(audio_controller.index % 2 != 0){
 
 		if(isDurationExpired()) {
@@ -338,7 +323,6 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 			hideAnswer();
 			return;
 		}
-
 		type = getAudioType();
 	} 
 
@@ -394,7 +378,6 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 	}
 
 	function executeChord() {
-
 		
 		if(audio_controller.index % 2 == 0){
 			var chord = audio_controller.chord;

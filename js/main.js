@@ -21,8 +21,6 @@ function init() {
 	if (isSafariMobile && !isFromHomeScreen()){
 		install.showAlert()
 	}
-
-	//translations.load();
 	
 	setup_audio()
 	function setup_audio(){
@@ -71,8 +69,6 @@ function init() {
 }
 
 function setup_mobile(){
-	//model.tone = TONE.NORMAL;
-	//$("tone").style.display = "none";
 	$("hide_show_left_column").style.display = "none";
 }
 
@@ -268,18 +264,6 @@ function setup_bpm_controls() {
 	setup_bpm_range(min, max, step);
 	//setup_bpm_prompt();
 	$("speed_text").innerHTML = (BPMtoMilliSeconds(model.BPM) / 1000).toFixed(1) + "s";
-	
-
-	/*function setup_bpm_dial(min, max, step){
-		var on_range_control_changed = function(BPM_value){
-			log.i("on BPM dial change: " + BPM_value);
-			model.BPM = BPM_value;
-			storage.set_BPM(model.BPM);
-			update_UI_BPM(model.BPM);
-			reloadBPM();
-		};
-		range_control.load(on_range_control_changed, "", min , max, step, model.BPM, false, 0);
-	}*/
 
 	function setup_bpm_range(min, max, step){
 		var bpm_range = $("bpm_range");
@@ -304,28 +288,6 @@ function setup_bpm_controls() {
 			reloadBPM();
 		}, true);
 	}
-
-	/*function setup_bpm_prompt(){
-		$("bpm_text").addEventListener("click", function(e){
-			bpm_prompt();
-		});
-
-		function bpm_prompt(){
-			var was_playing = forceStop();
-			var BPM = parseInt(prompt("Enter a BPM value:", model.BPM));
-			if(BPM >= MIN_BPM && BPM <= MAX_BPM){
-				log.i("on BPM prompt change: " + BPM);
-				model.BPM = BPM;
-				range_control.load(range_control.on_range_control_changed, "", MIN_BPM , MAX_BPM, 1, model.BPM, false, 0);
-				storage.set_BPM(model.BPM);
-				update_UI_BPM(model.BPM);
-				reloadBPM();
-				if(was_playing) playPause(); 
-			}else {
-				log.i("Invalid BPM value" + BPM);
-			}
-		}
-	}*/
 }
 
 function setup_volume_control() {
@@ -716,72 +678,6 @@ function setup_chords_switch() {
 	update_UI_chords();
 }
 
-/*function setup_tone_select() {
-	$("tone_select").addEventListener("change", function(e){
-		var value = parseInt(this.value);
-		log.i("on tone_select: " + value);
-		model.tone = value;
-		storage.set_tone(value);
-		update_UI_tone();
-		audio_controller.reloadSounds();
-	});
-	$("tone_select").value = model.tone;
-	update_UI_tone();
-}
-
-function setup_time_signature_select() {
-	$("time_signature_select").addEventListener("change", function(e){
-		var value = parseInt(this.value);
-		log.i("on time_signature_select: " + value);
-		model.time_signature = value ;
-		storage.set_time_signature(value);
-		reloadActivePlayer();
-	});
-	$("time_signature_select").value = model.time_signature;
-}
-
-function setup_beat_division_select() {
-	$("division_select").addEventListener("change", function(e){
-		var value = parseInt(this.value);
-		log.i("on division_select: " + value);
-		storage.set_subdivision(value);
-		reloadDivisions(value);
-	});
-	$("division_select").value = model.beat_division;
-}
-
-function setup_accent_first_beat_switch() {
-	$("accent_first_beat").addEventListener("click", function(e){
-		$("accent_first_beat_checkbox").click();
-	});
-	$("accent_first_beat_checkbox_switch").addEventListener('keyup', function(e) {
-		if (event.code === 'Space' || event.code === 'Enter') $("accent_first_beat_checkbox").click();
-	});
-	$("accent_first_beat_checkbox").addEventListener("change", function(e){
-		var value = this.checked;
-		log.i("on accent beat change: " + value);
-		model.accent_first_beat = value;
-		storage.set_accent_first_beat(value);
-	});
-	$("accent_first_beat_checkbox").checked = model.accent_first_beat;
-}
-
-function setup_flash_screen_switch() {
-	$("screen_flash").addEventListener("click", function(e){
-		$("screen_flash_checkbox").click();
-	});
-	$("screen_flash_checkbox_switch").addEventListener('keyup', function(e) {
-		if (event.code === 'Space' || event.code === 'Enter') $("screen_flash_checkbox").click();
-	});
-	$("screen_flash_checkbox").addEventListener("change", function(e){
-		var value = this.checked;
-		log.i("on screen flash change: " + value);
-		model.flash_screen = value;
-		storage.set_flash_screen(value);
-	});
-	$("screen_flash_checkbox").checked = model.flash_screen;
-}*/
-
 function setup_darkmode_switch() {
 	setup_darkmode($("mobile_darkmode"), $("mobile_darkmode_checkbox_switch"), $("mobile_darkmode_checkbox"));
 }
@@ -811,14 +707,6 @@ function BPMtoMilliSeconds(BPM) { return 1000 / (BPM / 60); }
 function update_UI_BPM(value) {
 	var range = $("bpm_range");
 	range.value = value;
-
-	//update_UI_tempo_marking(value);
-	//range_control.resize_bpm_text();
-
-	//$("bpm_row_text").innerHTML = "BPM: " + value
-
-
-
 
 	$("speed_text").innerHTML = (BPMtoMilliSeconds(value) / 1000).toFixed(1) + "s";
 
@@ -1149,9 +1037,6 @@ function update_UI_darkmode(){
 		setDarkMode();
 	else
 		setLightMode();
-
-	//range_control.reload_colors();
-	//time_view.reload_colors();
 
 	$("mobile_darkmode_checkbox").checked = model.darkmode;
 

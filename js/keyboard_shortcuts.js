@@ -1,4 +1,3 @@
-
 function setup_keyboard_listeners() {
 
 	document.addEventListener('keyup', function(event){

@@ -11,25 +11,20 @@ var midi_controller = {
 
 
 midi_controller.init = function() {
-	//console.log("midi_controller.init");
 	midi_controller.player = new WebAudioFontPlayer();
-	//player.loader.decodeAfterLoading(.audioContext, '_tone_0000_JCLive_sf2_file');
 }
 
 var midi_initialized = false;
 var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
 midi_controller.load = function(){
 	if(!midi_initialized){
-		//console.log("midi_controller.load");
 		midi_controller.audioContext = new AudioContextFunc();
 		midi_controller.player.adjustPreset(midi_controller.audioContext, midi_controller.tone);
 		midi_initialized = true;
 		return true;
 	}
-
 	return false;
 }
-
 
 midi_controller.playNote = function(note, duration_in_sec = 3.5) {
 	this.player.queueWaveTable(this.audioContext, this.audioContext.destination, this.tone, this.audioContext.currentTime, note.midi_value, this.duration_in_sec, model.volume);
