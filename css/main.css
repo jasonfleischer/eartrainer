@@ -304,6 +304,7 @@ strong {
 	visibility: hidden;
 	width: 100%;
 	height: 100%;
+	margin-bottom: var(--header-height);;
 }
 #init_view p {
 	position: relative;
