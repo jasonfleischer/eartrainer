@@ -287,7 +287,7 @@ strong {
 }
 .grid-item.enabled {
 	color: white;
-	background-color: #077bff;
+	background-color: #0172ef;
 	font-weight: bold;
 }
 
@@ -441,7 +441,7 @@ button {
 #play_pause_button_span {
 	margin-left: 5px;
 	font-size: 14px;
-	color: #077bff;
+	color: #0172ef;
 }
 
 #header {
