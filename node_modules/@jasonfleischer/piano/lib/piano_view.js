@@ -14,6 +14,7 @@ class PianoView {
 		this.midi_value_to_piano_key_map = {};
 		this.hover = hover;
 		this.backgroundColor = backgroundColor;
+		this.onClick = onClick;
 		var i;
 		for(i = this.min_midi_value; i <= this.max_midi_value; i++){
 			var note = musicKit.all_notes[i];
@@ -30,12 +31,7 @@ class PianoView {
 		this.draw();
 		this.resize(width);
 
-		if(onClick !== undefined) {
-			this.addClickEventListeners(onClick);
-		}
-		if(this.hover) {
-			this.addHoverEventListeners();
-		}
+		
 	}
 
 	buildCanvases() {
@@ -79,6 +75,8 @@ class PianoView {
 
 	resize(newWidth) {
 
+		this.width = newWidth;
+
 		let pianoView = document.getElementById(this.id);
 
 		var newWidth = Math.min(newWidth, this.WIDTH);
@@ -100,7 +98,11 @@ class PianoView {
 	    	this.black_keys_drawing_hover_canvas.style.width = newWidth + "px";
 	    	this.white_keys_drawing_hover_canvas.style.height = newHeight + "px";
 	    	this.white_keys_drawing_hover_canvas.style.width = newWidth + "px";
-	    }
+			this.addHoverEventListeners();
+		}
+		if(this.onClick !== undefined) {
+			this.addClickEventListeners(this.onClick);
+		}
 	}
 
 	draw(){
@@ -283,16 +285,18 @@ class PianoView {
 
 	addClickEventListeners(onClick) {
 
-		let pianoView = document.getElementById(this.id);
-		pianoView.style.cursor="pointer";
+		let view = document.getElementById(this.id);
+		view.style.cursor="pointer";
 		let range = this.range;
 		let key_map = this.midi_value_to_piano_key_map;
 		let width = this.width;
 		let WIDTH = this.WIDTH;
 		let self = this;
-		pianoView.addEventListener("click", function(event){
-		    
-		    let position =	self.getPosition(pianoView);
+
+		if(this.onClickFunction !== undefined)
+			view.removeEventListener("click", this.onClickFunction);
+		this.onClickFunction = function(event){
+			let position =	self.getPosition(view);
 		    let x = (event.clientX - position.x) * (WIDTH/width);
 		    let y = (event.clientY- position.y) * (WIDTH/width);
 
@@ -304,24 +308,35 @@ class PianoView {
 		    	foundKey.isOn = !foundKey.isOn;
 		    	onClick(foundKey.note, foundKey.isOn);
 		    }
-		});
+		}
+		view.addEventListener("click", this.onClickFunction);
 	}
 
 	addHoverEventListeners() {
 
-		let pianoView = document.getElementById(this.id);
-		pianoView.style.cursor="pointer";
+		let view = document.getElementById(this.id);
+		view.style.cursor="pointer";
 		let range = this.range;
 		let key_map = this.midi_value_to_piano_key_map;
 		let width = this.width;
 		let WIDTH = this.WIDTH;
 		let self = this;
-		var previousKey;
-		pianoView.addEventListener("mouseover", event => {
-		    previousKey = undefined;
-		});
-		pianoView.addEventListener("mousemove", function(event){
-		    let position =	self.getPosition(pianoView);
+		var previousKey = undefined;
+
+		if(this.mouseOverFunction !== undefined)
+			view.removeEventListener("mouseover", this.mouseOverFunction);
+		if(this.mouseMoveFunction !== undefined)
+			view.removeEventListener("mousemove", this.mouseMoveFunction);
+		if(this.mouseOutFunction !== undefined)
+			view.removeEventListener("mouseout", this.mouseOutFunction);
+
+		this.mouseOverFunction = function(event) {
+			previousKey = undefined;
+		}
+		view.addEventListener("mouseover", this.mouseOverFunction);
+
+		this.mouseMoveFunction = function(event){
+		    let position =	self.getPosition(view);
 		    let x = (event.clientX - position.x) * (WIDTH/width);
 		    let y = (event.clientY- position.y) * (WIDTH/width);
 
@@ -339,12 +354,21 @@ class PianoView {
 		    		previousKey = foundKey;
 		    		self.drawHoverNote(foundKey.note);
 		    	}		    	
+		    } else {
+		    	if(previousKey !== undefined){
+			    	self.clearHoverNote(previousKey.note);
+			    	previousKey = undefined;
+		    	}
 		    }
-		});
-
-		pianoView.addEventListener("mouseout", event => {
-  			self.clearHoverNote(previousKey.note);
-		});
+		}
+		view.addEventListener("mousemove", this.mouseMoveFunction);
+		
+		this.mouseOutFunction = function(event) {
+			if(previousKey !== undefined){
+				self.clearHoverNote(previousKey.note);
+			}
+		}
+		view.addEventListener("mouseout", this.mouseOutFunction);
 	}
 
 

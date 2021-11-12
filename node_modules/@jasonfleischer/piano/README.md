@@ -70,3 +70,9 @@ new musicKit.MidiListener(
 ```
 
 Click [here](https://jasonfleischer.github.io/npm-piano-demo/screenshot/notes.jpg) for midi note references 
+
+#### Sample Projects
+
+- [Demo](https://jasonfleischer.github.io/npm-piano-demo/)
+- [Ear Trainer](https://jasonfleischer.github.io/eartrainer/)
+- [Synth](https://jasonfleischer.github.io/synth/)
