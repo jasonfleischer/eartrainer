@@ -1,4 +1,4 @@
-let CACHE_NAME = 'v13';
+let CACHE_NAME = 'v14';
 const CACHE = [
         '/eartrainer/index.html',
         '/eartrainer/fonts/SF_Pro_Display_Thin.woff2',
@@ -7,7 +7,7 @@ const CACHE = [
         '/eartrainer/js/midi/midi_0000_JCLive_sf2_file.js',
         '/eartrainer/js/bundle.js'
 
-        /*,
+        ,
         '/eartrainer/audio/chords/augmented.mp3',
         '/eartrainer/audio/chords/diminished.mp3',
         '/eartrainer/audio/chords/dominant_seventh.mp3',
@@ -28,7 +28,7 @@ const CACHE = [
         '/eartrainer/audio/intervals/minor_6th.mp3',
         '/eartrainer/audio/intervals/minor_7th.mp3',
         '/eartrainer/audio/intervals/octave.mp3',
-        '/eartrainer/audio/intervals/tritone.mp3',*/
+        '/eartrainer/audio/intervals/tritone.mp3'
       ];
 	
 self.addEventListener('install', function(event) {
