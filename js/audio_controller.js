@@ -366,6 +366,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 			if(model.speak){
 				playInterval(interval);
 			}
+			fretboardView.clear();
 			fretboardView.drawInterval(interval);
 			pianoView.clear();
 			pianoView.drawInterval(interval);
