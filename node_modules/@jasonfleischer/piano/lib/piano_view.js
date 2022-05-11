@@ -191,6 +191,17 @@ class PianoView {
 		ctx.clearRect(key.x , key.y, key.width, key.height);
 		key.isOn = false;
 	}
+	
+	clearHover() {
+		var canvas = this.white_keys_drawing_hover_canvas;
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, this.WIDTH, this.HEIGHT);
+
+		canvas = this.black_keys_drawing_hover_canvas;
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, this.WIDTH, this.HEIGHT);
+	}
+
 	clearHoverNote(note) {
 		let ctx = note.note_name.is_sharp_or_flat ? this.black_keys_drawing_hover_canvas.getContext("2d") : 
 													this.white_keys_drawing_hover_canvas.getContext("2d");

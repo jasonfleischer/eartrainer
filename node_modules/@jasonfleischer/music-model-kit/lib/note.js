@@ -13,7 +13,7 @@ class Note {
 	}
 
 	toString() {
-		return  "NOTE: " + this.note_name.type + " " + this.midi_value + " " + this.octave;
+		return  "NOTE: " + this.note_name.type + " "  + this.octave + " " + this.midi_value + " " + this.frequency;
 	}
 
 	getEqualTemperedFrequency() {
