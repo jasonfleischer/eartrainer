@@ -285,6 +285,10 @@ strong {
 	border-radius: 5px;
 	cursor: pointer;
 }
+.grid-item-label {
+	color: var(--primary-font-color);
+    font-size: 15px;
+}
 .grid-item.enabled {
 	color: white;
 	background-color: #0172ef;
@@ -320,6 +324,30 @@ strong {
 	opacity: 0.3;
 }
 
+#display_diagrams {
+	padding-left: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+
+}
+#grid-container-display_diagrams {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: auto auto auto;
+} 
+#grid-item-display_diagrams {
+	padding-top: 2px;
+	grid-column-start: 1;
+	grid-column-end: 2;
+}
+#grid-item-display_diagrams_piano {
+	grid-column-start: 2;
+	grid-column-end: 3;
+}
+#grid-item-display_diagrams_guitar {
+	grid-column-start: 3;
+	grid-column-end: 4;
+}
 
 #grid-item-p4, #grid-item-p5, #grid-item-p8, #grid-item-tt {
 	padding-top: 20px;

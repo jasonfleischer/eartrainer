@@ -3,19 +3,6 @@ var information = {}
 information.showAlert = function(){
 
 	let contents = `
-		<div>
-			<ul class="desktop-only">
-				<li id="darkmode">
-					<div class="nav-toggle-item">
-						<span>Dark Mode</span>
-						<label id="darkmode_checkbox_switch" class="switch">
-							<input id="darkmode_checkbox" type="checkbox" checked="checked"/>
-							<span class="switch_track round" tabindex="0"></span>
-						</label>
-					</div>
-				</li>
-			</ul>
-		</div>
 		<br class="desktop-only" />
 		<p id="openMailToDeveloper">Thank you for using this website. If you wish to submit feedback, comment or report an error click <strong>here</strong></p>
 		<br/>
@@ -27,7 +14,6 @@ information.showAlert = function(){
 	`
 	alert.show("Information", contents)
 	information.setupOnClicks();
-	information.setup_darkmode();
 }
 
 information.setupOnClicks = function(){
@@ -39,11 +25,6 @@ information.setupOnClicks = function(){
 
 information.dismissAlert = function(){
 	alert.dismiss()
-}
-
-information.setup_darkmode = function(){
-	setup_darkmode($("darkmode"), $("darkmode_checkbox_switch"), $("darkmode_checkbox"));
-	$("darkmode_checkbox").checked = model.darkmode;
 }
 
 

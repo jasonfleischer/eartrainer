@@ -30,7 +30,7 @@
 		<div id="alert">
 			<div id="alert_header">
 				<h3 id="alert_title">&nbsp;</h3>
-				<button id="dismiss_alert_button" ><img height="16" width="19" id="dismiss_close_button_svg" src="img/close_black.svg" alt="Dismiss alert"/></button>
+				<button id="dismiss_alert_button" ><img height="16" width="19" id="dismiss_close_button_svg" src="img/close_white.svg" alt="Dismiss alert"/></button>
 			</div>
 			<div id="alert_contents"></div>
 		</div>
@@ -82,14 +82,6 @@
 						</div>
 					</div>
 				</li>
-				<!--<li>
-					<div class="nav-side-menu-item">
-					<span>Instrument</span>
-					<select id="time_signature_select">
-						<option value="0">Piano</option>
-						<option value="1" selected="selected">Guitar</option>
-					</select>
-				</li>-->
 				<li id="speak">
 					<div class="nav-toggle-item">
 						<span>Speak</span>
@@ -107,15 +99,25 @@
 						</div>
 					</div>
 				</li>
-				<li id="mobile_darkmode" class="mobile-only">
-					<div class="nav-toggle-item">
-						<span>Dark Mode</span>
-						<label id="mobile_darkmode_checkbox_switch" class="switch">
-							<input id="mobile_darkmode_checkbox" type="checkbox" checked="checked"/>
-							<span class="switch_track round" tabindex="0"></span>
-						</label>
+
+				<!-- TODO -->
+				<li style="display: none">
+					<div class="nav-side-menu-item">
+					<span>Instrument Sound</span>
+					<select id="instrument_select">
+						<option value="0" >All Instruments</option>
+						<option value="1" selected="selected">Piano</option>
+						<option value="2" >Guitar</option>
+					</select>
+				</li>
+				<li id="display_diagrams" class="li-grid-container">
+					<div id="grid-container-display_diagrams" class="grid-container">
+						<div id="grid-item-display_diagrams" class="grid-item-label">Display</div>
+						<div id="grid-item-display_diagrams_piano" class="grid-item">Piano</div>
+						<div id="grid-item-display_diagrams_guitar" class="grid-item">Guitar</div>
 					</div>
 				</li>
+
 				<li class="menu_item_divider"></li>
 				<li id="single_notes">
 					<div class="nav-toggle-item">

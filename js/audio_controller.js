@@ -21,7 +21,6 @@ function isDurationExpired(){
 	}
 }
 
-
 function reloadActivePlayer(){
 	if(audio_controller.playing){
 		audio_controller.model_changed = true;
@@ -120,7 +119,7 @@ audio_controller.reloadDuration = function(){
 	audio_controller.start_time = new Date();
 }
 
-audio_controller.init_sounds =function(){
+audio_controller.setInstrument =function(instrument){
 
 }
 
@@ -137,10 +136,6 @@ audio_controller.pause = function(){
 	this.playing = false;
 }
 
-audio_controller.reloadSounds= function(){
-
-}
-
 audio_controller.play = function(){
 
 	audio_controller.start_time = new Date();
@@ -148,7 +143,6 @@ audio_controller.play = function(){
 	audio_controller.index = 1;
 
 	this.playing = true;
-	this.reloadSounds();
 
 	var audio_queue_index = 0;
 
@@ -206,7 +200,6 @@ audio_controller.play = function(){
 				audio_controller.divisions_changed = false;
 				var old_length = audio_controller.audio_queue.length;
 				model.beat_division = new_beat_division;
-				audio_controller.reloadSounds();
 
 				var time_division_milli_seconds = BPMtoMilliSeconds(model.BPM) / new_beat_division;
 				interval = time_division_milli_seconds;
@@ -218,7 +211,6 @@ audio_controller.play = function(){
 		    	expected += interval;
 		    	audio_controller.timer_id = setTimeout(step, Math.max(0, interval - drift));
 			}
-			
 		}		
 	}
 }

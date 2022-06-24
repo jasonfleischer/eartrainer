@@ -7,8 +7,9 @@ const TYPE = Object.freeze({
 });
 
 const INSTRUMENT = Object.freeze({
-	PIANO: 0,
-	GUITAR: 1
+	ALL: 0,
+	PIANO: 1,
+	GUITAR: 2
 });
 
 const DURATION = Object.freeze({
@@ -22,20 +23,27 @@ const DURATION = Object.freeze({
     INFINITE: -1
 });
 
+const DISPLAY_DIAGRAM = Object.freeze({
+    PIANO: 1,
+	GUITAR: 2
+});
+
 const MAX_BPM = 15;
 const MIN_BPM = 3;
 
 var all_notes = [];
+
+var is_left_column_showing = true;
 
 var model = {
 	
 	duration: DURATION.THIRTY_MINUTES,
 	BPM: 15,
 	volume: 1,
-	instrument: INSTRUMENT.GUITAR,
+	instrument: INSTRUMENT.ALL,
 	speak: true,
 	speak_volume: 1,
-	darkmode: false,
+	display_diagrams: [],
 
 	range: {
 		min: 40,

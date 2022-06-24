@@ -70,3 +70,9 @@ function isFromHomeScreen() {
 	const params = new URLSearchParams(window.location.search);
 	return params.has("from");
 }
+
+function openURL(url){
+	window.open(url, '_blank');
+}
+
+function BPMtoMilliSeconds(BPM) { return 1000 / (BPM / 60); }

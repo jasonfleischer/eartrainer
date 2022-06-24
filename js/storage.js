@@ -2,102 +2,113 @@ var storage = {};
 
 storage.load = function(){
 	model.duration = storage.get_duration(DURATION.TEN_MINUTES);
+	model.instrument = storage.get_instrument(INSTRUMENT.PIANO);
 
 	model.BPM = storage.get_BPM(8);
-	model.volume = storage.get_volume(0.1);//todo 1.0);
+	model.volume = storage.get_volume(0.1);
 	model.speak = storage.get_speak(true);
-	model.speak_volume = storage.get_speak_volume(0.25);//todo 1.0);
+	model.speak_volume = storage.get_speak_volume(0.25);
 
 	model.single_notes.enabled = storage.get_single_notes(true);
 
-	model.interval.enabled = storage.get_intervals(true);
+	loadInstrumentDisplayDiagramData();
+	function loadInstrumentDisplayDiagramData(){
+		if(storage.get_instrument_display_piano(true))
+			model.display_diagrams.push(DISPLAY_DIAGRAM.PIANO)
+		if(storage.get_instrument_display_guitar(true))
+			model.display_diagrams.push(DISPLAY_DIAGRAM.GUITAR)
+	}
 
-	let INTERVAL_TYPE = musicKit.Interval.TYPE;
-	if(storage.get_minor_second(true))
-		model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
-	if(storage.get_major_second(true))
-		model.interval.types.push(INTERVAL_TYPE.MAJOR_SECOND)
-	if(storage.get_minor_third(true))
-		model.interval.types.push(INTERVAL_TYPE.MINOR_THIRD)
-	if(storage.get_major_third(true))
-		model.interval.types.push(INTERVAL_TYPE.MAJOR_THIRD)
-	if(storage.get_perfect_fourth(true))
-		model.interval.types.push(INTERVAL_TYPE.PERFECT_FOURTH)
-	if(storage.get_tritone(true))
-		model.interval.types.push(INTERVAL_TYPE.TRITONE)
-	if(storage.get_perfect_fifth(true))
-		model.interval.types.push(INTERVAL_TYPE.PERFECT_FIFTH)
-	if(storage.get_minor_sixth(true))
-		model.interval.types.push(INTERVAL_TYPE.MINOR_SIXTH)
-	if(storage.get_major_sixth(true))
-		model.interval.types.push(INTERVAL_TYPE.MAJOR_SIXTH)
-	if(storage.get_minor_seventh(true))
-		model.interval.types.push(INTERVAL_TYPE.MINOR_SEVENTH)
-	if(storage.get_major_seventh(true))
-		model.interval.types.push(INTERVAL_TYPE.MAJOR_SEVENTH)
-	if(storage.get_octave(true))
-		model.interval.types.push(INTERVAL_TYPE.OCTAVE)
+	loadIntervalData();
+	function loadIntervalData(){
+		model.interval.enabled = storage.get_intervals(true);
 
-	let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
-	if(storage.get_ascending(true))
-		model.interval.play_types.push(INTERVAL_PLAY_TYPE.ASCENDING)
-	if(storage.get_descending(true))
-		model.interval.play_types.push(INTERVAL_PLAY_TYPE.DESCENDING)
-	if(storage.get_harmonic(false))
-		model.interval.play_types.push(INTERVAL_PLAY_TYPE.HARMONIC)
+		let INTERVAL_TYPE = musicKit.Interval.TYPE;
+		if(storage.get_minor_second(true))
+			model.interval.types.push(INTERVAL_TYPE.MINOR_SECOND)
+		if(storage.get_major_second(true))
+			model.interval.types.push(INTERVAL_TYPE.MAJOR_SECOND)
+		if(storage.get_minor_third(true))
+			model.interval.types.push(INTERVAL_TYPE.MINOR_THIRD)
+		if(storage.get_major_third(true))
+			model.interval.types.push(INTERVAL_TYPE.MAJOR_THIRD)
+		if(storage.get_perfect_fourth(true))
+			model.interval.types.push(INTERVAL_TYPE.PERFECT_FOURTH)
+		if(storage.get_tritone(true))
+			model.interval.types.push(INTERVAL_TYPE.TRITONE)
+		if(storage.get_perfect_fifth(true))
+			model.interval.types.push(INTERVAL_TYPE.PERFECT_FIFTH)
+		if(storage.get_minor_sixth(true))
+			model.interval.types.push(INTERVAL_TYPE.MINOR_SIXTH)
+		if(storage.get_major_sixth(true))
+			model.interval.types.push(INTERVAL_TYPE.MAJOR_SIXTH)
+		if(storage.get_minor_seventh(true))
+			model.interval.types.push(INTERVAL_TYPE.MINOR_SEVENTH)
+		if(storage.get_major_seventh(true))
+			model.interval.types.push(INTERVAL_TYPE.MAJOR_SEVENTH)
+		if(storage.get_octave(true))
+			model.interval.types.push(INTERVAL_TYPE.OCTAVE)
 
-	model.chords.enabled = storage.get_chords(true);
+		let INTERVAL_PLAY_TYPE = musicKit.Interval.PLAY_TYPE;
+		if(storage.get_ascending(true))
+			model.interval.play_types.push(INTERVAL_PLAY_TYPE.ASCENDING)
+		if(storage.get_descending(true))
+			model.interval.play_types.push(INTERVAL_PLAY_TYPE.DESCENDING)
+		if(storage.get_harmonic(false))
+			model.interval.play_types.push(INTERVAL_PLAY_TYPE.HARMONIC)
+	}
 
-	let CHORD_TYPE = musicKit.Chord.TYPE;
-	if(storage.get_chords_major(true))
-		model.chords.three_note_types.push(CHORD_TYPE.Major);
-	if(storage.get_chords_minor(true))
-		model.chords.three_note_types.push(CHORD_TYPE.minor);
-	if(storage.get_chords_augmented(false))
-		model.chords.three_note_types.push(CHORD_TYPE.Aug);
-	if(storage.get_chords_diminished(false))
-		model.chords.three_note_types.push(CHORD_TYPE.Dim);
-	if(storage.get_chords_major7(false))
-		model.chords.four_note_types.push(CHORD_TYPE.Major7);
-	if(storage.get_chords_minor7(false))
-		model.chords.four_note_types.push(CHORD_TYPE.minor7);
-	if(storage.get_chords_dominant7(false))
-		model.chords.four_note_types.push(CHORD_TYPE.Dom7);
+	loadChordData();
+	function loadChordData(){
+		model.chords.enabled = storage.get_chords(true);
 
-	let CHORD_INVERSION_TYPE = musicKit.Chord.INVERSION_TYPE;
-	if(storage.get_chords_three_note_inversion_root(true))
-		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
-	if(storage.get_chords_three_note_inversion_first(false))
-		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.First);
-	if(storage.get_chords_three_note_inversion_second(false))
-		model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
+		let CHORD_TYPE = musicKit.Chord.TYPE;
+		if(storage.get_chords_major(true))
+			model.chords.three_note_types.push(CHORD_TYPE.Major);
+		if(storage.get_chords_minor(true))
+			model.chords.three_note_types.push(CHORD_TYPE.minor);
+		if(storage.get_chords_augmented(false))
+			model.chords.three_note_types.push(CHORD_TYPE.Aug);
+		if(storage.get_chords_diminished(false))
+			model.chords.three_note_types.push(CHORD_TYPE.Dim);
+		if(storage.get_chords_major7(false))
+			model.chords.four_note_types.push(CHORD_TYPE.Major7);
+		if(storage.get_chords_minor7(false))
+			model.chords.four_note_types.push(CHORD_TYPE.minor7);
+		if(storage.get_chords_dominant7(false))
+			model.chords.four_note_types.push(CHORD_TYPE.Dom7);
 
-	if(storage.get_chords_major_seven(false))
-		model.chords.four_note_types.push(CHORD_TYPE.Major7);
-	if(storage.get_chords_minor_seven(false))
-		model.chords.four_note_types.push(CHORD_TYPE.minor7);
-	if(storage.get_chords_dominant_seven(false))
-		model.chords.four_note_types.push(CHORD_TYPE.Dom7);
+		let CHORD_INVERSION_TYPE = musicKit.Chord.INVERSION_TYPE;
+		if(storage.get_chords_three_note_inversion_root(true))
+			model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
+		if(storage.get_chords_three_note_inversion_first(false))
+			model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.First);
+		if(storage.get_chords_three_note_inversion_second(false))
+			model.chords.three_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
 
-	if(storage.get_chords_four_note_inversion_root(true))
-		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
-	if(storage.get_chords_four_note_inversion_first(false))
-		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.First);
-	if(storage.get_chords_four_note_inversion_second(false))
-		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
-	if(storage.get_chords_four_note_inversion_second(false))
-		model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Third);
+		if(storage.get_chords_major_seven(false))
+			model.chords.four_note_types.push(CHORD_TYPE.Major7);
+		if(storage.get_chords_minor_seven(false))
+			model.chords.four_note_types.push(CHORD_TYPE.minor7);
+		if(storage.get_chords_dominant_seven(false))
+			model.chords.four_note_types.push(CHORD_TYPE.Dom7);
 
-	let CHORD_PLAY_TYPE = musicKit.Chord.PLAY_TYPE;
-	if(storage.get_chords_harmonic(true))
-		model.chords.play_types.push(CHORD_PLAY_TYPE.HARMONIC)
-	if(storage.get_chords_arpeggiate(false))
-		model.chords.play_types.push(CHORD_PLAY_TYPE.ARPEGGIATE)
+		if(storage.get_chords_four_note_inversion_root(true))
+			model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Root);
+		if(storage.get_chords_four_note_inversion_first(false))
+			model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.First);
+		if(storage.get_chords_four_note_inversion_second(false))
+			model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Second);
+		if(storage.get_chords_four_note_inversion_second(false))
+			model.chords.four_note_inversion_types.push(CHORD_INVERSION_TYPE.Third);
 
-	model.darkmode = storage.get_darkmode(true);
+		let CHORD_PLAY_TYPE = musicKit.Chord.PLAY_TYPE;
+		if(storage.get_chords_harmonic(true))
+			model.chords.play_types.push(CHORD_PLAY_TYPE.HARMONIC)
+		if(storage.get_chords_arpeggiate(false))
+			model.chords.play_types.push(CHORD_PLAY_TYPE.ARPEGGIATE)
+	}
 }
-
-
 
 storage.BPM_KEY = "EAR_TRAINER_BPM_KEY";
 storage.get_BPM = function(default_value){
@@ -113,6 +124,14 @@ storage.get_duration = function(default_value){
 };
 storage.set_duration = function(value){
 	localStorage.setItem(storage.DURATION_KEY, value);
+};
+
+storage.INSTRUMENT_KEY = "EAR_TRAINER_INSTRUMENT_KEY";
+storage.get_instrument = function(default_value){
+	return parseFloat(storage.get(storage.INSTRUMENT_KEY, default_value));
+};
+storage.set_instrument = function(value){
+	localStorage.setItem(storage.INSTRUMENT_KEY, value);
 };
 
 storage.VOLUME_KEY = "EAR_TRAINER_VOLUME_KEY";
@@ -138,6 +157,34 @@ storage.get_speak_volume = function(default_value){
 };
 storage.set_speak_volume = function(value){
 	localStorage.setItem(storage.SPEAK_VOLUME_KEY, value);
+};
+
+
+storage.set_display_diagrams = function(display_type, value){
+	switch(display_type) {
+		case DISPLAY_DIAGRAM.PIANO:
+			storage.set_instrument_display_piano(value);
+			break;
+		case DISPLAY_DIAGRAM.GUITAR:
+			storage.set_instrument_display_guitar(value);
+			break;
+	}
+};
+storage.INSTRUMENT_DISPLAY_PIANO = "EAR_TRAINER_INSTRUMENT_DISPLAY_PIANO";
+storage.get_instrument_display_piano = function(default_value){
+	var value = storage.get(storage.INSTRUMENT_DISPLAY_PIANO, default_value);
+	return Boolean(value === "true" || value === true);
+};
+storage.set_instrument_display_piano = function(value){
+	localStorage.setItem(storage.INSTRUMENT_DISPLAY_PIANO, value);
+};
+storage.INSTRUMENT_DISPLAY_GUITAR = "EAR_TRAINER_INSTRUMENT_DISPLAY_GUITAR";
+storage.get_instrument_display_guitar = function(default_value){
+	var value = storage.get(storage.INSTRUMENT_DISPLAY_GUITAR, default_value);
+	return Boolean(value === "true" || value === true);
+};
+storage.set_instrument_display_guitar = function(value){
+	localStorage.setItem(storage.INSTRUMENT_DISPLAY_GUITAR, value);
 };
 
 storage.SINGLE_NOTES = "EAR_TRAINER_SINGLE_NOTES";
@@ -601,15 +648,6 @@ storage.get_chords_harmonic = function(default_value){
 };
 storage.set_chords_harmonic = function(value){
 	localStorage.setItem(storage.CHORDS_HARMONIC, value);
-};
-
-storage.DARKMODE_KEY = "EAR_TRAINER_DARKMODE_KEY";
-storage.get_darkmode = function(default_value){
-	var value = storage.get(storage.DARKMODE_KEY, default_value);
-	return Boolean(value === "true" || value === true);
-};
-storage.set_darkmode = function(value){
-	localStorage.setItem(storage.DARKMODE_KEY, value);
 };
 
 storage.get = function(key, default_value) {
