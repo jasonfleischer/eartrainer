@@ -9,6 +9,7 @@ information.showAlert = function(){
 		<p id="surikov">Special thanks to Surikov for their <strong>WebAudioFont</strong> library.</p>
 		<br/>
 		<p id="personalWebsite">Information about the developer can be found <strong>here</strong>.</p>
+		<br/>
 		<p id="musicAppWebsite">Other music apps created by this developer can be found <strong>here</strong>.</p>
 		<br class="desktop-only"/>
 		<button class="desktop-only" id="keyboard_shortcuts">Keyboard Shortcuts</button>
