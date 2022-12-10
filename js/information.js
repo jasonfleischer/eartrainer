@@ -9,6 +9,8 @@ information.showAlert = function(){
 		<p id="surikov">Special thanks to Surikov for their <strong>WebAudioFont</strong> library.</p>
 		<br/>
 		<p id="personalWebsite">Information about the developer can be found <strong>here</strong>.</p>
+		<br/>
+		<p id="musicAppWebsite">More music apps created by this developer can be found <strong>here</strong>.</p>
 		<br class="desktop-only"/>
 		<button class="desktop-only" id="keyboard_shortcuts">Keyboard Shortcuts</button>
 	`
@@ -20,6 +22,7 @@ information.setupOnClicks = function(){
 	$("openMailToDeveloper").onclick = function() { openMailToDeveloper(); };
 	$("surikov").onclick = function() { openURL('https://surikov.github.io/webaudiofont/'); };
 	$("personalWebsite").onclick = function() { openURL('https://jasonfleischer.github.io/website/'); };
+	$("musicAppWebsite").onclick = function() { openURL('https://jasonfleischer.github.io/music-apps/'); };
 	$("keyboard_shortcuts").onclick = function() { show_keyboard_shortcuts(); };
 }
 
