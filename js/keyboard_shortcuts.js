@@ -48,10 +48,10 @@ function show_keyboard_shortcuts(){
 	var keyboard_shorcut_window = window.open("Keyboard Shortcuts", "_blank", "width=370,height=450,titlebar=no,toolbar=no,status=no,location=no,menubar=no");
 	keyboard_shorcut_window.document.title = "Keyboard Shortcuts";
 
-	var contents = `<table style='width:100%; text-align: left;'>
-			<tr><th>Key</th><th>Command</th></tr>
-			<tr><td>Space</td><td>Play or stop</td></tr>
-		</table>`;
+	var contents = '<table style=\'width:100%; text-align: left;\'>'+
+			'<tr><th>Key</th><th>Command</th></tr>'+
+			'<tr><td>Space</td><td>Play or stop</td></tr>'+
+		'</table>';
 	contents = contents.replaceAll("< tr>", "<tr>");
 	keyboard_shorcut_window.document.write(contents);
 }
