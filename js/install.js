@@ -40,7 +40,7 @@ install.showAlert = function(install_action){
 
 	let contents = `
 		<p>Install this app on your device to easily access it anytime. Installing this app will result in better performance, improved fullscreen experience, and usage without an internet connection.</p>
-		<br/>`
+		<br/>`;
 	
 	var isSafariMobile = window.mobileAndTabletCheck() && isSafari;
 	if (isSafariMobile){
