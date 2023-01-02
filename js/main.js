@@ -452,3 +452,6 @@ function showChordAnswer(chord){
 	$("piano").style.visibility = "visible";
 	$("answer_container").style.visibility = "visible";
 }
+
+
+init();
