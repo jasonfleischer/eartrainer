@@ -453,5 +453,3 @@ function showChordAnswer(chord){
 	$("answer_container").style.visibility = "visible";
 }
 
-
-init();
