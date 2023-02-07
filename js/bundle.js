@@ -880,29 +880,7 @@ module.exports = {init, Note, Chord, Scale, KeySignature, Interval, MidiListener
 const log = require("@jasonfleischer/log");
 class Chord {
 
-	static TYPE = {
-		Major: "Major",
-		minor: "minor",
-		Aug: "augmented",
-		Dim: "diminished",
-
-		Major7: "Major 7",
-		minor7: "minor 7",
-		Dom7: "Dominant 7"
-	};
-
-	static INVERSION_TYPE = Object.freeze({
-		Root: "Root",
-		First: "first inversion",
-		Second: "second inversion",
-		Third: "third inversion"
-	});
-
-	static PLAY_TYPE = Object.freeze({
-		HARMONIC: "Harmonic",
-		ARPEGGIATE: "Arpeggiate"
-	});
-
+	
 	constructor(root_note, chord_type = Chord.TYPE.Major, play_type = Chord.PLAY_TYPE.HARMONIC, inversion = Chord.INVERSION_TYPE.Root) {
 
 		this.root_note = root_note;
@@ -1055,6 +1033,29 @@ class Chord {
 		return note_array;
 	}
 
+	static TYPE = Object.freeze({
+		Major: "Major",
+		minor: "minor",
+		Aug: "augmented",
+		Dim: "diminished",
+
+		Major7: "Major 7",
+		minor7: "minor 7",
+		Dom7: "Dominant 7"
+	});
+
+	static INVERSION_TYPE = Object.freeze({
+		Root: "Root",
+		First: "first inversion",
+		Second: "second inversion",
+		Third: "third inversion"
+	});
+
+	static PLAY_TYPE = Object.freeze({
+		HARMONIC: "Harmonic",
+		ARPEGGIATE: "Arpeggiate"
+	});
+
 	
 	static ALL_TYPES = [Chord.TYPE.Major, Chord.TYPE.minor, Chord.TYPE.Aug, Chord.TYPE.Dim,
 						Chord.TYPE.Major7, Chord.TYPE.minor7, Chord.TYPE.Dom7];
@@ -1063,7 +1064,8 @@ class Chord {
 
 	static generateRandom(all_notes, range, types = ALL_TYPES, play_types = ALL_PLAY_TYPES,
 							three_note_inversion_types = [Chord.INVERSION_TYPE.Root, Chord.INVERSION_TYPE.First, Chord.INVERSION_TYPE.Second], 
-							four_note_inversion_types =  [Chord.INVERSION_TYPE.Root, Chord.INVERSION_TYPE.First, Chord.INVERSION_TYPE.Second, Chord.INVERSION_TYPE.Third]) {
+							four_note_inversion_types =  [Chord.INVERSION_TYPE.Root, Chord.INVERSION_TYPE.First, Chord.INVERSION_TYPE.Second, Chord.INVERSION_TYPE.Third]) 
+	{
 
 		let min = range.min;
 		let max = range.max;
