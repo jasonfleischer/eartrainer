@@ -880,7 +880,31 @@ module.exports = {init, Note, Chord, Scale, KeySignature, Interval, MidiListener
 const log = require("@jasonfleischer/log");
 class Chord {
 
+	static INVERSION_TYPE = Object.freeze({
+		Root: "Root",
+		First: "first inversion",
+		Second: "second inversion",
+		Third: "third inversion"
+	});
 	
+	static TYPE = Object.freeze({
+		Major: "Major",
+		minor: "minor",
+		Aug: "augmented",
+		Dim: "diminished",
+
+		Major7: "Major 7",
+		minor7: "minor 7",
+		Dom7: "Dominant 7"
+	});
+
+	
+
+	static PLAY_TYPE = Object.freeze({
+		HARMONIC: "Harmonic",
+		ARPEGGIATE: "Arpeggiate"
+	});
+
 	constructor(root_note, chord_type = Chord.TYPE.Major, play_type = Chord.PLAY_TYPE.HARMONIC, inversion = Chord.INVERSION_TYPE.Root) {
 
 		this.root_note = root_note;
@@ -1032,29 +1056,6 @@ class Chord {
 		}
 		return note_array;
 	}
-
-	static TYPE = Object.freeze({
-		Major: "Major",
-		minor: "minor",
-		Aug: "augmented",
-		Dim: "diminished",
-
-		Major7: "Major 7",
-		minor7: "minor 7",
-		Dom7: "Dominant 7"
-	});
-
-	static INVERSION_TYPE = Object.freeze({
-		Root: "Root",
-		First: "first inversion",
-		Second: "second inversion",
-		Third: "third inversion"
-	});
-
-	static PLAY_TYPE = Object.freeze({
-		HARMONIC: "Harmonic",
-		ARPEGGIATE: "Arpeggiate"
-	});
 
 	
 	static ALL_TYPES = [Chord.TYPE.Major, Chord.TYPE.minor, Chord.TYPE.Aug, Chord.TYPE.Dim,
