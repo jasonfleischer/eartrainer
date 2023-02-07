@@ -880,7 +880,7 @@ module.exports = {init, Note, Chord, Scale, KeySignature, Interval, MidiListener
 const log = require("@jasonfleischer/log");
 class Chord {
 
-	TYPE = Object.freeze({
+	static TYPE = {
 		Major: "Major",
 		minor: "minor",
 		Aug: "augmented",
@@ -889,7 +889,7 @@ class Chord {
 		Major7: "Major 7",
 		minor7: "minor 7",
 		Dom7: "Dominant 7"
-	});
+	};
 
 	static INVERSION_TYPE = Object.freeze({
 		Root: "Root",
