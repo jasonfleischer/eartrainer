@@ -556,7 +556,7 @@ function setup_controls(){
 		}
 
 		function setup_dual_range_controls() {
-		    dual_range.setup('volumeMin', 'volumeMax', 'volumeFill', 'volumeMinValue', 'volumeMaxValue');
+		    //dual_range.setup('volumeMin', 'volumeMax', 'volumeFill', 'volumeMinValue', 'volumeMaxValue');
 		    //setupDualRange('priceMin', 'priceMax', 'priceFill', 'priceMinValue', 'priceMaxValue', '$');
 		}
 	}
