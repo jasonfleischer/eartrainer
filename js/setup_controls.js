@@ -5,6 +5,7 @@ function setup_controls(){
 	setup_sliders_controls();
 	setup_switches_controls();
 	setup_multiple_select_controls();
+	setup_dual_range_controls();
 
 	function setup_onclicks() {
 		$("page_name").onclick = function() { info(); };
@@ -552,6 +553,11 @@ function setup_controls(){
 					update_UI_chord_play_type(pair);
 				});
 			}
+		}
+
+		function setup_dual_range_controls() {
+		    dual_range.setup('volumeMin', 'volumeMax', 'volumeFill', 'volumeMinValue', 'volumeMaxValue');
+		    //setupDualRange('priceMin', 'priceMax', 'priceFill', 'priceMinValue', 'priceMaxValue', '$');
 		}
 	}
 }
