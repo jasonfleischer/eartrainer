@@ -572,6 +572,6 @@ function setup_controls(){
 			model.range.max = parseInt(this.value);
 			storage.set_range_maximum(model.range.max);
 		}
-	    setup_dual_range_controls("musical_range", storage.get_range_minimum(musicKit.piano_range.min), storage.get_range_maximum(musicKit.piano_range.min), 12, convertor, minChangeListener, maxChangeListener);
+	    setup_dual_range_controls("musical_range", storage.get_range_minimum(musicKit.piano_range.min), storage.get_range_maximum(musicKit.piano_range.max), 12, convertor, minChangeListener, maxChangeListener);
 	}
 }
