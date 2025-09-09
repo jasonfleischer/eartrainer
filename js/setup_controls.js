@@ -5,7 +5,7 @@ function setup_controls(){
 	setup_sliders_controls();
 	setup_switches_controls();
 	setup_multiple_select_controls();
-	setup_dual_range_controls();
+	setup_range_controls();
 
 	function setup_onclicks() {
 		$("page_name").onclick = function() { info(); };
@@ -554,10 +554,24 @@ function setup_controls(){
 				});
 			}
 		}
+	}
 
-		function setup_dual_range_controls() {
-		    //dual_range.setup('volumeMin', 'volumeMax', 'volumeFill', 'volumeMinValue', 'volumeMaxValue');
-		    //setupDualRange('priceMin', 'priceMax', 'priceFill', 'priceMinValue', 'priceMaxValue', '$');
+
+	function setup_range_controls() {
+
+		function convertor(min, max) {
+			const minNote = musicKit.all_notes[min];
+			const maxNote = musicKit.all_notes[max];
+			return minNote.note_name.sharp_name + minNote.octave + " to " + maxNote.note_name.sharp_name + maxNote.octave;
 		}
+		function minChangeListener() {
+			model.range.min = parseInt(this.value);
+			storage.set_range_minimum(model.range.min);
+		}
+		function maxChangeListener() {
+			model.range.max = parseInt(this.value);
+			storage.set_range_maximum(model.range.max);
+		}
+	    setup_dual_range_controls("musical_range", storage.get_range_minimum(musicKit.piano_range.min), storage.get_range_maximum(musicKit.piano_range.min), 12, convertor, minChangeListener, maxChangeListener);
 	}
 }

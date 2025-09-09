@@ -68,7 +68,7 @@
 				<li id="bpm_control" >
 					<div class="nav-side-menu-item">
 						<span><label for="bpm_range">Speed</label></span>
-						<span id="speed_text"></span>
+						<span id="speed_text" class="secondary_text"></span>
 						<div class="range">
 							<input id="bpm_range" type="range" min="3" max="15" step="1" value="15">
 						</div>
@@ -109,22 +109,18 @@
 						<option value="2" >Guitar</option>
 					</select>
 				</li>
-					<!--<li>
+				
+				<li id="musical_range">
+					<div class="nav-side-menu-item dual-range-container">
+						<span><label for="rangeMax">Range</label></span>
+						<span class="secondary_text"></span>
+						<div class="range">
+							<input type="range" class="range-input" min="21" max="108" step="1" value="21">
+							<input type="range" class="range-input" min="21" max="108" step="1" value="108">
+						</div>
+					</div>
+			 	</li>
 
-						<div class="dual-range-container">
-				            <div class="dual-range">
-				                <div class="range-background"></div>
-				                <div class="range-fill" id="volumeFill"></div>
-				                <input type="range" class="range-input" id="volumeMin" min="0.1" max="1" step="0.05" value="0.3">
-				                <input type="range" class="range-input" id="volumeMax" min="0.1" max="1" step="0.05" value="0.8">
-				            </div>
-				            <div class="range-values">
-				                <div class="value-display">Min: <span id="volumeMinValue">0.3</span></div>
-				                <div class="value-display">Max: <span id="volumeMaxValue">0.8</span></div>
-				            </div>
-				        </div>
-
-				    </li>-->
 				<li id="display_diagrams" class="li-grid-container">
 					<div id="grid-container-display_diagrams" class="grid-container">
 						<div id="grid-item-display_diagrams" class="grid-item-label">Display</div>

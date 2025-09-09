@@ -260,13 +260,22 @@ strong {
 	margin-bottom: 5px;
 }
 
-
 .grid-container {
 	display: none;
 	grid-template-columns: auto auto auto auto auto auto auto auto;
 	padding: 5px;
 	grid-column-gap: 5px;
 	grid-row-gap: 5px;
+}
+
+.secondary_text {
+	position: absolute;
+	top: 17px;
+	left: 62px; /* set in js */
+	color: var(--primary-font-color);
+	text-align: center;
+	font-size: 11px;
+	cursor: pointer;
 }
 
 #grid-container-interval_types {
@@ -640,15 +649,6 @@ button {
 	pointer-events: none
 }
 
-#speed_text {
-	position: absolute;
-	top: 17px;
-	left: 62px; /* set in js */
-	color: var(--primary-font-color);
-	text-align: center;
-	font-size: 11px;
-	cursor: pointer;
-}
 #tempo_marking{
 	position: absolute;
 	width: 90px;

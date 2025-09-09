@@ -67,8 +67,7 @@ var model = {
 		play_types: [] 
 	},
 
-
-beat_division: 1,
-time_signature: 2
+	beat_division: 1,
+	time_signature: 2
 
 }

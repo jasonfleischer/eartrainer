@@ -8,6 +8,8 @@ storage.load = function(){
 	model.volume = storage.get_volume(0.1);
 	model.speak = storage.get_speak(true);
 	model.speak_volume = storage.get_speak_volume(0.25);
+	model.range.min = storage.get_range_minimum(musicKit.piano_range.min);
+	model.range.max = storage.get_range_maximum(musicKit.piano_range.min);
 
 	model.single_notes.enabled = storage.get_single_notes(true);
 
@@ -157,6 +159,21 @@ storage.get_speak_volume = function(default_value){
 };
 storage.set_speak_volume = function(value){
 	localStorage.setItem(storage.SPEAK_VOLUME_KEY, value);
+};
+
+storage.RANGE_MIN = "EAR_TRAINER_RANGE_MIN";
+storage.get_range_minimum = function(default_value){
+	return parseFloat(storage.get(storage.RANGE_MIN, default_value));
+};
+storage.set_range_minimum = function(value){
+	localStorage.setItem(storage.RANGE_MIN, value);
+};
+storage.RANGE_MAX = "EAR_TRAINER_RANGE_MAX";
+storage.get_range_maximum = function(default_value){
+	return parseFloat(storage.get(storage.RANGE_MAX, default_value));
+};
+storage.set_range_maximum = function(value){
+	localStorage.setItem(storage.RANGE_MAX, value);
 };
 
 

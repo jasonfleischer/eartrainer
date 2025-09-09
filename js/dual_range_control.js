@@ -1,51 +1,47 @@
-var dual_range = {}
+function setup_dual_range_controls(rangeId, initialMin, initialMax, span, convertor, minChangeListener, maxChangeListener){
 
-dual_range.setup = function(minId, maxId, fillId, minValueId, maxValueId, prefix = '', suffix = ''){
-    const minInput = document.getElementById(minId);
-    const maxInput = document.getElementById(maxId);
-    const fill = document.getElementById(fillId);
-    const minValueSpan = document.getElementById(minValueId);
-    const maxValueSpan = document.getElementById(maxValueId);
+    const range = $(rangeId);
+    const minInput = range.getElementsByTagName('input')[0];
+    const maxInput = range.getElementsByTagName('input')[1];
+    const valueSpan = range.getElementsByTagName('span')[1];
+
+    minInput.value = initialMin;
+    maxInput.value = initialMax;
 
     function updateRange() {
         let minVal = parseFloat(minInput.value);
         let maxVal = parseFloat(maxInput.value);
-        
-        // Ensure min doesn't exceed max
-        if (minVal > maxVal) {
-            minInput.value = maxVal;
-            minVal = maxVal;
+        let minLimitVal = parseFloat(minInput.min);
+        let maxLimitVal = parseFloat(maxInput.min);
+    
+        if (minVal > maxVal - span) {
+            let newValue = maxVal - span;
+            if (newValue < minLimitVal) {
+                minInput.value = minLimitVal;
+                minVal = minLimitVal;
+            } else {
+                minInput.value = newValue;
+                minVal = newValue;
+            }
         }
-        
-        // Ensure max doesn't go below min
-        if (maxVal < minVal) {
-            maxInput.value = minVal;
-            maxVal = minVal;
+        if (maxVal < minVal + span + 1) {
+            var newValue = minVal + span;
+            if (newValue < minLimitVal+span+1) {
+                maxInput.value = minLimitVal+span+1;
+                maxVal = minLimitVal+span+1;
+            } else {
+                maxInput.value = newValue;
+                maxVal = newValue;
+            }
         }
-        
-        // Update display values
-        minValueSpan.textContent = prefix + minVal + suffix;
-        maxValueSpan.textContent = prefix + maxVal + suffix;
-        
-        // Calculate fill bar position and width
-        const min = parseFloat(minInput.min);
-        const max = parseFloat(minInput.max);
-        const range = max - min;
-        
-        const leftPercent = ((minVal - min) / range) * 100;
-        const rightPercent = ((maxVal - min) / range) * 100;
-        
-        fill.style.left = leftPercent + '%';
-        fill.style.width = (rightPercent - leftPercent) + '%';
+        valueSpan.textContent = convertor(minVal, maxVal);
     }
+
 
     minInput.addEventListener('input', updateRange);
     maxInput.addEventListener('input', updateRange);
+    minInput.addEventListener('change', minChangeListener);
+    maxInput.addEventListener('change', maxChangeListener);
     
-    // Initial update
     updateRange();
 }
-
-        // Initialize both sliders
-        setupDualRange('volumeMin', 'volumeMax', 'volumeFill', 'volumeMinValue', 'volumeMaxValue');
-        setupDualRange('priceMin', 'priceMax', 'priceFill', 'priceMinValue', 'priceMaxValue', '$');

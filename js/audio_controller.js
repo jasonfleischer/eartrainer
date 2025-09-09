@@ -338,14 +338,16 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playNoteName(note);
 			}
 			fretboardView.clear();
-			fretboardView.drawNote(note);
+			if (note.isWithinRange(musicKit.guitar_range)) {
+				fretboardView.drawNote(note);
+			}
 			pianoView.clear();
-			pianoView.drawNote(note);
-
+			if (note.isWithinRange(musicKit.piano_range)) {
+				pianoView.drawNote(note);
+			}
 		} else {
 			hideAnswer();
-
-			audio_controller.note = musicKit.Note.getRandom(musicKit.all_notes, musicKit.guitar_range);
+			audio_controller.note = musicKit.Note.getRandom(musicKit.all_notes, model.range);
 		}
 
 		midi_controller.playNote(audio_controller.note, time_division_milli_seconds/1000);
@@ -359,12 +361,16 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 				playInterval(interval);
 			}
 			fretboardView.clear();
-			fretboardView.drawInterval(interval);
+			if (interval.isWithinRange(musicKit.guitar_range.min, musicKit.guitar_range.max)) {
+				fretboardView.drawInterval(interval);
+			}
 			pianoView.clear();
-			pianoView.drawInterval(interval);
+			if (interval.isWithinRange(musicKit.piano_range.min, musicKit.piano_range.max)) {
+				pianoView.drawInterval(interval);
+			}
 		} else  {
 			hideAnswer();
-			audio_controller.interval = musicKit.Interval.generateRandom(musicKit.all_notes, musicKit.guitar_range, model.interval.types, model.interval.play_types);
+			audio_controller.interval = musicKit.Interval.generateRandom(musicKit.all_notes, model.range, model.interval.types, model.interval.play_types);
 		}
 
 		midi_controller.playInterval(audio_controller.interval);
@@ -384,7 +390,7 @@ audio_controller.executeAudioTimer = function(index, accent_audio, audio_queue, 
 		} else  {
 			hideAnswer();
 			let chord_types = model.chords.three_note_types.concat(model.chords.four_note_types);
-			audio_controller.chord = musicKit.Chord.generateRandom(musicKit.all_notes, musicKit.guitar_range, chord_types, model.chords.play_types, model.chords.three_note_inversion_types, model.chords.four_note_inversion_types);
+			audio_controller.chord = musicKit.Chord.generateRandom(musicKit.all_notes, model.range, chord_types, model.chords.play_types, model.chords.three_note_inversion_types, model.chords.four_note_inversion_types);
 		}
 		midi_controller.playChord(audio_controller.chord);
 	}
