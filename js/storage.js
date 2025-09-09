@@ -163,14 +163,14 @@ storage.set_speak_volume = function(value){
 
 storage.RANGE_MIN = "EAR_TRAINER_RANGE_MIN";
 storage.get_range_minimum = function(default_value){
-	return parseFloat(storage.get(storage.RANGE_MIN, default_value));
+	return parseInt(storage.get(storage.RANGE_MIN, default_value));
 };
 storage.set_range_minimum = function(value){
 	localStorage.setItem(storage.RANGE_MIN, value);
 };
 storage.RANGE_MAX = "EAR_TRAINER_RANGE_MAX";
 storage.get_range_maximum = function(default_value){
-	return parseFloat(storage.get(storage.RANGE_MAX, default_value));
+	return parseInt(storage.get(storage.RANGE_MAX, default_value));
 };
 storage.set_range_maximum = function(value){
 	localStorage.setItem(storage.RANGE_MAX, value);
